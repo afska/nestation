@@ -1,0 +1,24 @@
+.app {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.debugger {
+	display: flex;
+	font-size: 8pt;
+}
+
+.titles {
+	display: flex;
+	flex-direction: row;
+}
+
+.title {
+	flex: 0.5;
+	text-align: center;
+}
+
+.hint {
+	display: flex;
+	justify-content: center;
+}
