@@ -1,5 +1,28 @@
 .app {
 	display: flex;
+	flex-direction: column;
+	padding: -5px;
+}
+
+.header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.link {
+}
+
+.title {
+}
+
+.titleText {
+	margin-left: 8px;
+}
+
+.main {
+	display: flex;
+	flex: 1;
 	justify-content: center;
 }
 

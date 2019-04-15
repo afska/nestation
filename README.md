@@ -1,4 +1,4 @@
-# nestation
+# NEStation
 
 A NES Emulator frontend with **Net Play**!
 
