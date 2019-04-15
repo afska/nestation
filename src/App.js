@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import jsnes from "jsnes";
+import { Buffer } from "buffer";
 import styles from "./App.module.css";
 
 export default class App extends Component {
@@ -9,7 +11,7 @@ export default class App extends Component {
 					<section className={`${styles.link} message -left`}>
 						<div className="nes-balloon from-left is-small">
 							<p>
-								Share <a href="">/room</a>
+								Share <a href="/#">/room</a>
 							</p>
 						</div>
 					</section>
@@ -27,5 +29,37 @@ export default class App extends Component {
 				</div>
 			</div>
 		);
+	}
+
+	async componentDidMount() {
+		const response = await fetch("rom.nes");
+		const arrayBuffer = await response.arrayBuffer();
+		const bytes = Buffer.from(arrayBuffer);
+
+		var nes = new jsnes.NES({
+			onFrame: function(frameBuffer) {
+				console.log("FRAME", frameBuffer);
+				// ... write frameBuffer to screen
+			},
+			onAudioSample: function(left, right) {
+				// ... play audio sample
+			}
+		});
+
+		// Load ROM data as a string
+		nes.loadROM(bytes.toString("binary"));
+
+		// Run frames at 60 fps, or as fast as you can.
+		// You are responsible for reliable timing as best you can on your platform.
+		nes.frame();
+		nes.frame();
+		// ...
+
+		// Hook up whatever input device you have to the controller.
+		// nes.buttonDown(1, jsnes.Controller.BUTTON_A);
+		// nes.frame();
+		// nes.buttonUp(1, jsnes.Controller.BUTTON_A);
+		// nes.frame();
+		// ...
 	}
 }
