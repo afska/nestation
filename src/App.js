@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import "./App.css";
+import styles from "./App.module.css";
 
 export default class App extends Component {
 	render() {
 		return (
-			<div className="app">
-				<div>// TODO: Implement</div>
+			<div className={styles.app}>
+				<section className={`${styles.game} nes-container with-title`}>
+					<h3 className="title">Game</h3>
+				</section>
 			</div>
 		);
 	}
