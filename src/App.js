@@ -23,10 +23,17 @@ export default class App extends Component {
 
 				<div className={styles.main}>
 					<section
-						className={`${styles.game} nes-container is-dark with-title`}
+						className={`${
+							styles.gameContainer
+						} nes-container is-dark with-title`}
 					>
 						<h3 className="title">Game</h3>
-						{this.state.bytes && <Emulator bytes={this.state.bytes} />}
+						{this.state.bytes && (
+							<Emulator
+								bytes={this.state.bytes}
+								ref={(ref) => (this.emulator = ref)}
+							/>
+						)}
 					</section>
 				</div>
 			</div>
@@ -39,6 +46,8 @@ export default class App extends Component {
 		const bytes = Buffer.from(arrayBuffer);
 		this.setState({ bytes });
 
+		window.addEventListener("resize", this._resize);
+
 		// TODO: Controllers
 		// Hook up whatever input device you have to the controller.
 		// nes.buttonDown(1, jsnes.Controller.BUTTON_A);
@@ -47,4 +56,10 @@ export default class App extends Component {
 		// nes.frame();
 		// ...
 	}
+
+	componentWillUnmount() {
+		window.removeEventListener("resize", this._resize);
+	}
+
+	_resize = () => {};
 }

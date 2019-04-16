@@ -45,22 +45,6 @@ class Screen extends Component {
 		this.context.putImageData(this.imageData, 0, 0);
 	}
 
-	resize() {
-		const parent = this.canvas.parentNode;
-		const parentWidth = parent.clientWidth;
-		const parentHeight = parent.clientHeight;
-		const parentRatio = parentWidth / parentHeight;
-		const desiredRatio = SCREEN_WIDTH / SCREEN_HEIGHT;
-
-		if (desiredRatio < parentRatio) {
-			this.canvas.style.width = `${Math.round(parentHeight * desiredRatio)}px`;
-			this.canvas.style.height = `${parentHeight}px`;
-		} else {
-			this.canvas.style.width = `${parentWidth}px`;
-			this.canvas.style.height = `${Math.round(parentWidth / desiredRatio)}px`;
-		}
-	}
-
 	_initCanvas() {
 		this.context = this.canvas.getContext("2d");
 		this.imageData = this.context.getImageData(

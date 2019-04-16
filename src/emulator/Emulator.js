@@ -21,8 +21,6 @@ class Emulator extends Component {
 	componentDidMount() {
 		const { bytes } = this.props;
 
-		this.resize();
-
 		this.speakers = new Speakers({
 			onBufferUnderrun: (actualSize, desiredSize) => {
 				if (this.props.paused) return;
@@ -69,10 +67,6 @@ class Emulator extends Component {
 	stop() {
 		this.frameTimer.stop();
 		this.speakers.stop();
-	}
-
-	resize() {
-		this.screen.resize();
 	}
 
 	componentWillUnmount() {

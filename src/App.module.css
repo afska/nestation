@@ -20,5 +20,6 @@
 	justify-content: center;
 }
 
-.game {
+.gameContainer {
+	width: 50%;
 }

@@ -30,9 +30,7 @@ export default class Speakers {
 		}
 
 		if (this.audioCtx) {
-			this.audioCtx.close().catch((e) => {
-				console.error("ERROR", e);
-			});
+			this.audioCtx.close().catch(console.error);
 			this.audioCtx = null;
 		}
 	}
