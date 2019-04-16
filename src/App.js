@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import BalloonMessage from "./BalloonMessage";
 import jsnes from "jsnes";
 import { Buffer } from "buffer";
 import styles from "./App.module.css";
@@ -8,17 +9,11 @@ export default class App extends Component {
 		return (
 			<div className={styles.app}>
 				<div className={styles.header}>
-					<section className={`${styles.link} message -left`}>
-						<div className="nes-balloon from-left is-small">
-							<p>
-								Share <a href="/#">/room</a> to play with others!
-							</p>
-						</div>
-						<br />
-						<i className="nes-mario" />
-					</section>
+					<BalloonMessage>
+						Share <a href="/#">/room</a> to play with others!
+					</BalloonMessage>
 
-					<h2 className={styles.title}>
+					<h2>
 						<i className="nes-logo" />
 						<span className={styles.titleText}>NEStation</span>
 					</h2>
