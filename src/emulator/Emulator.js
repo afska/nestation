@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NES } from "jsnes";
+import jsnes, { NES } from "jsnes";
 import FrameTimer from "./FrameTimer";
 import Screen from "./Screen";
 import Speakers from "./Speakers";
@@ -57,6 +57,10 @@ class Emulator extends Component {
 		// Load ROM data as a string and start
 		this.nes.loadROM(bytes.toString("binary"));
 		this.start();
+
+		// DEBUG
+		window.jsnes = jsnes;
+		window.nes = this.nes;
 	}
 
 	start() {
