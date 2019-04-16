@@ -11,9 +11,11 @@ export default class App extends Component {
 					<section className={`${styles.link} message -left`}>
 						<div className="nes-balloon from-left is-small">
 							<p>
-								Share <a href="/#">/room</a>
+								Share <a href="/#">/room</a> to play with others!
 							</p>
 						</div>
+						<br />
+						<i className="nes-mario" />
 					</section>
 
 					<h2 className={styles.title}>
