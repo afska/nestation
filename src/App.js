@@ -23,7 +23,9 @@ export default class App extends Component {
 				</div>
 
 				<div className={styles.main}>
-					<section className={`${styles.game} nes-container with-title`}>
+					<section
+						className={`${styles.game} nes-container is-dark with-title`}
+					>
 						<h3 className="title">Game</h3>
 					</section>
 				</div>

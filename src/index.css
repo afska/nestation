@@ -1,6 +1,12 @@
 body {
 	margin: 0;
-	background-color: #fff;
+
+	background-color: #202428;
+	color: white;
+}
+
+.nes-balloon {
+	color: black;
 }
 
 html,
