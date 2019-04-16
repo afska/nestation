@@ -3,6 +3,7 @@ import Emulator from "./emulator";
 import BalloonMessage from "./BalloonMessage";
 import { Buffer } from "buffer";
 import styles from "./App.module.css";
+import nesImage from "./assets/nes.png";
 
 export default class App extends Component {
 	state = { bytes: null };
@@ -27,7 +28,9 @@ export default class App extends Component {
 							styles.gameContainer
 						} nes-container is-dark with-title`}
 					>
-						<h3 className="title">Game</h3>
+						<h3 className="title">
+							<img className={styles.nesImage} src={nesImage} alt="nes" />
+						</h3>
 						{this.state.bytes && (
 							<Emulator
 								bytes={this.state.bytes}

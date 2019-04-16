@@ -20,6 +20,10 @@
 	justify-content: center;
 }
 
+.nesImage {
+	margin-top: -19px;
+}
+
 .gameContainer {
 	width: 50%;
 }
