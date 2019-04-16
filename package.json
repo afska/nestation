@@ -7,10 +7,10 @@
     "jsnes": "^1.1.0",
     "lodash": "^4.17.11",
     "nes.css": "^2.1.1",
-    "pixi.js": "^4.8.7",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "react-scripts": "^2.1.8"
+    "react-scripts": "^2.1.8",
+    "ringbufferjs": "^1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

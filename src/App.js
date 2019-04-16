@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import Emulator from "./emulator";
 import BalloonMessage from "./BalloonMessage";
-import jsnes from "jsnes";
 import { Buffer } from "buffer";
 import styles from "./App.module.css";
 
 export default class App extends Component {
+	state = { bytes: null };
+
 	render() {
 		return (
 			<div className={styles.app}>
@@ -24,6 +26,7 @@ export default class App extends Component {
 						className={`${styles.game} nes-container is-dark with-title`}
 					>
 						<h3 className="title">Game</h3>
+						{this.state.bytes && <Emulator bytes={this.state.bytes} />}
 					</section>
 				</div>
 			</div>
@@ -34,26 +37,9 @@ export default class App extends Component {
 		const response = await fetch("rom.nes");
 		const arrayBuffer = await response.arrayBuffer();
 		const bytes = Buffer.from(arrayBuffer);
+		this.setState({ bytes });
 
-		var nes = new jsnes.NES({
-			onFrame: function(frameBuffer) {
-				console.log("FRAME", frameBuffer);
-				// ... write frameBuffer to screen
-			},
-			onAudioSample: function(left, right) {
-				// ... play audio sample
-			}
-		});
-
-		// Load ROM data as a string
-		nes.loadROM(bytes.toString("binary"));
-
-		// Run frames at 60 fps, or as fast as you can.
-		// You are responsible for reliable timing as best you can on your platform.
-		nes.frame();
-		nes.frame();
-		// ...
-
+		// TODO: Controllers
 		// Hook up whatever input device you have to the controller.
 		// nes.buttonDown(1, jsnes.Controller.BUTTON_A);
 		// nes.frame();

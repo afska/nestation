@@ -1,0 +1,4 @@
+.screen {
+	image-rendering: pixelated; /* webkit */
+	image-rendering: optimizespeed; /* firefox */
+}
