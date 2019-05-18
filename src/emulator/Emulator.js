@@ -25,14 +25,7 @@ class Emulator extends Component {
 			onBufferUnderrun: (actualSize, desiredSize) => {
 				if (this.props.paused) return;
 
-				// Skip a video frame so audio remains consistent. This happens for
-				// a variety of reasons:
-				// - Frame rate is not quite 60fps, so sometimes buffer empties.
-				// - Page is not visible, so `requestAnimationFrame` doesn't get fired.
-				//   In this case emulator still runs at full speed, but timing is
-				//   done by audio instead of `requestAnimationFrame`.
-				// - System can't run emulator at full speed. In this case it'll stop
-				//   firing `requestAnimationFrame`.
+				// Timing is done by audio instead of `requestAnimationFrame`.
 				this.frameTimer.generateFrame();
 
 				// `desiredSize` will be 2048, and the NES produces 1468 samples on each

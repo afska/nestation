@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Buffer } from "buffer";
+import jsnes from "jsnes";
 import Emulator from "../emulator";
 import Header from "../widgets/Header";
 import styles from "./PlayScreen.module.css";
@@ -46,20 +47,74 @@ export default class PlayScreen extends Component {
 		const bytes = Buffer.from(arrayBuffer);
 		this.setState({ bytes });
 
-		window.addEventListener("resize", this._resize);
-
-		// TODO: Controllers
-		// Hook up whatever input device you have to the controller.
-		// nes.buttonDown(1, jsnes.Controller.BUTTON_A);
-		// nes.frame();
-		// nes.buttonUp(1, jsnes.Controller.BUTTON_A);
-		// nes.frame();
-		// ...
+		window.addEventListener("resize", this._onResize);
+		window.addEventListener("keydown", this._onKeyDown);
+		window.addEventListener("keyup", this._onKeyUp);
 	}
 
 	componentWillUnmount() {
-		window.removeEventListener("resize", this._resize);
+		window.removeEventListener("resize", this._onResize);
+		window.removeEventListener("keydown", this._onKeyDown);
+		window.removeEventListener("keyup", this._onKeyUp);
 	}
 
-	_resize = () => {};
+	_onResize = () => {};
+
+	_onKeyDown = (e) => {
+		switch (e.key) {
+			case "s":
+				this.emulator.nes.buttonDown(1, jsnes.Controller.BUTTON_B);
+				break;
+			case "d":
+				this.emulator.nes.buttonDown(1, jsnes.Controller.BUTTON_A);
+				break;
+			case "ArrowUp":
+				this.emulator.nes.buttonDown(1, jsnes.Controller.BUTTON_UP);
+				break;
+			case "ArrowDown":
+				this.emulator.nes.buttonDown(1, jsnes.Controller.BUTTON_DOWN);
+				break;
+			case "ArrowLeft":
+				this.emulator.nes.buttonDown(1, jsnes.Controller.BUTTON_LEFT);
+				break;
+			case "ArrowRight":
+				this.emulator.nes.buttonDown(1, jsnes.Controller.BUTTON_RIGHT);
+				break;
+			case "Enter":
+				this.emulator.nes.buttonDown(1, jsnes.Controller.BUTTON_START);
+				break;
+			case "Delete":
+				this.emulator.nes.buttonDown(1, jsnes.Controller.BUTTON_SELECT);
+				break;
+		}
+	};
+
+	_onKeyUp = (e) => {
+		switch (e.key) {
+			case "s":
+				this.emulator.nes.buttonUp(1, jsnes.Controller.BUTTON_B);
+				break;
+			case "d":
+				this.emulator.nes.buttonUp(1, jsnes.Controller.BUTTON_A);
+				break;
+			case "ArrowUp":
+				this.emulator.nes.buttonUp(1, jsnes.Controller.BUTTON_UP);
+				break;
+			case "ArrowDown":
+				this.emulator.nes.buttonUp(1, jsnes.Controller.BUTTON_DOWN);
+				break;
+			case "ArrowLeft":
+				this.emulator.nes.buttonUp(1, jsnes.Controller.BUTTON_LEFT);
+				break;
+			case "ArrowRight":
+				this.emulator.nes.buttonUp(1, jsnes.Controller.BUTTON_RIGHT);
+				break;
+			case "Enter":
+				this.emulator.nes.buttonUp(1, jsnes.Controller.BUTTON_START);
+				break;
+			case "Delete":
+				this.emulator.nes.buttonUp(1, jsnes.Controller.BUTTON_SELECT);
+				break;
+		}
+	};
 }
