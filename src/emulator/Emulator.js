@@ -11,9 +11,6 @@ class Emulator extends Component {
 				ref={(screen) => {
 					this.screen = screen;
 				}}
-				onGenerateFrame={() => {
-					this.nes.frame();
-				}}
 			/>
 		);
 	}
