@@ -4,16 +4,6 @@
 	padding: -5px;
 }
 
-.header {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-}
-
-.titleText {
-	margin-left: 8px;
-}
-
 .main {
 	display: flex;
 	flex: 1;

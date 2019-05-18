@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styles from "./BalloonMessage.module.css";
-import haluImage from "./assets/halu.svg";
+import haluImage from "../assets/halu.svg";
 
 export default class BalloonMessage extends Component {
 	render() {
