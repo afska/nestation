@@ -19,7 +19,7 @@ class Emulator extends Component {
 		const { bytes } = this.props;
 
 		this.speakers = new Speakers({
-			onBufferUnderrun: (actualSize, desiredSize) => {
+			onAudio: (actualSize, desiredSize) => {
 				if (this.props.paused) return;
 
 				// Timing is done by audio instead of `requestAnimationFrame`.

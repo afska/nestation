@@ -5,7 +5,8 @@ const DEFAULT_SAMPLE_RATE = 44100;
 
 export default class Speakers {
 	constructor(options) {
-		this.onBufferUnderrun = options.onBufferUnderrun;
+		this._onAudio = options.onAudio;
+
 		this.bufferSize = BUFFER_SIZE;
 		this.buffer = new RingBuffer(this.bufferSize * 2);
 
@@ -60,16 +61,14 @@ export default class Speakers {
 		const right = event.outputBuffer.getChannelData(1);
 		const size = left.length;
 
-		// We're going to buffer underrun. Attempt to fill the buffer.
-		if (this.buffer.size() < size * 2 && this.onBufferUnderrun) {
-			this.onBufferUnderrun(this.buffer.size(), size * 2);
-		}
+		if (this.buffer.size() < size * 2)
+			this._onAudio(this.buffer.size(), size * 2);
 
 		let samples;
 		try {
 			samples = this.buffer.deqN(size * 2);
 		} catch (e) {
-			// onBufferUnderrun failed to fill the buffer, so handle a real buffer underrun
+			// onAudio failed to fill the buffer, so handle a buffer underrun
 
 			// ignore empty buffers... assume audio has just stopped
 			const bufferSize = this.buffer.size() / 2;
