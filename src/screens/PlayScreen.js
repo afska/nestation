@@ -37,8 +37,12 @@ export default class PlayScreen extends Component {
 	}
 
 	async componentDidMount() {
-		const response = await fetch("rom.nes");
-		const arrayBuffer = await response.arrayBuffer();
+		if (!this.props.rom) {
+			window.location.hash = "";
+			return;
+		}
+
+		const arrayBuffer = this.props.rom;
 		const bytes = Buffer.from(arrayBuffer);
 		this.setState({ bytes });
 
