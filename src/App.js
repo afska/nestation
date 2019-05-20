@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PlayScreen from "./screens/PlayScreen";
+import PlayScreen from "./gui/PlayScreen";
 import Header from "./widgets/Header";
 import _ from "lodash";
 
@@ -11,7 +11,7 @@ export default class App extends Component {
 		const route = window.location.hash;
 
 		if (route.startsWith("#/create")) return <PlayScreen rom={rom} />;
-		if (route.startsWith("#/join")) return <PlayScreen />;
+		if (route.startsWith("#/join")) return <PlayScreen action="join" />;
 
 		return (
 			<div
