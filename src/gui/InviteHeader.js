@@ -34,13 +34,13 @@ export default class InviteHeader extends Component {
 
 	async componentDidUpdate(nextProps) {
 		const { needsRom, onChannel } = this.props;
-		if (needsRom) return;
+		if (needsRom || this.channel) return;
 
-		const channel = await quickp2p.createChannel();
-		channel.on("connected", () => {
-			onChannel(channel);
+		this.channel = await quickp2p.createChannel();
+		this.channel.on("connected", () => {
+			onChannel(this.channel);
 		});
-		this.setState({ token: channel.token });
+		this.setState({ token: this.channel.token });
 	}
 
 	_copyLink = (e) => {

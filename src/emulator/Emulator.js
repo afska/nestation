@@ -75,8 +75,8 @@ class Emulator extends Component {
 		this.nes.loadROM(bytes.toString("binary"));
 
 		// DEBUG
+		window.emulator = this;
 		window.jsnes = jsnes;
-		window.nes = this.nes;
 	}
 
 	_onKeyDown = (e) => {
