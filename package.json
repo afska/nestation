@@ -7,6 +7,7 @@
     "jsnes": "^1.1.0",
     "lodash": "^4.17.11",
     "nes.css": "^2.1.1",
+    "query-string": "^6.5.0",
     "quickp2p": "^1.1.9",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PlayScreen from "./gui/PlayScreen";
 import Header from "./widgets/Header";
+import querystring from "query-string";
 import _ from "lodash";
 
 export default class App extends Component {
@@ -11,7 +12,8 @@ export default class App extends Component {
 		const route = window.location.hash;
 
 		if (route.startsWith("#/create")) return <PlayScreen rom={rom} />;
-		if (route.startsWith("#/join")) return <PlayScreen action="join" />;
+		if (route.startsWith("#/join"))
+			return <PlayScreen token={this.inviteToken} />;
 
 		return (
 			<div
@@ -55,4 +57,8 @@ export default class App extends Component {
 		e.stopPropagation();
 		e.preventDefault();
 	};
+
+	get inviteToken() {
+		return querystring.parse(window.location.search).token;
+	}
 }
