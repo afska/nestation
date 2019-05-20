@@ -9,11 +9,14 @@ export default class InviteHeader extends Component {
 
 	render() {
 		const { token, copied } = this.state;
+		const needsRom = !this.props.rom;
 
 		return (
 			<Header>
 				{copied ? (
 					"Copied!"
+				) : needsRom ? (
+					<span>Drag a NES rom file here!</span>
 				) : token ? (
 					<span>
 						Share this{" "}
