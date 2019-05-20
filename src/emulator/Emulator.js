@@ -47,8 +47,6 @@ class Emulator extends Component {
 
 		this.speakers = new Speakers({
 			onAudio: (actualSize, desiredSize) => {
-				if (this.props.paused) return;
-
 				// Timing is done by audio instead of `requestAnimationFrame`.
 				this.frameTimer.generateFrame();
 
