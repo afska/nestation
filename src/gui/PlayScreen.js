@@ -12,29 +12,26 @@ export default class PlayScreen extends Component {
 		const { rom } = this.state;
 
 		return (
-			<div
-				className={styles.app}
-				onDragOver={this._ignore}
-				onDragEnter={this._ignore}
-				onDrop={this._onFileDrop}
-			>
+			<div className={styles.app}>
 				<InviteHeader
 					onChannel={(channel) => (this.channel = channel)}
 					rom={rom}
 				/>
 
-				<div className={styles.main}>
-					<section
-						className={`${
-							styles.gameContainer
-						} nes-container is-dark with-title`}
-					>
-						<h3 className="title">
-							<img className={styles.nesImage} src={nesImage} alt="nes" />
-						</h3>
-						{rom && <Emulator rom={rom} ref={(ref) => (this.emulator = ref)} />}
-					</section>
-				</div>
+				{rom && (
+					<div className={styles.main}>
+						<section
+							className={`${
+								styles.gameContainer
+							} nes-container is-dark with-title`}
+						>
+							<h3 className="title">
+								<img className={styles.nesImage} src={nesImage} alt="nes" />
+							</h3>
+							<Emulator rom={rom} ref={(ref) => (this.emulator = ref)} />
+						</section>
+					</div>
+				)}
 			</div>
 		);
 	}
@@ -43,10 +40,15 @@ export default class PlayScreen extends Component {
 		window.addEventListener("resize", this._onResize);
 		window.addEventListener("dragover", this._ignore);
 		window.addEventListener("dragenter", this._ignore);
-		window.addEventListener("drop", this._ignore);
+		window.addEventListener("drop", this._onFileDrop);
 	}
 
-	componentWillUnmount() {}
+	componentWillUnmount() {
+		window.removeEventListener("resize", this._onResize);
+		window.removeEventListener("dragover", this._ignore);
+		window.removeEventListener("dragenter", this._ignore);
+		window.removeEventListener("drop", this._onFileDrop);
+	}
 
 	_onResize = () => {};
 
