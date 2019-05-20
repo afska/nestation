@@ -20,14 +20,10 @@ class Screen extends Component {
 				width={SCREEN_WIDTH}
 				height={SCREEN_HEIGHT}
 				ref={(canvas) => {
-					this.canvas = canvas;
+					if (canvas) this._initCanvas(canvas);
 				}}
 			/>
 		);
-	}
-
-	componentDidMount() {
-		this._initCanvas();
 	}
 
 	setBuffer(buffer) {
@@ -45,8 +41,8 @@ class Screen extends Component {
 		this.context.putImageData(this.imageData, 0, 0);
 	}
 
-	_initCanvas() {
-		this.context = this.canvas.getContext("2d");
+	_initCanvas(canvas) {
+		this.context = canvas.getContext("2d");
 		this.imageData = this.context.getImageData(
 			0,
 			0,

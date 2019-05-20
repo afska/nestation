@@ -10,13 +10,38 @@ class Emulator extends Component {
 		return (
 			<Screen
 				ref={(screen) => {
-					this.screen = screen;
+					if (screen) this._initialize(screen);
 				}}
 			/>
 		);
 	}
 
 	componentDidMount() {
+		window.addEventListener("keydown", this._onKeyDown);
+		window.addEventListener("keyup", this._onKeyUp);
+	}
+
+	componentWillUpdate(nextProps) {
+		this.stop();
+	}
+
+	start() {
+		this.frameTimer.start();
+		this.speakers.start();
+	}
+
+	stop() {
+		this.frameTimer.stop();
+		this.speakers.stop();
+	}
+
+	componentWillUnmount() {
+		this.stop();
+		window.removeEventListener("keydown", this._onKeyDown);
+		window.removeEventListener("keyup", this._onKeyUp);
+	}
+
+	_initialize(screen) {
 		const { rom } = this.props;
 		const bytes = Buffer.from(rom);
 
@@ -36,43 +61,23 @@ class Emulator extends Component {
 		});
 
 		this.nes = new NES({
-			onFrame: this.screen.setBuffer,
+			onFrame: screen.setBuffer,
 			onAudioSample: this.speakers.writeSample,
 			sampleRate: this.speakers.getSampleRate()
 		});
 
 		this.frameTimer = new FrameTimer({
 			onGenerateFrame: this.nes.frame,
-			onWriteFrame: this.screen.writeBuffer
+			onWriteFrame: screen.writeBuffer
 		});
 
 		// Load ROM data as a string and start
 		this.nes.loadROM(bytes.toString("binary"));
 		this.start();
 
-		// Set up Keyboard
-		window.addEventListener("keydown", this._onKeyDown);
-		window.addEventListener("keyup", this._onKeyUp);
-
 		// DEBUG
 		window.jsnes = jsnes;
 		window.nes = this.nes;
-	}
-
-	start() {
-		this.frameTimer.start();
-		this.speakers.start();
-	}
-
-	stop() {
-		this.frameTimer.stop();
-		this.speakers.stop();
-	}
-
-	componentWillUnmount() {
-		this.stop();
-		window.removeEventListener("keydown", this._onKeyDown);
-		window.removeEventListener("keyup", this._onKeyUp);
 	}
 
 	_onKeyDown = (e) => {
