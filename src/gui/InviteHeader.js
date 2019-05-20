@@ -8,13 +8,14 @@ export default class InviteHeader extends Component {
 	state = { token: null, copied: false };
 
 	render() {
+		const { needsRom } = this.props;
 		const { token, copied } = this.state;
 
 		return (
 			<Header>
 				{copied ? (
 					"Copied!"
-				) : this.needsRom ? (
+				) : needsRom ? (
 					<span>Drag a NES rom file here!</span>
 				) : token ? (
 					<span>
@@ -32,11 +33,12 @@ export default class InviteHeader extends Component {
 	}
 
 	async componentDidUpdate(nextProps) {
-		if (this.needsRom) return;
+		const { needsRom, onChannel } = this.props;
+		if (needsRom) return;
 
 		const channel = await quickp2p.createChannel();
 		channel.on("connected", () => {
-			this.props.onChannel(channel);
+			onChannel(channel);
 		});
 		this.setState({ token: channel.token });
 	}
@@ -50,8 +52,4 @@ export default class InviteHeader extends Component {
 			this.setState({ copied: false });
 		}, COPIED_MESSAGE_TIME);
 	};
-
-	get needsRom() {
-		return !this.props.rom;
-	}
 }

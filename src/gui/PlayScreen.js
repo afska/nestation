@@ -25,7 +25,7 @@ export default class PlayScreen extends Component {
 				) : (
 					<InviteHeader
 						onChannel={(channel) => this.setState({ channel })}
-						rom={rom}
+						needsRom={!rom}
 					/>
 				)}
 
