@@ -1,22 +1,33 @@
 import React, { Component } from "react";
 import Emulator from "../emulator";
 import InviteHeader from "./InviteHeader";
+import JoinHeader from "./JoinHeader";
 import styles from "./PlayScreen.module.css";
 import nesImage from "../assets/nes.png";
 import _ from "lodash";
 
 export default class PlayScreen extends Component {
-	state = { rom: null };
+	state = { rom: null, channel: null };
 
 	render() {
-		const { rom } = this.state;
+		const { token } = this.props;
+		const { rom, channel } = this.state;
 
 		return (
 			<div className={styles.app}>
-				<InviteHeader
-					onChannel={(channel) => (this.channel = channel)}
-					rom={rom}
-				/>
+				{channel ? (
+					<div>CONNECTED</div>
+				) : token ? (
+					<JoinHeader
+						onChannel={(channel) => this.setState({ channel })}
+						token={token}
+					/>
+				) : (
+					<InviteHeader
+						onChannel={(channel) => this.setState({ channel })}
+						rom={rom}
+					/>
+				)}
 
 				{rom && (
 					<div className={styles.main}>
@@ -37,20 +48,22 @@ export default class PlayScreen extends Component {
 	}
 
 	componentDidMount() {
-		window.addEventListener("resize", this._onResize);
 		window.addEventListener("dragover", this._ignore);
 		window.addEventListener("dragenter", this._ignore);
 		window.addEventListener("drop", this._onFileDrop);
+		window.addEventListener("resize", this._onResize);
 	}
 
 	componentWillUnmount() {
-		window.removeEventListener("resize", this._onResize);
 		window.removeEventListener("dragover", this._ignore);
 		window.removeEventListener("dragenter", this._ignore);
 		window.removeEventListener("drop", this._onFileDrop);
+		window.removeEventListener("resize", this._onResize);
 	}
 
-	_onResize = () => {};
+	_onChannel = (channel) => {
+		this.setState({ channel });
+	};
 
 	_onFileDrop = (e) => {
 		e.preventDefault();
@@ -69,4 +82,6 @@ export default class PlayScreen extends Component {
 		e.stopPropagation();
 		e.preventDefault();
 	};
+
+	_onResize = () => {};
 }

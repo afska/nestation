@@ -9,18 +9,17 @@ export default class InviteHeader extends Component {
 
 	render() {
 		const { token, copied } = this.state;
-		const needsRom = !this.props.rom;
 
 		return (
 			<Header>
 				{copied ? (
 					"Copied!"
-				) : needsRom ? (
+				) : this.needsRom ? (
 					<span>Drag a NES rom file here!</span>
 				) : token ? (
 					<span>
 						Share this{" "}
-						<a href={`/#/join?token=${token}`} onClick={this._copyLink}>
+						<a href={`/?token=${token}#/join`} onClick={this._copyLink}>
 							link
 						</a>{" "}
 						to play with someone!
@@ -32,9 +31,13 @@ export default class InviteHeader extends Component {
 		);
 	}
 
-	async componentDidMount() {
+	async componentDidUpdate(nextProps) {
+		if (this.needsRom) return;
+
 		const channel = await quickp2p.createChannel();
-		this.props.onChannel(channel);
+		channel.on("connected", () => {
+			this.props.onChannel(channel);
+		});
 		this.setState({ token: channel.token });
 	}
 
@@ -47,4 +50,8 @@ export default class InviteHeader extends Component {
 			this.setState({ copied: false });
 		}, COPIED_MESSAGE_TIME);
 	};
+
+	get needsRom() {
+		return !this.props.rom;
+	}
 }
