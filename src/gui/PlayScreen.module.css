@@ -1,13 +1,14 @@
 .app {
 	display: flex;
+	height: 100vh;
 	flex-direction: column;
-	padding: -5px;
 }
 
 .main {
 	display: flex;
 	flex: 1;
 	justify-content: center;
+	align-items: center;
 }
 
 .nesImage {
@@ -16,4 +17,5 @@
 
 .gameContainer {
 	width: 50%;
+	padding-bottom: 93.75%;
 }
