@@ -73,7 +73,6 @@ class Emulator extends Component {
 
 		// Load ROM data as a string and start
 		this.nes.loadROM(bytes.toString("binary"));
-		this.start();
 
 		// DEBUG
 		window.jsnes = jsnes;
