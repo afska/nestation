@@ -4,6 +4,8 @@ export default class SlaveSyncer extends EventEmitter {
 	constructor(channel) {
 		super();
 
+		this.buffer = [];
+
 		this.channel = channel;
 
 		this.channel.on("data", (bytes) => {
@@ -15,11 +17,7 @@ export default class SlaveSyncer extends EventEmitter {
 			}
 
 			if (bytes.byteLength === 2) {
-				const remoteButtons = new Uint8Array(bytes)[0];
-				const localButtons = new Uint8Array(bytes)[1];
-				this._emulator.remoteController.syncAll(remoteButtons);
-				this._emulator.localController.syncAll(localButtons);
-				this._emulator.frame();
+				this.buffer.push(bytes);
 
 				const buffer = new Uint8Array(1);
 				buffer[0] = this._emulator.localController.toByte();
@@ -28,13 +26,25 @@ export default class SlaveSyncer extends EventEmitter {
 		});
 	}
 
-	sync(frames) {}
+	sync(frames) {
+		if (this.buffer.length < frames) return;
+
+		for (let i = 0; i < frames; i++) {
+			const bytes = this.buffer.shift();
+			const remoteButtons = new Uint8Array(bytes)[0];
+			const localButtons = new Uint8Array(bytes)[1];
+			this._emulator.remoteController.syncAll(remoteButtons);
+			this._emulator.localController.syncAll(localButtons);
+			this._emulator.frame();
+		}
+	}
 
 	initializeRom(rom) {}
 
 	initializeEmulator(emulator) {
 		this._emulator = emulator;
 
+		this._emulator.start();
 		emulator.localController.player = 2;
 		emulator.remoteController.player = 1;
 	}
