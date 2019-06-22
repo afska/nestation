@@ -28,8 +28,5 @@ export default class SlaveSyncer extends EventEmitter {
 		this._emulator = emulator;
 
 		emulator.controller.player = 1;
-		setTimeout(() => {
-			emulator.start();
-		}, 1000); // TODO: WHY?
 	}
 }

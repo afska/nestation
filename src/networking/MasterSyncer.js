@@ -22,8 +22,5 @@ export default class MasterSyncer extends EventEmitter {
 
 	initializeEmulator(emulator) {
 		emulator.controller.player = 1;
-		setTimeout(() => {
-			emulator.start();
-		}, 1000); // TODO: WHY?
 	}
 }
