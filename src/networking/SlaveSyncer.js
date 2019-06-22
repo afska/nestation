@@ -7,15 +7,22 @@ export default class SlaveSyncer extends EventEmitter {
 		this.channel = channel;
 
 		this.channel.on("data", (bytes) => {
-			if (bytes.byteLength > 1) {
+			if (bytes.byteLength > 3) {
 				// TODO: Split in parts
+				debugger;
 				this.emit("rom", bytes);
 			}
 
-			if (bytes.byteLength === 1) {
-				const byte = new Uint8Array(bytes)[0];
+			if (bytes.byteLength === 2) {
+				const remoteButtons = new Uint8Array(bytes)[0];
+				const localButtons = new Uint8Array(bytes)[1];
+				this._emulator.remoteController.syncAll(remoteButtons);
+				this._emulator.localController.syncAll(localButtons);
 				this._emulator.frame();
-				this._emulator.controller.syncAll(this._emulator.nes, byte);
+
+				const buffer = new Uint8Array(1);
+				buffer[0] = this._emulator.localController.toByte();
+				this.channel.send(buffer);
 			}
 		});
 	}
@@ -27,6 +34,7 @@ export default class SlaveSyncer extends EventEmitter {
 	initializeEmulator(emulator) {
 		this._emulator = emulator;
 
-		emulator.controller.player = 1;
+		emulator.localController.player = 2;
+		emulator.remoteController.player = 1;
 	}
 }

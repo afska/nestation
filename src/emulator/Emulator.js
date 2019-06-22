@@ -2,17 +2,16 @@ import React, { Component } from "react";
 import { Buffer } from "buffer";
 import Screen from "./Screen";
 import Speakers from "./Speakers";
-import Controller from "./Controller";
+import { Controller, LocalController } from "./controllers";
 import jsnes, { NES } from "jsnes";
 
 class Emulator extends Component {
 	constructor(props) {
 		super(props);
 
-		this.controller = new Controller(1, {
-			onButtonDown: (button) => this.controller.sync(this.nes, button, true),
-			onButtonUp: (button) => this.controller.sync(this.nes, button, false)
-		});
+		const getNes = () => this.nes;
+		this.localController = new LocalController(1, getNes);
+		this.remoteController = new Controller(2, getNes);
 	}
 
 	render() {
@@ -26,7 +25,7 @@ class Emulator extends Component {
 	}
 
 	componentDidMount() {
-		this.controller.attach();
+		this.localController.attach();
 	}
 
 	componentWillUpdate(nextProps) {
@@ -48,7 +47,7 @@ class Emulator extends Component {
 
 	componentWillUnmount() {
 		this.stop();
-		this.controller.detach();
+		this.localController.detach();
 	}
 
 	_initialize(screen) {
