@@ -59,7 +59,7 @@ class Emulator extends Component {
 				const frames = this.speakers.buffer.size() < desiredSize ? 2 : 1;
 
 				const { syncer } = this.props;
-				if (syncer) return syncer.sync(this, frames);
+				if (syncer) return syncer.sync(frames);
 
 				// Timing is done by audio instead of `requestAnimationFrame`.
 				this.frame();

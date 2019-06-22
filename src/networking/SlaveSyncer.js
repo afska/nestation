@@ -11,6 +11,7 @@ export default class SlaveSyncer extends EventEmitter {
 				// TODO: Split in parts
 				debugger;
 				this.emit("rom", bytes);
+				this.channel.send("start");
 			}
 
 			if (bytes.byteLength === 2) {
@@ -27,7 +28,7 @@ export default class SlaveSyncer extends EventEmitter {
 		});
 	}
 
-	sync(emulator, frames) {}
+	sync(frames) {}
 
 	initializeRom(rom) {}
 
