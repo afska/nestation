@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import Header from "../widgets/Header";
 import quickp2p from "quickp2p";
+import strings from "../locales";
 
 export default class JoinHeader extends Component {
 	render() {
 		return (
 			<Header>
-				<span>Connecting...</span>
+				<span>{strings.connecting}</span>
 			</Header>
 		);
 	}

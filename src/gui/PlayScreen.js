@@ -4,6 +4,7 @@ import InviteHeader from "./InviteHeader";
 import JoinHeader from "./JoinHeader";
 import styles from "./PlayScreen.module.css";
 import nesImage from "../assets/nes.png";
+import strings from "../locales";
 import _ from "lodash";
 
 export default class PlayScreen extends Component {
@@ -16,7 +17,7 @@ export default class PlayScreen extends Component {
 		return (
 			<div className={styles.app}>
 				{channel ? (
-					<div>CONNECTED</div>
+					<div>{strings.connected}</div>
 				) : token ? (
 					<JoinHeader
 						onChannel={(channel) => this.setState({ channel })}

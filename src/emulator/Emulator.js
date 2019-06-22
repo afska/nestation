@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Buffer } from "buffer";
-import jsnes, { NES } from "jsnes";
 import FrameTimer from "./FrameTimer";
 import Screen from "./Screen";
 import Speakers from "./Speakers";
 import Controller from "./Controller";
+import jsnes, { NES } from "jsnes";
 
 class Emulator extends Component {
 	constructor(props) {

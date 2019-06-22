@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Header from "../widgets/Header";
 import quickp2p from "quickp2p";
+import strings from "../locales";
 
 const COPIED_MESSAGE_TIME = 1000;
 
@@ -14,19 +15,19 @@ export default class InviteHeader extends Component {
 		return (
 			<Header>
 				{copied ? (
-					"Copied!"
+					<span>{strings.copied}</span>
 				) : needsRom ? (
-					<span>Drag a NES rom file here!</span>
+					<span>{strings.dragARomHere}</span>
 				) : token ? (
 					<span>
-						Share this{" "}
+						{strings.shareThis}{" "}
 						<a href={`/?token=${token}#/join`} onClick={this._copyLink}>
-							link
+							{strings.link}
 						</a>{" "}
-						to play with someone!
+						{strings.toPlayWithSomeone}
 					</span>
 				) : (
-					<span>Loading...</span>
+					<span>{strings.loading}</span>
 				)}
 			</Header>
 		);
