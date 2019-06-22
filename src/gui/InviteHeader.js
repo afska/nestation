@@ -34,12 +34,12 @@ export default class InviteHeader extends Component {
 	}
 
 	async componentDidUpdate(nextProps) {
-		const { needsRom, onChannel } = this.props;
+		const { needsRom, onSyncer } = this.props;
 		if (needsRom || this.channel) return;
 
 		this.channel = await quickp2p.createChannel();
 		this.channel.on("connected", () => {
-			onChannel(this.channel);
+			onSyncer(this.channel);
 		});
 		this.setState({ token: this.channel.token });
 	}

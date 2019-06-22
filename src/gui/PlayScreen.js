@@ -8,26 +8,20 @@ import strings from "../locales";
 import _ from "lodash";
 
 export default class PlayScreen extends Component {
-	state = { rom: null, channel: null };
+	state = { rom: null, syncer: null };
 
 	render() {
 		const { token } = this.props;
-		const { rom, channel } = this.state;
+		const { rom, syncer } = this.state;
 
 		return (
 			<div className={styles.app}>
-				{channel ? (
+				{syncer ? (
 					<div>{strings.connected}</div>
 				) : token ? (
-					<JoinHeader
-						onChannel={(channel) => this.setState({ channel })}
-						token={token}
-					/>
+					<JoinHeader onSyncer={this._onSyncer} token={token} />
 				) : (
-					<InviteHeader
-						onChannel={(channel) => this.setState({ channel })}
-						needsRom={!rom}
-					/>
+					<InviteHeader onSyncer={this._onSyncer} needsRom={!rom} />
 				)}
 
 				{rom && (
@@ -40,7 +34,11 @@ export default class PlayScreen extends Component {
 							<h3 className="title">
 								<img className={styles.nesImage} src={nesImage} alt="nes" />
 							</h3>
-							<Emulator rom={rom} ref={(ref) => (this.emulator = ref)} />
+							<Emulator
+								rom={rom}
+								syncer={syncer}
+								ref={(ref) => (this.emulator = ref)}
+							/>
 						</section>
 					</div>
 				)}
@@ -62,8 +60,8 @@ export default class PlayScreen extends Component {
 		window.removeEventListener("resize", this._onResize);
 	}
 
-	_onChannel = (channel) => {
-		this.setState({ channel });
+	_onSyncer = (syncer) => {
+		this.setState({ syncer });
 	};
 
 	_onFileDrop = (e) => {
