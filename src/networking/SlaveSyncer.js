@@ -7,18 +7,29 @@ export default class SlaveSyncer extends EventEmitter {
 		this.channel = channel;
 
 		this.channel.on("data", (bytes) => {
-			if (bytes.byteLength > 10) {
+			if (bytes.byteLength > 1) {
 				// TODO: Split in parts
 				this.emit("rom", bytes);
-			} else {
-				console.log(bytes);
+			}
+
+			if (bytes.byteLength === 1) {
+				const byte = new Uint8Array(bytes)[0];
+				this._emulator.frame();
+				this._emulator.controller.syncAll(this._emulator.nes, byte);
 			}
 		});
 	}
 
-	sync() {}
+	sync(emulator, frames) {}
 
-	initialize(rom) {
-		return this;
+	initializeRom(rom) {}
+
+	initializeEmulator(emulator) {
+		this._emulator = emulator;
+
+		emulator.controller.player = 1;
+		setTimeout(() => {
+			emulator.start();
+		}, 1000); // TODO: WHY?
 	}
 }

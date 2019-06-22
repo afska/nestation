@@ -63,14 +63,18 @@ export default class PlayScreen extends Component {
 	_onSyncer = (syncer) => {
 		this.setState({ syncer });
 
-		syncer.initialize(this.state.rom).on("rom", (rom) => {
-			this._loadRom(rom);
+		syncer.initializeRom(this.state.rom);
+		syncer.on("rom", (rom) => {
+			this._loadRom(rom, () => {
+				syncer.initializeEmulator(this.emulator);
+			});
 		});
 	};
 
-	_loadRom(rom) {
+	_loadRom(rom, callback = _.noop) {
 		this.setState({ rom }, () => {
 			this.emulator.start();
+			callback();
 		});
 	}
 

@@ -57,8 +57,10 @@ class Emulator extends Component {
 
 		this.speakers = new Speakers({
 			onAudio: (actualSize, desiredSize) => {
+				const frames = this.speakers.buffer.size() < desiredSize ? 2 : 1;
+
 				const { syncer } = this.props;
-				if (syncer) return syncer.sync(this, actualSize, desiredSize);
+				if (syncer) return syncer.sync(this, frames);
 
 				// Timing is done by audio instead of `requestAnimationFrame`.
 				this.frame();
@@ -66,7 +68,7 @@ class Emulator extends Component {
 				// `desiredSize` will be 2048, and the NES produces 1468 samples on each
 				// frame so we might need a second frame to be run. Give up after that
 				// though -- the system is not catching up
-				if (this.speakers.buffer.size() < desiredSize) this.frame();
+				if (frames > 1) this.frame();
 			}
 		});
 

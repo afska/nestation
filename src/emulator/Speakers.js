@@ -15,6 +15,7 @@ export default class Speakers {
 	}
 
 	start() {
+		if (this.audioCtx) return;
 		if (!window.AudioContext) return; // (audio is not supported)
 
 		this.audioCtx = new window.AudioContext();

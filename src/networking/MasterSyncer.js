@@ -7,11 +7,23 @@ export default class MasterSyncer extends EventEmitter {
 		this.channel = channel;
 	}
 
-	sync() {}
+	sync(emulator, frames) {
+		for (let i = 0; i < frames; i++) {
+			emulator.frame();
+			const buffer = new Uint8Array(1);
+			buffer[0] = emulator.controller.toByte();
+			this.channel.send(buffer);
+		}
+	}
 
-	initialize(rom) {
+	initializeRom(rom) {
 		this.channel.send(rom);
+	}
 
-		return this;
+	initializeEmulator(emulator) {
+		emulator.controller.player = 1;
+		setTimeout(() => {
+			emulator.start();
+		}, 1000); // TODO: WHY?
 	}
 }
