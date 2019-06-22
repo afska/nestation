@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Header from "../widgets/Header";
-import SlaveSyncer from "../networking/SlaveSyncer";
+import { SlaveSyncer } from "../networking";
 import quickp2p from "quickp2p";
 import strings from "../locales";
 

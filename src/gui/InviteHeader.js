@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Header from "../widgets/Header";
+import { MasterSyncer } from "../networking";
 import quickp2p from "quickp2p";
 import strings from "../locales";
 
@@ -39,7 +40,7 @@ export default class InviteHeader extends Component {
 
 		this.channel = await quickp2p.createChannel();
 		this.channel.on("connected", () => {
-			onSyncer(this.channel);
+			onSyncer(new MasterSyncer(this.channel));
 		});
 		this.setState({ token: this.channel.token });
 	}

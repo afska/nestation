@@ -62,7 +62,17 @@ export default class PlayScreen extends Component {
 
 	_onSyncer = (syncer) => {
 		this.setState({ syncer });
+
+		syncer.initialize(this.state.rom).on("rom", (rom) => {
+			this._loadRom(rom);
+		});
 	};
+
+	_loadRom(rom) {
+		this.setState({ rom }, () => {
+			this.emulator.start();
+		});
+	}
 
 	_onFileDrop = (e) => {
 		e.preventDefault();
@@ -71,9 +81,7 @@ export default class PlayScreen extends Component {
 		const reader = new FileReader();
 
 		reader.onload = (event) => {
-			this.setState({ rom: event.target.result }, () => {
-				this.emulator.start();
-			});
+			this._loadRom(event.target.result);
 		};
 
 		reader.readAsArrayBuffer(file);

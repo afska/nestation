@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Buffer } from "buffer";
-import FrameTimer from "./FrameTimer";
 import Screen from "./Screen";
 import Speakers from "./Speakers";
 import Controller from "./Controller";
@@ -35,13 +34,16 @@ class Emulator extends Component {
 	}
 
 	start() {
-		this.frameTimer.start();
 		this.speakers.start();
 	}
 
 	stop() {
-		this.frameTimer.stop();
 		this.speakers.stop();
+	}
+
+	frame() {
+		this.nes.frame();
+		this.screen.writeBuffer();
 	}
 
 	componentWillUnmount() {
@@ -55,26 +57,25 @@ class Emulator extends Component {
 
 		this.speakers = new Speakers({
 			onAudio: (actualSize, desiredSize) => {
+				const { syncer } = this.props;
+				if (syncer) return syncer.sync(this, actualSize, desiredSize);
+
 				// Timing is done by audio instead of `requestAnimationFrame`.
-				this.frameTimer.generateFrame();
+				this.frame();
 
 				// `desiredSize` will be 2048, and the NES produces 1468 samples on each
 				// frame so we might need a second frame to be run. Give up after that
 				// though -- the system is not catching up
-				if (this.speakers.buffer.size() < desiredSize)
-					this.frameTimer.generateFrame();
+				if (this.speakers.buffer.size() < desiredSize) this.frame();
 			}
 		});
 
+		this.screen = screen;
+
 		this.nes = new NES({
-			onFrame: screen.setBuffer,
+			onFrame: this.screen.setBuffer,
 			onAudioSample: this.speakers.writeSample,
 			sampleRate: this.speakers.getSampleRate()
-		});
-
-		this.frameTimer = new FrameTimer({
-			onGenerateFrame: this.nes.frame,
-			onWriteFrame: screen.writeBuffer
 		});
 
 		// Load ROM data as a string and start
