@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Buffer } from "buffer";
 import Screen from "./Screen";
+import FrameTimer from "./FrameTimer";
 import Speakers from "./Speakers";
 import { Controller, LocalController } from "./controllers";
 import jsnes, { NES } from "jsnes";
@@ -33,10 +34,12 @@ class Emulator extends Component {
 	}
 
 	start() {
+		if (this.frameTimer) this.frameTimer.start(); // TODO: Reorganize
 		this.speakers.start();
 	}
 
 	stop() {
+		if (this.frameTimer) this.frameTimer.stop();
 		this.speakers.stop();
 	}
 
@@ -54,6 +57,8 @@ class Emulator extends Component {
 		const { rom } = this.props;
 		const bytes = Buffer.from(rom);
 
+		this.frameTimer = new FrameTimer(() => this.frame());
+
 		this.speakers = new Speakers({
 			onAudio: (actualSize, desiredSize) => {
 				const frames = this.speakers.buffer.size() < desiredSize ? 2 : 1;
@@ -62,12 +67,12 @@ class Emulator extends Component {
 				if (syncer) return syncer.sync(frames);
 
 				// Timing is done by audio instead of `requestAnimationFrame`.
-				this.frame();
+				// this.frame();
 
-				// `desiredSize` will be 2048, and the NES produces 1468 samples on each
-				// frame so we might need a second frame to be run. Give up after that
-				// though -- the system is not catching up
-				if (frames > 1) this.frame();
+				// // `desiredSize` will be 2048, and the NES produces 1468 samples on each
+				// // frame so we might need a second frame to be run. Give up after that
+				// // though -- the system is not catching up
+				// if (frames > 1) this.frame();
 			}
 		});
 
