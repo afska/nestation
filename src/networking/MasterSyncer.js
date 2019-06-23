@@ -17,12 +17,17 @@ export default class MasterSyncer extends EventEmitter {
 
 		this._state = STATE.SENDING_ROM;
 		this._transfer = null;
+		this._buffer = [];
 		this._blindFrames = 0;
 	}
 
 	sync() {
 		if (this._state !== STATE.PLAYING) return;
 		if (this._blindFrames > MAX_BLIND_FRAMES) return;
+
+		const bytes = this._buffer.shift();
+		const remoteButtons = new Uint8Array(bytes)[0];
+		this._emulator.remoteController.syncAll(remoteButtons);
 
 		this._emulator.frame();
 		const buffer = new Uint8Array(2);
@@ -61,8 +66,7 @@ export default class MasterSyncer extends EventEmitter {
 			case STATE.SYNCING:
 				break;
 			case STATE.PLAYING:
-				const remoteButtons = new Uint8Array(bytes)[0];
-				this._emulator.remoteController.syncAll(remoteButtons);
+				this._buffer.push(bytes);
 				this._blindFrames = 0;
 
 				break;

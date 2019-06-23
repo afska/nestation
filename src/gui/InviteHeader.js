@@ -48,7 +48,7 @@ export default class InviteHeader extends Component {
 	_copyLink = (e) => {
 		e.preventDefault();
 
-		navigator.clipboard.writeText(e.target.href);
+		navigator.clipboard.writeText(e.target.href); // TODO: Fix, it doesn't work outside local domain
 		this.setState({ copied: true });
 		setTimeout(() => {
 			this.setState({ copied: false });
