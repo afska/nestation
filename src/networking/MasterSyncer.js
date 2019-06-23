@@ -1,7 +1,7 @@
 import EventEmitter from "eventemitter3";
 import { Send } from "./transfer";
 
-const MAX_BLIND_FRAMES = 2;
+const MAX_BLIND_FRAMES = 1;
 const STATE = {
 	SENDING_ROM: 0,
 	SYNCING: 1,

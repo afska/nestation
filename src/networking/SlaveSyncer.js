@@ -1,7 +1,7 @@
 import EventEmitter from "eventemitter3";
 import { Receive } from "./transfer";
 
-const MIN_BUFFER_SIZE = 2;
+const MIN_BUFFER_SIZE = 1;
 const STATE = {
 	RECEIVING_ROM: 0,
 	SYNCING: 1,
