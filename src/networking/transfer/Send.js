@@ -10,13 +10,17 @@ export default class Send {
 	}
 
 	run() {
+		if (this._sent === this._total) {
+			this.channel.send("end");
+			return;
+		}
+
 		const remaining = this._total - this._sent;
 		const size = Math.min(CHUNK_SIZE, remaining);
 		const chunk = this.rom.slice(this._sent, this._sent + size);
 
 		this._sent += size;
 		this.channel.send(chunk);
-		if (this._sent === this._total) this.channel.send("end");
 	}
 
 	get transferred() {

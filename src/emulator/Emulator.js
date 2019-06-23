@@ -45,13 +45,6 @@ class Emulator extends Component {
 	frame() {
 		this.nes.frame();
 		this.screen.writeBuffer();
-
-		// TODO: FIX RANDOMNESS
-		console.log(
-			window.emulator.fpsFrameCount,
-			this.localController.toByte(),
-			this.remoteController.toByte()
-		);
 	}
 
 	componentWillUnmount() {

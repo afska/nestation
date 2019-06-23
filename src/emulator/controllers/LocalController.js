@@ -23,6 +23,11 @@ export default class LocalController extends Controller {
 		return super.toByte(this.immediateButtons);
 	}
 
+	realToByte() {
+		// TODO: REMOVE
+		return super.toByte();
+	}
+
 	attach() {
 		window.addEventListener("keydown", this._onKeyDown);
 		window.addEventListener("keyup", this._onKeyUp);
@@ -38,7 +43,7 @@ export default class LocalController extends Controller {
 		if (!button) return;
 
 		this.immediateButtons[button] = true;
-		this.sync(button, true, this.player === 1);
+		this.sync(button, true, this.isMaster);
 	};
 
 	_onKeyUp = (e) => {
@@ -46,6 +51,10 @@ export default class LocalController extends Controller {
 		if (!button) return;
 
 		this.immediateButtons[button] = false;
-		this.sync(button, false, this.player === 1);
+		this.sync(button, false, this.isMaster);
 	};
+
+	get isMaster() {
+		return this.player === 1;
+	}
 }

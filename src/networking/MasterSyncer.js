@@ -1,7 +1,7 @@
 import EventEmitter from "eventemitter3";
 import { Send } from "./transfer";
 
-const MAX_BLIND_FRAMES = 3;
+const MAX_BLIND_FRAMES = 2;
 const STATE = {
 	SENDING_ROM: 0,
 	SYNCING: 1,
@@ -29,13 +29,19 @@ export default class MasterSyncer extends EventEmitter {
 		const remoteButtons = new Uint8Array(bytes)[0];
 		this._emulator.remoteController.syncAll(remoteButtons);
 
-		this._emulator.frame();
 		const buffer = new Uint8Array(2);
 		buffer[0] = this._emulator.localController.toByte();
 		buffer[1] = this._emulator.remoteController.toByte();
 		this.channel.send(buffer);
-
 		this._blindFrames++;
+
+		this._emulator.frame();
+		// TODO: FIX RANDOMNESS
+		console.log(
+			window.emulator.nes.fpsFrameCount,
+			window.emulator.localController.realToByte(),
+			window.emulator.remoteController.toByte()
+		);
 	}
 
 	initializeRom(rom) {
