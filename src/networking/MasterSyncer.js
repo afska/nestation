@@ -36,12 +36,6 @@ export default class MasterSyncer extends EventEmitter {
 		this._blindFrames++;
 
 		this._emulator.frame();
-		// TODO: FIX RANDOMNESS
-		console.log(
-			window.emulator.nes.fpsFrameCount,
-			window.emulator.localController.realToByte(),
-			window.emulator.remoteController.toByte()
-		);
 	}
 
 	initializeRom(rom) {

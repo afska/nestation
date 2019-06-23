@@ -1,7 +1,7 @@
 import EventEmitter from "eventemitter3";
 import { Receive } from "./transfer";
 
-const MIN_BUFFER_SIZE = 0;
+const MIN_BUFFER_SIZE = 2;
 const STATE = {
 	RECEIVING_ROM: 0,
 	SYNCING: 1,
@@ -30,12 +30,6 @@ export default class SlaveSyncer extends EventEmitter {
 		this._emulator.localController.syncAll(localButtons);
 
 		this._emulator.frame();
-		// TODO: FIX RANDOMNESS
-		console.log(
-			window.emulator.nes.fpsFrameCount,
-			window.emulator.localController.realToByte(),
-			window.emulator.remoteController.toByte()
-		);
 	}
 
 	initializeRom(rom) {}
