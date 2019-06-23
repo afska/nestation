@@ -4,9 +4,7 @@ const BUFFER_SIZE = 8192;
 const DEFAULT_SAMPLE_RATE = 44100;
 
 export default class Speakers {
-	constructor(options) {
-		this._onAudio = options.onAudio;
-
+	constructor() {
 		this.bufferSize = BUFFER_SIZE;
 		this.buffer = new RingBuffer(this.bufferSize * 2);
 
@@ -49,7 +47,7 @@ export default class Speakers {
 
 	writeSample(left, right) {
 		if (this.buffer.size() / 2 >= this.bufferSize) {
-			// Buffer overrun
+			// buffer overrun
 			this.buffer.deqN(this.bufferSize / 2);
 		}
 
@@ -62,18 +60,13 @@ export default class Speakers {
 		const right = event.outputBuffer.getChannelData(1);
 		const size = left.length;
 
-		if (this.buffer.size() < size * 2)
-			this._onAudio(this.buffer.size(), size * 2);
-
 		let samples;
 		try {
 			samples = this.buffer.deqN(size * 2);
 		} catch (e) {
-			// onAudio failed to fill the buffer, so handle a buffer underrun
-
+			// buffer underrun (needed {size}, got {this.buffer.size() / 2})
 			// ignore empty buffers... assume audio has just stopped
-			const bufferSize = this.buffer.size() / 2;
-			if (bufferSize > 0); // buffer underrun, needed {size}, got {bufferSize}
+
 			for (let i = 0; i < size; i++) {
 				left[i] = 0;
 				right[i] = 0;

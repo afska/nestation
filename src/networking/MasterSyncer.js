@@ -19,18 +19,20 @@ export default class MasterSyncer extends EventEmitter {
 		});
 	}
 
-	sync(frames) {
-		for (let i = 0; i < frames; i++) {
-			this._emulator.frame();
-			const buffer = new Uint8Array(2);
-			buffer[0] = this._emulator.localController.toByte();
-			buffer[1] = this._emulator.remoteController.toByte();
-			this.channel.send(buffer);
-		}
+	sync() {
+		this._emulator.frame();
+		const buffer = new Uint8Array(2);
+		buffer[0] = this._emulator.localController.toByte();
+		buffer[1] = this._emulator.remoteController.toByte();
+		this.channel.send(buffer);
 	}
 
 	initializeRom(rom) {
-		this.channel.send(rom);
+		setTimeout(() => {
+			// TODO: Send properly
+			this.channel.send(rom);
+		}, 1000);
+
 		this.emit("rom", rom);
 	}
 
