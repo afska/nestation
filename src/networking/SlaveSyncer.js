@@ -9,7 +9,6 @@ export default class SlaveSyncer extends EventEmitter {
 		this.buffer = [];
 
 		this.channel = channel;
-
 		this.channel.on("data", (bytes) => {
 			if (bytes.byteLength > 3) {
 				// TODO: Receive properly
