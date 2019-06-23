@@ -1,7 +1,9 @@
 import EventEmitter from "eventemitter3";
 import { Receive } from "./transfer";
 
-const MIN_BUFFER_SIZE = 3;
+// TODO: SYNC RANDOMNESS
+
+const MIN_BUFFER_SIZE = 2;
 const STATE = {
 	RECEIVING_ROM: 0,
 	SYNCING: 1,
