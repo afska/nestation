@@ -54,7 +54,7 @@ class Emulator extends Component {
 
 	_initialize(screen) {
 		const { rom } = this.props;
-		const bytes = Buffer.from(rom);
+		const bytes = Buffer.from(rom).toString("binary");
 
 		this.screen = screen;
 
@@ -74,7 +74,7 @@ class Emulator extends Component {
 		});
 
 		// Load ROM data as a string and start
-		this.nes.loadROM(bytes.toString("binary"));
+		this.nes.loadROM(bytes);
 
 		// DEBUG
 		window.emulator = this;
