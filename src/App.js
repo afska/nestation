@@ -1,8 +1,13 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import PlayScreen from "./gui/PlayScreen";
 import querystring from "query-string";
+import quickp2p, { SimpleStore } from "quickp2p";
 
-export default class App extends Component {
+quickp2p.setStore(
+	new SimpleStore("https://simple-key-value-store.herokuapp.com")
+);
+
+export default class App extends PureComponent {
 	render() {
 		const route = window.location.hash;
 
