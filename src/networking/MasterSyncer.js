@@ -4,8 +4,7 @@ import { Send } from "./transfer";
 const MAX_BLIND_FRAMES = 1;
 const STATE = {
 	SENDING_ROM: 0,
-	SYNCING: 1,
-	PLAYING: 2
+	PLAYING: 1
 };
 
 export default class MasterSyncer extends EventEmitter {
@@ -13,12 +12,7 @@ export default class MasterSyncer extends EventEmitter {
 		super();
 
 		this.channel = channel;
-
-		this._state = STATE.SENDING_ROM;
-		this._transfer = null;
-		this._buffer = [];
-		this._blindFrames = 0;
-
+		this._reset();
 		this.channel.on("data", (bytes) => this._onData(bytes));
 	}
 
@@ -45,6 +39,12 @@ export default class MasterSyncer extends EventEmitter {
 		this.emit("rom", rom);
 	}
 
+	updateRom(rom) {
+		this.channel.send("new-rom");
+		this._reset();
+		this.initializeRom(rom);
+	}
+
 	initializeEmulator(emulator) {
 		this._emulator = emulator;
 
@@ -64,8 +64,6 @@ export default class MasterSyncer extends EventEmitter {
 				}
 
 				break;
-			case STATE.SYNCING:
-				break;
 			case STATE.PLAYING:
 				this._buffer.push(bytes);
 				this._blindFrames = 0;
@@ -73,5 +71,12 @@ export default class MasterSyncer extends EventEmitter {
 				break;
 			default:
 		}
+	}
+
+	_reset() {
+		this._state = STATE.SENDING_ROM;
+		this._transfer = null;
+		this._buffer = [];
+		this._blindFrames = 0;
 	}
 }

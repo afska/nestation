@@ -5,8 +5,7 @@ const MIN_BUFFER_SIZE = 1;
 const MAX_BUFFER_SIZE = 1;
 const STATE = {
 	RECEIVING_ROM: 0,
-	SYNCING: 1,
-	PLAYING: 2
+	PLAYING: 1
 };
 
 export default class SlaveSyncer extends EventEmitter {
@@ -14,11 +13,7 @@ export default class SlaveSyncer extends EventEmitter {
 		super();
 
 		this.channel = channel;
-
-		this._state = STATE.RECEIVING_ROM;
-		this._transfer = new Receive(channel);
-		this._buffer = [];
-
+		this._reset();
 		this.channel.on("data", (bytes) => this._onData(bytes));
 	}
 
@@ -34,6 +29,8 @@ export default class SlaveSyncer extends EventEmitter {
 	}
 
 	initializeRom(rom) {}
+
+	updateRom(rom) {}
 
 	initializeEmulator(emulator) {
 		this._emulator = emulator;
@@ -66,9 +63,12 @@ export default class SlaveSyncer extends EventEmitter {
 				}
 
 				break;
-			case STATE.SYNCING:
-				break;
 			case STATE.PLAYING:
+				if (bytes === "new-rom") {
+					this._reset();
+					return;
+				}
+
 				this._buffer.push(bytes);
 
 				const buffer = new Uint8Array(1);
@@ -78,5 +78,11 @@ export default class SlaveSyncer extends EventEmitter {
 				break;
 			default:
 		}
+	}
+
+	_reset() {
+		this._state = STATE.RECEIVING_ROM;
+		this._transfer = new Receive(this.channel);
+		this._buffer = [];
 	}
 }
