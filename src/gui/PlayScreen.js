@@ -10,11 +10,11 @@ import strings from "../locales";
 import _ from "lodash";
 
 export default class PlayScreen extends Component {
-	state = { rom: null, syncer: null };
+	state = { rom: null, syncer: null, isLoading: false };
 
 	render() {
 		const { token } = this.props;
-		const { rom, syncer } = this.state;
+		const { rom, syncer, isLoading } = this.state;
 
 		return (
 			<div className={styles.app}>
@@ -37,15 +37,17 @@ export default class PlayScreen extends Component {
 								<img className={styles.nesImage} src={nesImage} alt="nes" />
 							</h3>
 
-							<div className={styles.spinner}>
-								<Loader
-									className={styles.spinner}
-									type="Watch"
-									color="#CCCCCC"
-									height="50"
-									width="50"
-								/>
-							</div>
+							{isLoading && (
+								<div className={styles.spinner}>
+									<Loader
+										className={styles.spinner}
+										type="Watch"
+										color="#CCCCCC"
+										height="50"
+										width="50"
+									/>
+								</div>
+							)}
 
 							<Emulator
 								rom={rom}
@@ -74,12 +76,15 @@ export default class PlayScreen extends Component {
 	}
 
 	_onSyncer = (syncer) => {
-		this.setState({ syncer });
+		this.setState({ syncer, isLoading: true });
 
 		syncer.on("rom", (rom) => {
 			this._loadRom(rom, () => syncer.initializeEmulator(this.emulator), false);
 		});
-		syncer.on("start", () => this.emulator.start());
+		syncer.on("start", () => {
+			this.setState({ isLoading: false }, () => this.emulator.start());
+		});
+
 		syncer.initializeRom(this.state.rom);
 	};
 

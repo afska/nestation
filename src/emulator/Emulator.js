@@ -14,6 +14,7 @@ class Emulator extends Component {
 		this.localController = new LocalController(1, getNes);
 		this.remoteController = new Controller(2, getNes);
 	}
+
 	render() {
 		return (
 			<Screen
