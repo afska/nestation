@@ -3,7 +3,7 @@ import BalloonMessage from "../widgets/BalloonMessage";
 import styles from "./Header.module.css";
 import _ from "lodash";
 
-export default class PlayScreen extends Component {
+export default class Header extends Component {
 	state = { bytes: null };
 
 	render() {
@@ -11,9 +11,15 @@ export default class PlayScreen extends Component {
 
 		return (
 			<div className={styles.header}>
-				{!_.isEmpty(children) && <BalloonMessage>{children}</BalloonMessage>}
+				<div className={styles.small}>
+					{!_.isEmpty(children) && (
+						<BalloonMessage className={`${styles.message} ${styles.small}`}>
+							{children}
+						</BalloonMessage>
+					)}
+				</div>
 
-				<h2>
+				<h2 className={styles.title}>
 					<i className="nes-logo" />
 					<span className={styles.titleText}>NEStation</span>
 				</h2>

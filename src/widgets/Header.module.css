@@ -1,7 +1,22 @@
 .header {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+	width: 100%;
+	position: absolute;
+	z-index: 1;
+}
+
+.small {
+	transform: scale(0.5);
+	transform-origin: 0 0;
+}
+
+.message {
+	position: absolute;
+}
+
+.title {
+	position: absolute;
+	top: 0;
+	right: 0;
 }
 
 .titleText {
