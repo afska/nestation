@@ -13,11 +13,12 @@ export default class SlaveSyncer extends EventEmitter {
 		super();
 
 		this.channel = channel;
-		this.channel.on("data", (bytes) => this._onData(bytes));
 
 		this._state = STATE.RECEIVING_ROM;
 		this._transfer = new Receive(channel);
 		this._buffer = [];
+
+		this.channel.on("data", (bytes) => this._onData(bytes));
 	}
 
 	sync() {

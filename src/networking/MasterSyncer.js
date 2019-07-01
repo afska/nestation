@@ -13,12 +13,13 @@ export default class MasterSyncer extends EventEmitter {
 		super();
 
 		this.channel = channel;
-		this.channel.on("data", (bytes) => this._onData(bytes));
 
 		this._state = STATE.SENDING_ROM;
 		this._transfer = null;
 		this._buffer = [];
 		this._blindFrames = 0;
+
+		this.channel.on("data", (bytes) => this._onData(bytes));
 	}
 
 	sync() {
@@ -40,7 +41,7 @@ export default class MasterSyncer extends EventEmitter {
 
 	initializeRom(rom) {
 		this._transfer = new Send(rom, this.channel);
-		setTimeout(() => this._transfer.run(), 1000); // TODO: WHY!
+		this._transfer.run();
 		this.emit("rom", rom);
 	}
 

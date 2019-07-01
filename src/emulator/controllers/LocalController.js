@@ -23,11 +23,6 @@ export default class LocalController extends Controller {
 		return super.toByte(this.immediateButtons);
 	}
 
-	realToByte() {
-		// TODO: REMOVE
-		return super.toByte();
-	}
-
 	attach() {
 		window.addEventListener("keydown", this._onKeyDown);
 		window.addEventListener("keyup", this._onKeyUp);
