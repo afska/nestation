@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import BalloonMessage from "../widgets/BalloonMessage";
+import BalloonMessage from "./BalloonMessage";
 import styles from "./Header.module.css";
 import _ from "lodash";
 
@@ -20,7 +20,7 @@ export default class Header extends Component {
 				</div>
 
 				<h2 className={styles.title}>
-					<i className="nes-logo" />
+					<i className={`nes-logo ${styles.titleLogo}`} />
 					<span className={styles.titleText}>NEStation</span>
 				</h2>
 			</div>

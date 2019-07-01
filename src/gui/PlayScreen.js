@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Emulator from "../emulator";
 import InviteHeader from "./InviteHeader";
 import JoinHeader from "./JoinHeader";
+import BalloonMessage from "../widgets/BalloonMessage";
 import styles from "./PlayScreen.module.css";
 import nesImage from "../assets/nes.png";
 import strings from "../locales";
@@ -17,7 +18,7 @@ export default class PlayScreen extends Component {
 		return (
 			<div className={styles.app}>
 				{syncer ? (
-					<div>{strings.connected}</div>
+					<BalloonMessage>{strings.connected}</BalloonMessage>
 				) : token ? (
 					<JoinHeader onSyncer={this._onSyncer} token={token} />
 				) : (

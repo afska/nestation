@@ -19,6 +19,13 @@
 	right: 0;
 }
 
+.titleLogo {
+	transform: scale(0.8);
+	transform-origin: 1 1;
+}
+
 .titleText {
+	font-size: 0.7em;
 	margin-left: 8px;
+	vertical-align: text-bottom;
 }
