@@ -2,6 +2,7 @@ import EventEmitter from "eventemitter3";
 import { Receive } from "./transfer";
 
 const MIN_BUFFER_SIZE = 1;
+const MAX_BUFFER_SIZE = 3;
 const STATE = {
 	RECEIVING_ROM: 0,
 	SYNCING: 1,
@@ -24,13 +25,12 @@ export default class SlaveSyncer extends EventEmitter {
 	sync() {
 		if (this._buffer.length < MIN_BUFFER_SIZE) return;
 
-		const bytes = this._buffer.shift();
-		const remoteButtons = new Uint8Array(bytes)[0];
-		const localButtons = new Uint8Array(bytes)[1];
-		this._emulator.remoteController.syncAll(remoteButtons);
-		this._emulator.localController.syncAll(localButtons);
+		this._runFrame();
 
-		this._emulator.frame();
+		if (this._buffer.length > MAX_BUFFER_SIZE) {
+			for (let i = 0; i < this._buffer.length - MAX_BUFFER_SIZE; i++)
+				this._runFrame();
+		}
 	}
 
 	initializeRom(rom) {}
@@ -41,6 +41,16 @@ export default class SlaveSyncer extends EventEmitter {
 		this._emulator.start();
 		emulator.localController.player = 2;
 		emulator.remoteController.player = 1;
+	}
+
+	_runFrame() {
+		const bytes = this._buffer.shift();
+		const remoteButtons = new Uint8Array(bytes)[0];
+		const localButtons = new Uint8Array(bytes)[1];
+		this._emulator.remoteController.syncAll(remoteButtons);
+		this._emulator.localController.syncAll(localButtons);
+
+		this._emulator.frame();
 	}
 
 	_onData(bytes) {
