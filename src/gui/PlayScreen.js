@@ -3,18 +3,18 @@ import Emulator from "../emulator";
 import InviteHeader from "./InviteHeader";
 import JoinHeader from "./JoinHeader";
 import Header from "../widgets/Header";
-import Loader from "react-loader-spinner";
+import Spinner from "../widgets/Spinner";
 import styles from "./PlayScreen.module.css";
 import nesImage from "../assets/nes.png";
 import strings from "../locales";
 import _ from "lodash";
 
 export default class PlayScreen extends Component {
-	state = { rom: null, syncer: null, isLoading: false };
+	state = { rom: null, syncer: null };
 
 	render() {
 		const { token } = this.props;
-		const { rom, syncer, isLoading } = this.state;
+		const { rom, syncer } = this.state;
 
 		return (
 			<div className={styles.app}>
@@ -37,17 +37,9 @@ export default class PlayScreen extends Component {
 								<img className={styles.nesImage} src={nesImage} alt="nes" />
 							</h3>
 
-							{isLoading && (
-								<div className={styles.spinner}>
-									<Loader
-										className={styles.spinner}
-										type="Watch"
-										color="#CCCCCC"
-										height="50"
-										width="50"
-									/>
-								</div>
-							)}
+							<div className={styles.spinner}>
+								<Spinner />
+							</div>
 
 							<Emulator
 								rom={rom}
@@ -76,14 +68,12 @@ export default class PlayScreen extends Component {
 	}
 
 	_onSyncer = (syncer) => {
-		this.setState({ syncer, isLoading: true });
+		this.setState({ syncer });
 
 		syncer.on("rom", (rom) => {
 			this._loadRom(rom, () => syncer.initializeEmulator(this.emulator), false);
 		});
-		syncer.on("start", () => {
-			this.setState({ isLoading: false }, () => this.emulator.start());
-		});
+		syncer.on("start", () => this.emulator.start());
 
 		syncer.initializeRom(this.state.rom);
 	};

@@ -1,4 +1,5 @@
 import EventEmitter from "eventemitter3";
+import bus from "../events";
 import { Send } from "./transfer";
 
 const MAX_BLIND_FRAMES = 1;
@@ -61,6 +62,7 @@ export default class MasterSyncer extends EventEmitter {
 					this._transfer = null;
 					this._state = STATE.PLAYING;
 					this.emit("start");
+					bus.emit("isLoading", false);
 				}
 
 				break;
@@ -78,5 +80,7 @@ export default class MasterSyncer extends EventEmitter {
 		this._transfer = null;
 		this._buffer = [];
 		this._blindFrames = 0;
+
+		bus.emit("isLoading", true);
 	}
 }

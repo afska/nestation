@@ -1,4 +1,5 @@
 import EventEmitter from "eventemitter3";
+import bus from "../events";
 import { Receive } from "./transfer";
 
 const MIN_BUFFER_SIZE = 1;
@@ -36,6 +37,7 @@ export default class SlaveSyncer extends EventEmitter {
 		this._emulator = emulator;
 
 		this.emit("start");
+		bus.emit("isLoading", false);
 		emulator.localController.player = 2;
 		emulator.remoteController.player = 1;
 	}
@@ -84,5 +86,7 @@ export default class SlaveSyncer extends EventEmitter {
 		this._state = STATE.RECEIVING_ROM;
 		this._transfer = new Receive(this.channel);
 		this._buffer = [];
+
+		bus.emit("isLoading", true);
 	}
 }
