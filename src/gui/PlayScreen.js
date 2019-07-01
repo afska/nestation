@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Emulator from "../emulator";
 import InviteHeader from "./InviteHeader";
 import JoinHeader from "./JoinHeader";
-import BalloonMessage from "../widgets/BalloonMessage";
+import Header from "../widgets/Header";
+import Loader from "react-loader-spinner";
 import styles from "./PlayScreen.module.css";
 import nesImage from "../assets/nes.png";
 import strings from "../locales";
@@ -18,7 +19,7 @@ export default class PlayScreen extends Component {
 		return (
 			<div className={styles.app}>
 				{syncer ? (
-					<BalloonMessage>{strings.connected}</BalloonMessage>
+					<Header>{strings.connected}</Header>
 				) : token ? (
 					<JoinHeader onSyncer={this._onSyncer} token={token} />
 				) : (
@@ -35,6 +36,17 @@ export default class PlayScreen extends Component {
 							<h3 className="title">
 								<img className={styles.nesImage} src={nesImage} alt="nes" />
 							</h3>
+
+							<div className={styles.spinner}>
+								<Loader
+									className={styles.spinner}
+									type="Watch"
+									color="#CCCCCC"
+									height="50"
+									width="50"
+								/>
+							</div>
+
 							<Emulator
 								rom={rom}
 								syncer={syncer}

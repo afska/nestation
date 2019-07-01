@@ -12,6 +12,7 @@
     "quickp2p": "^2.0.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "react-loader-spinner": "^2.3.0",
     "react-scripts": "^2.1.8",
     "ringbufferjs": "^1.1.0"
   },
