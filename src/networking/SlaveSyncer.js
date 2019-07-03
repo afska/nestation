@@ -3,7 +3,7 @@ import bus from "../events";
 import { Receive } from "./transfer";
 
 const MIN_BUFFER_SIZE = 1;
-const MAX_BUFFER_SIZE = 1;
+const MAX_BUFFER_SIZE = 2;
 const STATE = {
 	RECEIVING_ROM: 0,
 	PLAYING: 1
