@@ -30,16 +30,11 @@ export default class SlaveSyncer extends EventEmitter {
 		if (this._buffer.length > MAX_BUFFER_SIZE) {
 			for (let i = 0; i < this._buffer.length - MAX_BUFFER_SIZE; i++)
 				this._runFrame();
-			return;
 		}
 
 		// normal handling
 		if (this._isBuffering && this._buffer.length < MAX_BUFFER_SIZE) return;
-		else {
-			this._ifBuffering = false;
-			bus.emit("isLoading", false);
-			this._runFrame();
-		}
+		else this._runFrame();
 	}
 
 	initializeRom(rom) {}
@@ -56,6 +51,9 @@ export default class SlaveSyncer extends EventEmitter {
 	}
 
 	_runFrame() {
+		this._ifBuffering = false;
+		bus.emit("isLoading", false);
+
 		const bytes = this._buffer.shift();
 		const remoteButtons = new Uint8Array(bytes)[0];
 		const localButtons = new Uint8Array(bytes)[1];
