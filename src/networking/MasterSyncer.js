@@ -2,7 +2,7 @@ import EventEmitter from "eventemitter3";
 import bus from "../events";
 import { Send } from "./transfer";
 
-const MAX_BLIND_FRAMES = 3;
+const MAX_BLIND_FRAMES = 2;
 const STATE = {
 	SENDING_ROM: 0,
 	PLAYING: 1
