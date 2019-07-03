@@ -19,8 +19,12 @@ export default class SlaveSyncer extends EventEmitter {
 	}
 
 	sync() {
-		if (this._buffer.length < MIN_BUFFER_SIZE) return;
+		if (this._buffer.length < MIN_BUFFER_SIZE) {
+			bus.emit("isLoading", true);
+			return;
+		}
 
+		bus.emit("isLoading", false);
 		this._runFrame();
 
 		if (this._buffer.length > MAX_BUFFER_SIZE) {

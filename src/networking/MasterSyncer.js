@@ -18,20 +18,13 @@ export default class MasterSyncer extends EventEmitter {
 	}
 
 	sync() {
-		if (this._state !== STATE.PLAYING) return;
-		if (this._blindFrames > MAX_BLIND_FRAMES) return;
+		if (this._state !== STATE.PLAYING || this._blindFrames > MAX_BLIND_FRAMES) {
+			bus.emit("isLoading", true);
+			return;
+		}
 
-		const bytes = this._buffer.shift();
-		const remoteButtons = new Uint8Array(bytes)[0];
-		this._emulator.remoteController.syncAll(remoteButtons);
-
-		const buffer = new Uint8Array(2);
-		buffer[0] = this._emulator.localController.toByte();
-		buffer[1] = this._emulator.remoteController.toByte();
-		this.channel.send(buffer);
-		this._blindFrames++;
-
-		this._emulator.frame();
+		bus.emit("isLoading", false);
+		this._runFrame();
 	}
 
 	initializeRom(rom) {
@@ -51,6 +44,20 @@ export default class MasterSyncer extends EventEmitter {
 
 		emulator.localController.player = 1;
 		emulator.remoteController.player = 2;
+	}
+
+	_runFrame() {
+		const bytes = this._buffer.shift();
+		const remoteButtons = new Uint8Array(bytes)[0];
+		this._emulator.remoteController.syncAll(remoteButtons);
+
+		const buffer = new Uint8Array(2);
+		buffer[0] = this._emulator.localController.toByte();
+		buffer[1] = this._emulator.remoteController.toByte();
+		this.channel.send(buffer);
+		this._blindFrames++;
+
+		this._emulator.frame();
 	}
 
 	_onData(bytes) {
