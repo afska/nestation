@@ -3,6 +3,8 @@ import Loader from "react-loader-spinner";
 import bus from "../events";
 import styles from "./Spinner.module.css";
 
+// TODO: Agregar fade in / out para que no haya parpadeos de un solo frame
+
 export default class Spinner extends Component {
 	state = { isVisible: false };
 
