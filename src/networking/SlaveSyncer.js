@@ -2,9 +2,8 @@ import EventEmitter from "eventemitter3";
 import bus from "../events";
 import { Receive } from "./transfer";
 
-const BUFFER_UNDERRUN_LIMIT = 2; // TODO: 1
-const BUFFER_NORMAL_SIZE = 15; // TODO: 2
-const BUFFER_OVERRUN_LIMIT = 30;
+const MIN_BUFFER_SIZE = 2; // TODO: 1
+const MAX_BUFFER_SIZE = 15; // TODO: 2
 const STATE = {
 	RECEIVING_ROM: 0,
 	PLAYING: 1
@@ -21,21 +20,21 @@ export default class SlaveSyncer extends EventEmitter {
 
 	sync() {
 		// buffer underrun
-		if (this._buffer.length < BUFFER_UNDERRUN_LIMIT) {
+		if (this._buffer.length < MIN_BUFFER_SIZE) {
 			this._isBuffering = true;
 			bus.emit("isLoading", true);
 			return;
 		}
 
 		// buffer overrun
-		if (this._buffer.length > BUFFER_OVERRUN_LIMIT) {
-			for (let i = 0; i < this._buffer.length - BUFFER_OVERRUN_LIMIT; i++)
+		if (this._buffer.length > MAX_BUFFER_SIZE) {
+			for (let i = 0; i < this._buffer.length - MAX_BUFFER_SIZE; i++)
 				this._runFrame();
 			return;
 		}
 
 		// normal handling
-		if (this._isBuffering && this._buffer.length < BUFFER_NORMAL_SIZE) return;
+		if (this._isBuffering && this._buffer.length < MAX_BUFFER_SIZE) return;
 		else {
 			this._ifBuffering = false;
 			bus.emit("isLoading", false);
