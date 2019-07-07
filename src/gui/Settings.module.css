@@ -2,8 +2,12 @@
 	user-select: none;
 	display: flex;
 	flex-direction: column;
+	height: 100%;
+	justify-content: center;
 }
 
 .closeButton {
-	align-self: flex-end;
+	position: absolute !important;
+	top: 4px;
+	right: 4px;
 }
