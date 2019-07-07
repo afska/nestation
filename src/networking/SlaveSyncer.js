@@ -1,12 +1,14 @@
 import EventEmitter from "eventemitter3";
-import bus from "../events";
 import { Receive } from "./transfer";
+import bus from "../events";
+import strings from "../locales";
 
 const MIN_BUFFER_SIZE = 1;
 const MAX_BUFFER_SIZE = 1;
 const STATE = {
 	RECEIVING_ROM: 0,
-	PLAYING: 1
+	WAITING_START: 1,
+	PLAYING: 2
 };
 
 export default class SlaveSyncer extends EventEmitter {
@@ -16,6 +18,7 @@ export default class SlaveSyncer extends EventEmitter {
 		this.channel = channel;
 		this._reset();
 		this.channel.on("data", (bytes) => this._onData(bytes));
+		this._hasPressedStart = false;
 	}
 
 	sync() {
@@ -44,10 +47,23 @@ export default class SlaveSyncer extends EventEmitter {
 	initializeEmulator(emulator) {
 		this._emulator = emulator;
 
-		this.emit("start");
 		bus.emit("isLoading", false);
 		emulator.localController.player = 2;
 		emulator.remoteController.player = 1;
+	}
+
+	onStartPressed() {
+		if (this._state === STATE.WAITING_START) {
+			this._hasPressedStart = true;
+			this._start();
+		}
+	}
+
+	_start() {
+		this.emit("start");
+		this.channel.send("start");
+		bus.emit("message", null);
+		this._state = STATE.PLAYING;
 	}
 
 	_runFrame() {
@@ -64,24 +80,28 @@ export default class SlaveSyncer extends EventEmitter {
 	}
 
 	_onData(bytes) {
+		if (bytes === "new-rom") {
+			this._reset();
+			return;
+		}
+
 		switch (this._state) {
 			case STATE.RECEIVING_ROM:
 				if (bytes === "end") {
 					this.emit("rom", this._transfer.rom);
 					this._transfer = null;
-					this.channel.send("sync");
-					this._state = STATE.PLAYING;
+
+					if (this._hasPressedStart) this._start();
+					else {
+						bus.emit("message", strings.pressStart);
+						this._state = STATE.WAITING_START;
+					}
 				} else {
 					this._transfer.run(bytes);
 				}
 
 				break;
 			case STATE.PLAYING:
-				if (bytes === "new-rom") {
-					this._reset();
-					return;
-				}
-
 				if (!this._emulator) return;
 
 				this._buffer.push(bytes);

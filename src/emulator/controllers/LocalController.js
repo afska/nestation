@@ -2,10 +2,11 @@ import Controller from "./Controller";
 import _ from "lodash";
 
 export default class LocalController extends Controller {
-	constructor(player, getNes) {
+	constructor(player, getNes, onStart = () => {}) {
 		super(player, getNes);
 
 		this.immediateButtons = _.clone(this.buttons);
+		this.onStart = onStart;
 
 		this.keyMap = {
 			" ": "BUTTON_A",
@@ -37,6 +38,7 @@ export default class LocalController extends Controller {
 		const button = this.keyMap[e.key];
 		if (!button) return;
 
+		if (button === "BUTTON_START") this.onStart();
 		this.immediateButtons[button] = true;
 		this.sync(button, true, this.isMaster);
 	};

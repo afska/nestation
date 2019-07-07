@@ -11,6 +11,8 @@ export default {
 	},
 	link: "link",
 	loading: "Loading...",
+	pressStart: "PRESS START",
 	shareThis: "Share this",
-	toPlayWithSomeone: "to play with someone!"
+	toPlayWithSomeone: "to play with someone!",
+	waiting: "WAITING..."
 };

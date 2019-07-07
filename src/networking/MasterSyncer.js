@@ -1,6 +1,7 @@
 import EventEmitter from "eventemitter3";
-import bus from "../events";
 import { Send } from "./transfer";
+import bus from "../events";
+import strings from "../locales";
 
 const MAX_BLIND_FRAMES = 3;
 const STATE = {
@@ -46,6 +47,16 @@ export default class MasterSyncer extends EventEmitter {
 		emulator.remoteController.player = 2;
 	}
 
+	onStartPressed() {}
+
+	_start() {
+		this._transfer = null;
+		this._state = STATE.PLAYING;
+		this.emit("start");
+		bus.emit("message", null);
+		bus.emit("isLoading", false);
+	}
+
 	_runFrame() {
 		const bytes = this._buffer.shift();
 		const remoteButtons = new Uint8Array(bytes)[0];
@@ -64,13 +75,9 @@ export default class MasterSyncer extends EventEmitter {
 		switch (this._state) {
 			case STATE.SENDING_ROM:
 				if (bytes === "next") {
-					this._transfer.run();
-				} else if (bytes === "sync") {
-					this._transfer = null;
-					this._state = STATE.PLAYING;
-					this.emit("start");
-					bus.emit("isLoading", false);
-				}
+					const hasEnded = this._transfer.run();
+					if (hasEnded) bus.emit("message", strings.waiting);
+				} else if (bytes === "start") this._start();
 
 				break;
 			case STATE.PLAYING:

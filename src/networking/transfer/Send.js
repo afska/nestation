@@ -12,7 +12,7 @@ export default class Send {
 	run() {
 		if (this._sent === this._total) {
 			this.channel.send("end");
-			return;
+			return true;
 		}
 
 		const remaining = this._total - this._sent;
