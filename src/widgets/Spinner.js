@@ -3,18 +3,18 @@ import Loader from "react-loader-spinner";
 import bus from "../events";
 import styles from "./Spinner.module.css";
 
-// TODO: Agregar fade in / out para que no haya parpadeos de un solo frame
-
 export default class Spinner extends Component {
 	state = { isVisible: false };
 
 	render() {
-		return this.state.isVisible ? (
-			<div className={styles.loader}>
-				<Loader type="Watch" color="#CCCCCC" height="50" width="50" />
+		const { isVisible } = this.state;
+
+		return (
+			<div className={`${styles.spinner} ${isVisible ? styles.show : ""}`}>
+				<div className={styles.loader}>
+					<Loader type="Watch" color="#CCCCCC" height="50" width="50" />
+				</div>
 			</div>
-		) : (
-			<div />
 		);
 	}
 
