@@ -1,7 +1,6 @@
 .header {
 	width: 100%;
 	position: absolute;
-	z-index: 1;
 	user-select: none;
 }
 
@@ -12,10 +11,12 @@
 
 .message {
 	position: absolute;
+	z-index: 1;
 }
 
 .title {
 	position: absolute;
+	z-index: 1;
 	top: 0;
 	right: 0;
 }

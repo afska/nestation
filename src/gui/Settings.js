@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import KeyBinding from "../widgets/KeyBinding";
+import bus from "../events";
 import strings from "../locales";
 import styles from "./Settings.module.css";
 import classNames from "classnames";
@@ -28,6 +29,14 @@ export default class Settings extends Component {
 	render() {
 		return (
 			<div className={styles.settings}>
+				<button
+					type="button"
+					className={classNames(styles.closeButton, "nes-btn")}
+					onClick={this._onClose}
+				>
+					x
+				</button>
+
 				<section
 					className={classNames("nes-container", "is-dark", "with-title")}
 				>
@@ -37,7 +46,7 @@ export default class Settings extends Component {
 						<label key={it.name}>
 							<input
 								type="radio"
-								class="nes-radio is-dark"
+								className="nes-radio is-dark"
 								name="answer-dark"
 							/>
 							<span>{it.name}</span>
@@ -56,7 +65,7 @@ export default class Settings extends Component {
 						<label key={it.name}>
 							<input
 								type="radio"
-								class="nes-radio is-dark"
+								className="nes-radio is-dark"
 								name="answer-dark"
 							/>
 							<span>{it.name}</span>
@@ -83,4 +92,8 @@ export default class Settings extends Component {
 			</div>
 		);
 	}
+
+	_onClose = () => {
+		bus.emit("closeSettings");
+	};
 }

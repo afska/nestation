@@ -11,7 +11,7 @@ export default class Overlay extends Component {
 
 	render() {
 		const { isVisible } = this;
-		const { isSettingsMenuOpen, message } = this.state;
+		const { isSettingsMenuOpen, isLoading, message } = this.state;
 
 		return (
 			<div className={classNames(styles.overlay, isVisible && styles.show)}>
@@ -23,7 +23,9 @@ export default class Overlay extends Component {
 					) : message != null ? (
 						<div className={styles.message}>{message}</div>
 					) : (
-						<Loader type="Watch" color="#CCCCCC" height="50" width="50" />
+						isLoading && (
+							<Loader type="Watch" color="#CCCCCC" height="50" width="50" />
+						)
 					)}
 				</div>
 			</div>

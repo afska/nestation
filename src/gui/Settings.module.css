@@ -1,3 +1,9 @@
 .settings {
 	user-select: none;
+	display: flex;
+	flex-direction: column;
+}
+
+.closeButton {
+	align-self: flex-end;
 }

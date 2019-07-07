@@ -7,7 +7,11 @@ export default class KeyBinding extends Component {
 		const { displayName } = this.props;
 
 		return (
-			<button type="button" class="nes-btn is-primary" onClick={this._onAssign}>
+			<button
+				type="button"
+				className="nes-btn is-primary"
+				onClick={this._onAssign}
+			>
 				{this.state.isAssigning ? "..." : displayName}
 			</button>
 		);
