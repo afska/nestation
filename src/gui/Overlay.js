@@ -1,22 +1,26 @@
 import React, { Component } from "react";
 import Loader from "react-loader-spinner";
+import Settings from "./Settings";
 import bus from "../events";
 import styles from "./Overlay.module.css";
 import classNames from "classnames";
 
 export default class Overlay extends Component {
-	state = { isLoading: false, message: null };
+	state = { isSettingsMenuOpen: true, isLoading: false, message: null };
+	// TODO: false
 
 	render() {
 		const { isVisible } = this;
-		const { message } = this.state;
+		const { isSettingsMenuOpen, message } = this.state;
 
 		return (
 			<div className={classNames(styles.overlay, isVisible && styles.show)}>
 				<div
 					className={classNames(styles.loader, message == null && styles.dark)}
 				>
-					{message != null ? (
+					{isSettingsMenuOpen ? (
+						<Settings />
+					) : message != null ? (
 						<div className={styles.message}>{message}</div>
 					) : (
 						<Loader type="Watch" color="#CCCCCC" height="50" width="50" />
@@ -33,6 +37,9 @@ export default class Overlay extends Component {
 			})
 			.on("message", (message) => {
 				this.setState({ isLoading: false, message });
+			})
+			.on("settings", () => {
+				this.setState({ isSettingsMenuOpen: !this.state.isSettingsMenuOpen });
 			});
 	}
 
@@ -42,6 +49,10 @@ export default class Overlay extends Component {
 	}
 
 	get isVisible() {
-		return this.state.isLoading || this.state.message != null;
+		return (
+			this.state.isSettingsMenuOpen ||
+			this.state.isLoading ||
+			this.state.message != null
+		);
 	}
 }

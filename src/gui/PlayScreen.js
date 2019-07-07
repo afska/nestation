@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import Emulator from "../emulator";
 import InviteHeader from "./InviteHeader";
 import JoinHeader from "./JoinHeader";
+import Overlay from "./Overlay";
 import Header from "../widgets/Header";
 import TVNoise from "../widgets/TVNoise";
-import Overlay from "../widgets/Overlay";
 import Controls from "../widgets/Controls";
 import helpers from "./helpers";
 import bus from "../events";
@@ -12,6 +12,8 @@ import styles from "./PlayScreen.module.css";
 import strings from "../locales";
 import classNames from "classnames";
 import _ from "lodash";
+
+window.bus = require("../events").default; // DEBUG
 
 export default class PlayScreen extends Component {
 	state = { rom: null, syncer: null };
