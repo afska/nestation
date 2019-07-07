@@ -6,6 +6,7 @@ import Overlay from "./Overlay";
 import Header from "../widgets/Header";
 import TVNoise from "../widgets/TVNoise";
 import Controls from "../widgets/Controls";
+import SettingsButton from "../widgets/SettingsButton";
 import helpers from "./helpers";
 import bus from "../events";
 import config from "../config";
@@ -74,6 +75,10 @@ export default class PlayScreen extends Component {
 
 				<div className={styles.controls}>
 					<Controls />
+				</div>
+
+				<div className={styles.menu}>
+					<SettingsButton />
 				</div>
 			</div>
 		);

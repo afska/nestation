@@ -6,8 +6,7 @@ import styles from "./Overlay.module.css";
 import classNames from "classnames";
 
 export default class Overlay extends Component {
-	state = { isSettingsMenuOpen: true, isLoading: false, message: null };
-	// TODO: false
+	state = { isSettingsMenuOpen: false, isLoading: false, message: null };
 
 	render() {
 		const { isVisible } = this;
@@ -51,6 +50,8 @@ export default class Overlay extends Component {
 	componentWillUnmount() {
 		bus.removeListener("isLoading");
 		bus.removeListener("message");
+		bus.removeListener("openSettings");
+		bus.removeListener("closeSettings");
 	}
 
 	get isVisible() {

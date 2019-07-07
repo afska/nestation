@@ -14,6 +14,7 @@ export default {
 	link: "link",
 	loading: "Loading...",
 	pressStart: "PRESS START",
+	settings: "Settings",
 	sound: "Sound",
 	shareThis: "Share this",
 	toPlayWithSomeone: "to play with someone!",
