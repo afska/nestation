@@ -2,10 +2,8 @@ import React, { Component } from "react";
 import strings from "../locales";
 import styles from "./Controls.module.css";
 
-export default class BalloonMessage extends Component {
+export default class Controls extends Component {
 	render() {
-		const { children } = this.props;
-
 		return (
 			<div className={styles.controls}>
 				<b style={{ color: "#0e85b0" }}>
