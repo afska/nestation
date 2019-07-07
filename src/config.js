@@ -1,5 +1,4 @@
 import _ from "lodash";
-import strings from "./locales";
 
 const KEY = "options";
 
@@ -9,14 +8,18 @@ class Config {
 	}
 
 	save() {
-		localStorage.setItem(KEY, this.options);
+		localStorage.setItem(KEY, JSON.stringify(this.options));
 
 		return this;
 	}
 
 	load() {
-		this.options =
-			localStorage.getItem(KEY, this.options) || this.defaultOptions;
+		try {
+			this.options =
+				JSON.parse(localStorage.getItem(KEY)) || this.defaultOptions;
+		} catch (e) {
+			this.options = this.defaultOptions;
+		}
 
 		return this;
 	}
@@ -44,14 +47,14 @@ class Config {
 			{ name: "75%", value: 75 },
 			{ name: "50%", value: 50 },
 			{ name: "25%", value: 25 },
-			{ name: strings.disabled, value: 0 }
+			{ name: "Disabled", value: 0 }
 		];
 	}
 
 	get bufferingOptions() {
 		return [
 			{
-				name: strings.disabled,
+				name: "Disabled",
 				maxBlindFrames: 3,
 				minBufferSize: 1,
 				maxBufferSize: 1

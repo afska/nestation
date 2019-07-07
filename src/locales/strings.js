@@ -4,7 +4,6 @@ export default {
 	connecting: "Connecting...",
 	controls: "-Controls-",
 	copied: "Copied!",
-	disabled: "Disabled",
 	dragARomHere: "Drag a NES rom file here!",
 	errors: {
 		connectionFailed: "CONNECTION FAILED :(",

@@ -5,8 +5,14 @@ import config from "../config";
 import strings from "../locales";
 import styles from "./Settings.module.css";
 import classNames from "classnames";
+import _ from "lodash";
 
 export default class Settings extends Component {
+	componentDidMount() {
+		config.load();
+		this.forceUpdate();
+	}
+
 	render() {
 		return (
 			<div className={styles.settings}>
@@ -23,16 +29,20 @@ export default class Settings extends Component {
 				>
 					<div className="title">{strings.sound}</div>
 
-					{config.soundOptions.map((it) => (
-						<label key={it.name}>
-							<input
-								type="radio"
-								className="nes-radio is-dark"
-								name="answer-dark"
-							/>
-							<span>{it.name}</span>
-						</label>
-					))}
+					<div>
+						{config.soundOptions.map((it) => (
+							<label key={it.name}>
+								<input
+									type="radio"
+									className="nes-radio is-dark"
+									name="sound"
+									checked={config.options.sound === it.name}
+									onChange={(e) => this._update("sound", it.name)}
+								/>
+								<span>{it.name}</span>
+							</label>
+						))}
+					</div>
 				</section>
 				<br />
 				<br />
@@ -42,16 +52,20 @@ export default class Settings extends Component {
 				>
 					<div className="title">{strings.buffering}</div>
 
-					{config.bufferingOptions.map((it) => (
-						<label key={it.name}>
-							<input
-								type="radio"
-								className="nes-radio is-dark"
-								name="answer-dark"
-							/>
-							<span>{it.name}</span>
-						</label>
-					))}
+					<div>
+						{config.bufferingOptions.map((it) => (
+							<label key={it.name}>
+								<input
+									type="radio"
+									className="nes-radio is-dark"
+									name="buffering"
+									checked={config.options.buffering === it.name}
+									onChange={() => this._update("buffering", it.name)}
+								/>
+								<span>{it.name}</span>
+							</label>
+						))}
+					</div>
 				</section>
 				<br />
 				<br />
@@ -72,6 +86,12 @@ export default class Settings extends Component {
 				</section>
 			</div>
 		);
+	}
+
+	_update(property, value) {
+		_.set(config.options, property, value);
+		config.save();
+		this.forceUpdate();
 	}
 
 	_onClose = () => {

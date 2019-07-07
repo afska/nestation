@@ -14,7 +14,9 @@ import strings from "../locales";
 import classNames from "classnames";
 import _ from "lodash";
 
-window.bus = require("../events").default; // DEBUG
+// DEBUG
+window.bus = require("../events").default;
+window.config = require("../config").default;
 
 export default class PlayScreen extends Component {
 	state = { rom: null, syncer: null };
