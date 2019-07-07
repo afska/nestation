@@ -14,9 +14,17 @@ export default class JoinHeader extends Component {
 	}
 
 	async componentDidMount() {
-		const channel = await quickp2p.joinChannel(this.props.token);
-		channel.on("connected", () => {
-			this.props.onSyncer(new SlaveSyncer(channel));
-		});
+		const { onSyncer, onError } = this.props;
+
+		try {
+			const channel = await quickp2p.joinChannel(this.props.token);
+			channel
+				.on("connected", () => {
+					onSyncer(new SlaveSyncer(channel));
+				})
+				.on("disconnected", onError);
+		} catch (e) {
+			onError();
+		}
 	}
 }

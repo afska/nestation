@@ -4,8 +4,10 @@ import InviteHeader from "./InviteHeader";
 import JoinHeader from "./JoinHeader";
 import Header from "../widgets/Header";
 import TVNoise from "../widgets/TVNoise";
-import Spinner from "../widgets/Spinner";
+import Overlay from "../widgets/Overlay";
 import Controls from "../widgets/Controls";
+import helpers from "./helpers";
+import bus from "../events";
 import styles from "./PlayScreen.module.css";
 import nesImage from "../assets/nes.png";
 import strings from "../locales";
@@ -23,7 +25,11 @@ export default class PlayScreen extends Component {
 				{syncer ? (
 					<Header>{strings.connected}</Header>
 				) : token ? (
-					<JoinHeader onSyncer={this._onSyncer} token={token} />
+					<JoinHeader
+						onSyncer={this._onSyncer}
+						onError={this._onError}
+						token={token}
+					/>
 				) : (
 					<InviteHeader onSyncer={this._onSyncer} needsRom={!rom} />
 				)}
@@ -39,8 +45,8 @@ export default class PlayScreen extends Component {
 								<img className={styles.nesImage} src={nesImage} alt="nes" />
 							</h3>
 
-							<div className={styles.spinner}>
-								<Spinner />
+							<div className={styles.overlay}>
+								<Overlay />
 							</div>
 
 							{rom ? (
@@ -67,14 +73,12 @@ export default class PlayScreen extends Component {
 		window.addEventListener("dragover", this._ignore);
 		window.addEventListener("dragenter", this._ignore);
 		window.addEventListener("drop", this._onFileDrop);
-		window.addEventListener("resize", this._onResize);
 	}
 
 	componentWillUnmount() {
 		window.removeEventListener("dragover", this._ignore);
 		window.removeEventListener("dragenter", this._ignore);
 		window.removeEventListener("drop", this._onFileDrop);
-		window.removeEventListener("resize", this._onResize);
 	}
 
 	_onSyncer = (syncer) => {
@@ -89,6 +93,8 @@ export default class PlayScreen extends Component {
 	};
 
 	_loadRom(rom, callback = _.noop, start = true) {
+		bus.emit("error", null);
+
 		this.setState({ rom }, () => {
 			callback();
 			if (start) this.emulator.start();
@@ -117,5 +123,11 @@ export default class PlayScreen extends Component {
 		e.preventDefault();
 	};
 
-	_onResize = () => {};
+	_onError = () => {
+		this.setState({ rom: null, syncer: null });
+
+		bus.emit("error", strings.errors.connectionFailed);
+		helpers.cleanQueryString();
+		window.location.href = "#/";
+	};
 }
