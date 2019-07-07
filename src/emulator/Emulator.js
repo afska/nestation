@@ -4,6 +4,7 @@ import Screen from "./Screen";
 import FrameTimer from "./FrameTimer";
 import Speakers from "./Speakers";
 import { Controller, LocalController } from "./controllers";
+import strings from "../locales";
 import jsnes, { NES } from "jsnes";
 
 export default class Emulator extends Component {
@@ -54,7 +55,8 @@ export default class Emulator extends Component {
 	}
 
 	_initialize(screen) {
-		const { rom } = this.props;
+		const { rom, onError } = this.props;
+		if (!rom) return;
 		const bytes = Buffer.from(rom).toString("binary");
 
 		this.screen = screen;
@@ -75,7 +77,11 @@ export default class Emulator extends Component {
 		});
 
 		// Load ROM data as a string and start
-		this.nes.loadROM(bytes);
+		try {
+			this.nes.loadROM(bytes);
+		} catch (e) {
+			onError(strings.errors.invalidRom, false);
+		}
 
 		// DEBUG
 		window.emulator = this;

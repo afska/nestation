@@ -6,6 +6,7 @@ export default {
 	dragARomHere: "Drag a NES rom file here!",
 	errors: {
 		connectionFailed: "CONNECTION FAILED :(",
+		invalidRom: "INVALID ROM :(",
 		serverIsDown: "The server is down :("
 	},
 	link: "link",

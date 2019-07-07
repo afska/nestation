@@ -82,6 +82,8 @@ export default class SlaveSyncer extends EventEmitter {
 					return;
 				}
 
+				if (!this._emulator) return;
+
 				this._buffer.push(bytes);
 
 				const buffer = new Uint8Array(1);

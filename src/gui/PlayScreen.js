@@ -61,6 +61,7 @@ export default class PlayScreen extends Component {
 								<Emulator
 									rom={rom}
 									syncer={syncer}
+									onError={this._onError}
 									ref={(ref) => (this.emulator = ref)}
 								/>
 							) : (
@@ -95,7 +96,7 @@ export default class PlayScreen extends Component {
 		syncer.on("rom", (rom) => {
 			this._loadRom(rom, () => syncer.initializeEmulator(this.emulator), false);
 		});
-		syncer.on("start", () => this.emulator.start());
+		syncer.on("start", () => this.emulator && this.emulator.start());
 
 		syncer.initializeRom(this.state.rom);
 	};
@@ -131,10 +132,12 @@ export default class PlayScreen extends Component {
 		e.preventDefault();
 	};
 
-	_onError = (error) => {
-		this.setState({ rom: null, syncer: null });
-
+	_onError = (error, reset = true) => {
+		this.setState({ rom: null });
 		bus.emit("message", error || strings.errors.connectionFailed);
+		if (!reset) return;
+
+		this.setState({ syncer: null });
 		helpers.cleanQueryString();
 		window.location.href = "#/";
 	};

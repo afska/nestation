@@ -29,7 +29,7 @@ export default class Overlay extends Component {
 	componentDidMount() {
 		bus
 			.on("isLoading", (isLoading) => {
-				this.setState({ isLoading, message: null });
+				this.setState({ isLoading });
 			})
 			.on("message", (message) => {
 				this.setState({ isLoading: false, message });
