@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import KeyBinding from "../widgets/KeyBinding";
 import strings from "../locales";
 import styles from "./Settings.module.css";
 import classNames from "classnames";
@@ -63,30 +64,14 @@ export default class Settings extends Component {
 				>
 					<div className="title">Input</div>
 
-					<button type="button" class="nes-btn is-primary">
-						🠜
-					</button>
-					<button type="button" class="nes-btn is-primary">
-						🠞
-					</button>
-					<button type="button" class="nes-btn is-primary">
-						🠝
-					</button>
-					<button type="button" class="nes-btn is-primary">
-						🠟
-					</button>
-					<button type="button" class="nes-btn is-primary">
-						B
-					</button>
-					<button type="button" class="nes-btn is-primary">
-						A
-					</button>
-					<button type="button" class="nes-btn is-primary">
-						SELECT
-					</button>
-					<button type="button" class="nes-btn is-primary">
-						START
-					</button>
+					<KeyBinding name="BUTTON_LEFT" displayName="🠜" />
+					<KeyBinding name="BUTTON_RIGHT" displayName="🠞" />
+					<KeyBinding name="BUTTON_UP" displayName="🠝" />
+					<KeyBinding name="BUTTON_DOWN" displayName="🠟" />
+					<KeyBinding name="BUTTON_B" displayName="B" />
+					<KeyBinding name="BUTTON_A" displayName="A" />
+					<KeyBinding name="BUTTON_SELECT" displayName="SELECT" />
+					<KeyBinding name="BUTTON_START" displayName="START" />
 				</section>
 			</div>
 		);
