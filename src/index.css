@@ -23,3 +23,7 @@ kbd,
 samp {
 	font-family: "Press Start 2P";
 }
+
+.nes-container {
+	padding: 0 !important;
+}

@@ -9,7 +9,6 @@ import Controls from "../widgets/Controls";
 import helpers from "./helpers";
 import bus from "../events";
 import styles from "./PlayScreen.module.css";
-import nesImage from "../assets/nes.png";
 import strings from "../locales";
 import classNames from "classnames";
 import _ from "lodash";
@@ -49,10 +48,6 @@ export default class PlayScreen extends Component {
 								"with-title"
 							)}
 						>
-							<h3 className="title">
-								<img className={styles.nesImage} src={nesImage} alt="nes" />
-							</h3>
-
 							<div className={styles.overlay}>
 								<Overlay />
 							</div>

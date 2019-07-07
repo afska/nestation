@@ -11,19 +11,14 @@
 	align-items: center;
 }
 
-.nesImage {
-	margin-top: -19px;
-	user-select: none;
-}
-
 .gameContainer {
 	width: 50vw;
 }
 
 .overlay {
 	position: absolute;
-	width: 90%;
-	height: 90%;
+	width: 100%;
+	height: 100%;
 }
 
 .controls {
