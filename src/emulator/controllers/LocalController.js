@@ -8,8 +8,8 @@ export default class LocalController extends Controller {
 		this.immediateButtons = _.clone(this.buttons);
 
 		this.keyMap = {
-			d: "BUTTON_A",
-			s: "BUTTON_B",
+			" ": "BUTTON_A",
+			d: "BUTTON_B",
 			Delete: "BUTTON_SELECT",
 			Enter: "BUTTON_START",
 			ArrowUp: "BUTTON_UP",
