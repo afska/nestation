@@ -11,6 +11,7 @@ export default class Controls extends Component {
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				</b>
 				<br />
+				<br />
 				<span>
 					<span style={{ color: "#999999" }}>
 						🠜&nbsp;&nbsp;🠞&nbsp;&nbsp;🠝&nbsp;&nbsp;🠟&nbsp;&nbsp;&nbsp;
