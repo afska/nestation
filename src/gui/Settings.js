@@ -4,6 +4,26 @@ import strings from "../locales";
 import styles from "./Settings.module.css";
 import classNames from "classnames";
 
+const SOUND_OPTIONS = [
+	{ name: "100%", value: 100 },
+	{ name: "75%", value: 75 },
+	{ name: "50%", value: 50 },
+	{ name: "25%", value: 25 },
+	{ name: strings.disabled, value: 0 }
+];
+
+const BUFFERING_OPTIONS = [
+	{
+		name: strings.disabled,
+		maxBlindFrames: 3,
+		minBufferSize: 1,
+		maxBufferSize: 1
+	},
+	{ name: "Low", maxBlindFrames: 3, minBufferSize: 1, maxBufferSize: 2 },
+	{ name: "Medium", maxBlindFrames: 5, minBufferSize: 2, maxBufferSize: 3 },
+	{ name: "High", maxBlindFrames: 5, minBufferSize: 3, maxBufferSize: 5 }
+];
+
 export default class Settings extends Component {
 	render() {
 		return (
@@ -11,23 +31,18 @@ export default class Settings extends Component {
 				<section
 					className={classNames("nes-container", "is-dark", "with-title")}
 				>
-					<div className="title">Sound</div>
-					<label>
-						<input type="radio" class="nes-radio is-dark" name="answer-dark" />
-						<span>100%</span>
-					</label>
-					<label>
-						<input type="radio" class="nes-radio is-dark" name="answer-dark" />
-						<span>50%</span>
-					</label>
-					<label>
-						<input type="radio" class="nes-radio is-dark" name="answer-dark" />
-						<span>25%</span>
-					</label>
-					<label>
-						<input type="radio" class="nes-radio is-dark" name="answer-dark" />
-						<span>Disabled</span>
-					</label>
+					<div className="title">{strings.sound}</div>
+
+					{SOUND_OPTIONS.map((it) => (
+						<label key={it.name}>
+							<input
+								type="radio"
+								class="nes-radio is-dark"
+								name="answer-dark"
+							/>
+							<span>{it.name}</span>
+						</label>
+					))}
 
 					<span>&nbsp;</span>
 				</section>
@@ -37,22 +52,18 @@ export default class Settings extends Component {
 				<section
 					className={classNames("nes-container", "is-dark", "with-title")}
 				>
-					<div className="title">Buffering</div>
+					<div className="title">{strings.buffering}</div>
 
-					<label>
-						<input type="radio" class="nes-radio is-dark" name="answer-dark" />
-						<span>Disabled</span>
-					</label>
-
-					<label>
-						<input type="radio" class="nes-radio is-dark" name="answer-dark" />
-						<span>Low</span>
-					</label>
-
-					<label>
-						<input type="radio" class="nes-radio is-dark" name="answer-dark" />
-						<span>High</span>
-					</label>
+					{BUFFERING_OPTIONS.map((it) => (
+						<label key={it.name}>
+							<input
+								type="radio"
+								class="nes-radio is-dark"
+								name="answer-dark"
+							/>
+							<span>{it.name}</span>
+						</label>
+					))}
 
 					<span>&nbsp;</span>
 				</section>
@@ -62,7 +73,7 @@ export default class Settings extends Component {
 				<section
 					className={classNames("nes-container", "is-dark", "with-title")}
 				>
-					<div className="title">Input</div>
+					<div className="title">{strings.input}</div>
 
 					<KeyBinding name="BUTTON_LEFT" displayName="🠜" />
 					<KeyBinding name="BUTTON_RIGHT" displayName="🠞" />
