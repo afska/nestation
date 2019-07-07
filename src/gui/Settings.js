@@ -31,7 +31,7 @@ export default class Settings extends Component {
 			<div className={styles.settings}>
 				<button
 					type="button"
-					className={classNames(styles.closeButton, "nes-btn")}
+					className={classNames(styles.closeButton, "nes-btn", "is-error")}
 					onClick={this._onClose}
 				>
 					x
