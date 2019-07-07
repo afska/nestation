@@ -80,6 +80,7 @@ class Emulator extends Component {
 		// DEBUG
 		window.emulator = this;
 		window.jsnes = jsnes;
+		window.bus = require("../events").default;
 	}
 }
 
