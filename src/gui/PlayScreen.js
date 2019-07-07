@@ -11,6 +11,7 @@ import bus from "../events";
 import styles from "./PlayScreen.module.css";
 import nesImage from "../assets/nes.png";
 import strings from "../locales";
+import classNames from "classnames";
 import _ from "lodash";
 
 export default class PlayScreen extends Component {
@@ -41,9 +42,12 @@ export default class PlayScreen extends Component {
 				{
 					<div className={styles.main}>
 						<section
-							className={`${
-								styles.gameContainer
-							} nes-container is-dark with-title`}
+							className={classNames(
+								styles.gameContainer,
+								"nes-container",
+								"is-dark",
+								"with-title"
+							)}
 						>
 							<h3 className="title">
 								<img className={styles.nesImage} src={nesImage} alt="nes" />
@@ -97,7 +101,7 @@ export default class PlayScreen extends Component {
 	};
 
 	_loadRom(rom, callback = _.noop, start = true) {
-		bus.emit("error", null);
+		bus.emit("message", null);
 
 		this.setState({ rom }, () => {
 			callback();
@@ -130,7 +134,7 @@ export default class PlayScreen extends Component {
 	_onError = (error) => {
 		this.setState({ rom: null, syncer: null });
 
-		bus.emit("error", error || strings.errors.connectionFailed);
+		bus.emit("message", error || strings.errors.connectionFailed);
 		helpers.cleanQueryString();
 		window.location.href = "#/";
 	};

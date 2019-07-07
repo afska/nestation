@@ -27,3 +27,7 @@
 	background: black;
 	opacity: 0.8;
 }
+
+.message {
+	user-select: none;
+}

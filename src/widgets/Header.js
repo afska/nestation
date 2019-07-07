@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import BalloonMessage from "./BalloonMessage";
 import styles from "./Header.module.css";
+import classNames from "classnames";
 import _ from "lodash";
 
 export default class Header extends Component {
@@ -13,14 +14,16 @@ export default class Header extends Component {
 			<div className={styles.header}>
 				<div className={styles.small}>
 					{!_.isEmpty(children) && (
-						<BalloonMessage className={`${styles.message} ${styles.small}`}>
+						<BalloonMessage
+							className={classNames(styles.message, styles.small)}
+						>
 							{children}
 						</BalloonMessage>
 					)}
 				</div>
 
 				<h2 className={styles.title}>
-					<i className={`nes-logo ${styles.titleLogo}`} />
+					<i className={classNames(styles.titleLogo, "nes-logo")} />
 					<span className={styles.titleText}>NEStation</span>
 				</h2>
 			</div>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styles from "./BalloonMessage.module.css";
 import haluImage from "../assets/halu.svg";
+import classNames from "classnames";
 
 export default class BalloonMessage extends Component {
 	render() {
@@ -8,7 +9,14 @@ export default class BalloonMessage extends Component {
 
 		return (
 			<section className="message -left">
-				<div className={`${styles.balloon} nes-balloon from-left is-small`}>
+				<div
+					className={classNames(
+						styles.balloon,
+						"nes-balloon",
+						"from-left",
+						"is-small"
+					)}
+				>
 					<p>{children}</p>
 				</div>
 				<br />
