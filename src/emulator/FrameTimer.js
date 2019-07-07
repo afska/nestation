@@ -18,11 +18,12 @@ export default class FrameTimer {
 
 	stop() {
 		this._isRunning = false;
+		cancelAnimationFrame(this._frameId);
 	}
 
 	_run = () => {
 		if (!this._isRunning) return;
-		requestAnimationFrame(this._run);
+		this._frameId = requestAnimationFrame(this._run);
 
 		const now = Date.now();
 		const elapsedTime = now - this._lastTime;

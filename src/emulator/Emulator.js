@@ -6,7 +6,7 @@ import Speakers from "./Speakers";
 import { Controller, LocalController } from "./controllers";
 import jsnes, { NES } from "jsnes";
 
-class Emulator extends Component {
+export default class Emulator extends Component {
 	constructor(props) {
 		super(props);
 
@@ -83,5 +83,3 @@ class Emulator extends Component {
 		window.bus = require("../events").default;
 	}
 }
-
-export default Emulator;

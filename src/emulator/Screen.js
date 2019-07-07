@@ -5,7 +5,7 @@ const SCREEN_WIDTH = 256;
 const SCREEN_HEIGHT = 240;
 const FULL_ALPHA = 0xff000000;
 
-class Screen extends Component {
+export default class Screen extends Component {
 	constructor(props) {
 		super(props);
 
@@ -67,5 +67,3 @@ class Screen extends Component {
 		}
 	}
 }
-
-export default Screen;

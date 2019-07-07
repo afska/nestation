@@ -3,6 +3,7 @@ import Emulator from "../emulator";
 import InviteHeader from "./InviteHeader";
 import JoinHeader from "./JoinHeader";
 import Header from "../widgets/Header";
+import TVNoise from "../widgets/TVNoise";
 import Spinner from "../widgets/Spinner";
 import Controls from "../widgets/Controls";
 import styles from "./PlayScreen.module.css";
@@ -27,7 +28,7 @@ export default class PlayScreen extends Component {
 					<InviteHeader onSyncer={this._onSyncer} needsRom={!rom} />
 				)}
 
-				{rom && (
+				{
 					<div className={styles.main}>
 						<section
 							className={`${
@@ -42,14 +43,18 @@ export default class PlayScreen extends Component {
 								<Spinner />
 							</div>
 
-							<Emulator
-								rom={rom}
-								syncer={syncer}
-								ref={(ref) => (this.emulator = ref)}
-							/>
+							{rom ? (
+								<Emulator
+									rom={rom}
+									syncer={syncer}
+									ref={(ref) => (this.emulator = ref)}
+								/>
+							) : (
+								<TVNoise />
+							)}
 						</section>
 					</div>
-				)}
+				}
 
 				<div className={styles.controls}>
 					<Controls />
