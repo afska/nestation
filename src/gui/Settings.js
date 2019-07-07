@@ -1,29 +1,10 @@
 import React, { Component } from "react";
 import KeyBinding from "../widgets/KeyBinding";
 import bus from "../events";
+import config from "../config";
 import strings from "../locales";
 import styles from "./Settings.module.css";
 import classNames from "classnames";
-
-const SOUND_OPTIONS = [
-	{ name: "100%", value: 100 },
-	{ name: "75%", value: 75 },
-	{ name: "50%", value: 50 },
-	{ name: "25%", value: 25 },
-	{ name: strings.disabled, value: 0 }
-];
-
-const BUFFERING_OPTIONS = [
-	{
-		name: strings.disabled,
-		maxBlindFrames: 3,
-		minBufferSize: 1,
-		maxBufferSize: 1
-	},
-	{ name: "Low", maxBlindFrames: 3, minBufferSize: 1, maxBufferSize: 2 },
-	{ name: "Medium", maxBlindFrames: 5, minBufferSize: 2, maxBufferSize: 3 },
-	{ name: "High", maxBlindFrames: 5, minBufferSize: 3, maxBufferSize: 5 }
-];
 
 export default class Settings extends Component {
 	render() {
@@ -42,7 +23,7 @@ export default class Settings extends Component {
 				>
 					<div className="title">{strings.sound}</div>
 
-					{SOUND_OPTIONS.map((it) => (
+					{config.soundOptions.map((it) => (
 						<label key={it.name}>
 							<input
 								type="radio"
@@ -61,7 +42,7 @@ export default class Settings extends Component {
 				>
 					<div className="title">{strings.buffering}</div>
 
-					{BUFFERING_OPTIONS.map((it) => (
+					{config.bufferingOptions.map((it) => (
 						<label key={it.name}>
 							<input
 								type="radio"

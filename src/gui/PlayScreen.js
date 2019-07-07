@@ -8,6 +8,7 @@ import TVNoise from "../widgets/TVNoise";
 import Controls from "../widgets/Controls";
 import helpers from "./helpers";
 import bus from "../events";
+import config from "../config";
 import styles from "./PlayScreen.module.css";
 import strings from "../locales";
 import classNames from "classnames";
@@ -77,6 +78,8 @@ export default class PlayScreen extends Component {
 	}
 
 	componentDidMount() {
+		config.load();
+
 		window.addEventListener("dragover", this._ignore);
 		window.addEventListener("dragenter", this._ignore);
 		window.addEventListener("drop", this._onFileDrop);
