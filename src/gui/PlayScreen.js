@@ -4,6 +4,7 @@ import InviteHeader from "./InviteHeader";
 import JoinHeader from "./JoinHeader";
 import Header from "../widgets/Header";
 import Spinner from "../widgets/Spinner";
+import Controls from "../widgets/Controls";
 import styles from "./PlayScreen.module.css";
 import nesImage from "../assets/nes.png";
 import strings from "../locales";
@@ -49,6 +50,10 @@ export default class PlayScreen extends Component {
 						</section>
 					</div>
 				)}
+
+				<div className={styles.controls}>
+					<Controls />
+				</div>
 			</div>
 		);
 	}

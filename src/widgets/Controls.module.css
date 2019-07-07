@@ -1,0 +1,8 @@
+.controls {
+	background-color: #222222;
+	display: inline-block;
+	border-radius: 16px;
+	padding: 8px;
+	font-size: 0.5em;
+	user-select: none;
+}

@@ -24,3 +24,9 @@
 	width: 90%;
 	height: 90%;
 }
+
+.controls {
+	position: absolute;
+	left: 2px;
+	bottom: 4px;
+}
