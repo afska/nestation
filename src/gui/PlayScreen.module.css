@@ -13,6 +13,7 @@
 
 .nesImage {
 	margin-top: -19px;
+	user-select: none;
 }
 
 .gameContainer {
