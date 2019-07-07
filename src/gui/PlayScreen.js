@@ -95,6 +95,7 @@ export default class PlayScreen extends Component {
 
 		const file = _.first(e.dataTransfer.files);
 		const reader = new FileReader();
+		if (!file) return;
 
 		reader.onload = (event) => {
 			const rom = event.target.result;
