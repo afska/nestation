@@ -43,8 +43,6 @@ export default class Settings extends Component {
 							<span>{it.name}</span>
 						</label>
 					))}
-
-					<span>&nbsp;</span>
 				</section>
 				<br />
 				<br />
@@ -64,8 +62,6 @@ export default class Settings extends Component {
 							<span>{it.name}</span>
 						</label>
 					))}
-
-					<span>&nbsp;</span>
 				</section>
 				<br />
 				<br />

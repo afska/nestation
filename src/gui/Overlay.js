@@ -38,8 +38,11 @@ export default class Overlay extends Component {
 			.on("message", (message) => {
 				this.setState({ isLoading: false, message });
 			})
-			.on("settings", () => {
-				this.setState({ isSettingsMenuOpen: !this.state.isSettingsMenuOpen });
+			.on("openSettings", () => {
+				this.setState({ isSettingsMenuOpen: true });
+			})
+			.on("closeSettings", () => {
+				this.setState({ isSettingsMenuOpen: false });
 			});
 	}
 
