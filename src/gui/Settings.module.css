@@ -8,6 +8,7 @@
 
 .closeButton {
 	position: absolute !important;
+	z-index: 1;
 	top: 4px;
 	right: 4px;
 }

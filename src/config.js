@@ -44,10 +44,12 @@ class Config {
 	get soundOptions() {
 		return [
 			{ name: "100%", value: 100 },
+			{ name: "90%", value: 90 },
 			{ name: "75%", value: 75 },
 			{ name: "50%", value: 50 },
 			{ name: "25%", value: 25 },
-			{ name: "Disabled", value: 0 }
+			{ name: "10%", value: 10 },
+			{ name: "0%", value: 0 }
 		];
 	}
 

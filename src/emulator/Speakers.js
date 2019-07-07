@@ -19,14 +19,19 @@ export default class Speakers {
 		this.audioCtx = new window.AudioContext();
 		this.scriptNode = this.audioCtx.createScriptProcessor(1024, 0, 2);
 		this.scriptNode.onaudioprocess = this._onAudioProcess;
-		this.scriptNode.connect(this.audioCtx.destination);
+		this.gainNode = this.audioCtx.createGain();
+		this.gainNode.gain.value = 0.1;
+		this.gainNode.connect(this.audioCtx.destination);
+		this.scriptNode.connect(this.gainNode);
 	}
 
 	stop() {
 		if (this.scriptNode) {
-			this.scriptNode.disconnect(this.audioCtx.destination);
+			this.gainNode.disconnect(this.audioCtx.destination);
+			this.scriptNode.disconnect(this.gainNode);
 			this.scriptNode.onaudioprocess = null;
 			this.scriptNode = null;
+			this.gainNode = null;
 		}
 
 		if (this.audioCtx) {
