@@ -7,11 +7,11 @@ import strings from "../locales";
 const COPIED_MESSAGE_TIME = 1000;
 
 export default class InviteHeader extends Component {
-	state = { token: null, copied: false };
+	state = { token: null, copied: false, isDown: false };
 
 	render() {
 		const { needsRom } = this.props;
-		const { token, copied } = this.state;
+		const { token, copied, isDown } = this.state;
 
 		return (
 			<Header>
@@ -27,6 +27,8 @@ export default class InviteHeader extends Component {
 						</a>{" "}
 						{strings.toPlayWithSomeone}
 					</span>
+				) : isDown ? (
+					<span>{strings.errors.serverIsDown}</span>
 				) : (
 					<span>{strings.loading}</span>
 				)}
@@ -35,14 +37,20 @@ export default class InviteHeader extends Component {
 	}
 
 	async componentDidUpdate(nextProps) {
-		const { needsRom, onSyncer } = this.props;
+		const { needsRom, onSyncer, onError } = this.props;
 		if (needsRom || this.channel) return;
 
-		this.channel = await quickp2p.createChannel();
-		this.channel.on("connected", () => {
-			onSyncer(new MasterSyncer(this.channel));
-		});
-		this.setState({ token: this.channel.token });
+		try {
+			this.channel = await quickp2p.createChannel();
+			this.channel
+				.on("connected", () => {
+					onSyncer(new MasterSyncer(this.channel));
+				})
+				.on("disconnected", onError);
+			this.setState({ token: this.channel.token, isDown: false });
+		} catch (e) {
+			this.setState({ isDown: true });
+		}
 	}
 
 	_copyLink = (e) => {

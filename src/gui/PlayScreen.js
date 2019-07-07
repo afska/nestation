@@ -31,7 +31,11 @@ export default class PlayScreen extends Component {
 						token={token}
 					/>
 				) : (
-					<InviteHeader onSyncer={this._onSyncer} needsRom={!rom} />
+					<InviteHeader
+						onSyncer={this._onSyncer}
+						onError={this._onError}
+						needsRom={!rom}
+					/>
 				)}
 
 				{
@@ -123,10 +127,10 @@ export default class PlayScreen extends Component {
 		e.preventDefault();
 	};
 
-	_onError = () => {
+	_onError = (error) => {
 		this.setState({ rom: null, syncer: null });
 
-		bus.emit("error", strings.errors.connectionFailed);
+		bus.emit("error", error || strings.errors.connectionFailed);
 		helpers.cleanQueryString();
 		window.location.href = "#/";
 	};
