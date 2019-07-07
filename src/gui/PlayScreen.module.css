@@ -13,6 +13,7 @@
 
 .gameContainer {
 	width: 50vw;
+	padding: 0 !important;
 }
 
 .overlay {
