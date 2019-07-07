@@ -5,4 +5,5 @@
 	padding: 8px;
 	font-size: 0.5em;
 	user-select: none;
+	z-index: 1;
 }

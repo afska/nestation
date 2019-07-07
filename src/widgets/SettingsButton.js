@@ -7,7 +7,12 @@ export default class SettingsButton extends Component {
 	render() {
 		return (
 			<div className={styles.button}>
-				<button type="button" className="nes-btn" onClick={this._onClick}>
+				<button
+					type="button"
+					tabindex="-1"
+					className="nes-btn"
+					onClick={this._onClick}
+				>
 					{strings.settings}
 				</button>
 			</div>
