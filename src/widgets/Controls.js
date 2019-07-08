@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import config from "../config";
 import strings from "../locales";
+import bus from "../events";
 import styles from "./Controls.module.css";
 import classNames from "classnames";
 import _ from "lodash";
@@ -37,8 +38,21 @@ export default class Controls extends Component {
 		);
 	}
 
+	componentDidMount() {
+		bus.on("keymap", () => {
+			bus.emit("keymap-updated");
+			this.forceUpdate();
+		});
+	}
+
+	componentWillUnmount() {
+		bus.removeListener("keymap");
+	}
+
 	_keyFor(button) {
 		const key = _.findKey(config.options.input, (it) => it === button);
+		if (!key) return "[?]";
+
 		return this._format(key);
 	}
 

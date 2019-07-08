@@ -128,6 +128,7 @@ export default class Settings extends Component {
 
 	_notify() {
 		bus.emit("volume", config.sound.gain);
+		bus.emit("keymap");
 		this.forceUpdate();
 	}
 
@@ -150,6 +151,8 @@ export default class Settings extends Component {
 	_onKeyDown = (e) => {
 		if (!this.state.mappingButton) return;
 
+		e.preventDefault();
+
 		const oldKey = _.findKey(
 			config.options.input,
 			(it) => it === this.state.mappingButton
@@ -159,7 +162,7 @@ export default class Settings extends Component {
 		delete config.options.input[oldKey];
 		config.options.input[newKey] = this.state.mappingButton;
 		config.save();
-		bus.emit("keymap", config.options.input);
+		this._notify();
 
 		this.setState({ mappingButton: null });
 	};
