@@ -7,10 +7,29 @@ import styles from "./Settings.module.css";
 import classNames from "classnames";
 import _ from "lodash";
 
+const BUTTONS = [
+	{ name: "BUTTON_LEFT", displayName: "🠜" },
+	{ name: "BUTTON_RIGHT", displayName: "🠞" },
+	{ name: "BUTTON_UP", displayName: "🠝" },
+	{ name: "BUTTON_DOWN", displayName: "🠟" },
+	{ name: "BUTTON_B", displayName: "B" },
+	{ name: "BUTTON_A", displayName: "A" },
+	{ name: "BUTTON_SELECT", displayName: "SELECT" },
+	{ name: "BUTTON_START", displayName: "START" }
+];
+
 export default class Settings extends Component {
+	state = { mappingButton: null };
+
 	componentDidMount() {
 		config.load();
 		this.forceUpdate();
+
+		window.addEventListener("keydown", this._onKeyDown);
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener("keydown", this._onKeyDown);
 	}
 
 	render() {
@@ -75,14 +94,18 @@ export default class Settings extends Component {
 				>
 					<div className="title">{strings.input}</div>
 
-					<KeyBinding name="BUTTON_LEFT" displayName="🠜" />
-					<KeyBinding name="BUTTON_RIGHT" displayName="🠞" />
-					<KeyBinding name="BUTTON_UP" displayName="🠝" />
-					<KeyBinding name="BUTTON_DOWN" displayName="🠟" />
-					<KeyBinding name="BUTTON_B" displayName="B" />
-					<KeyBinding name="BUTTON_A" displayName="A" />
-					<KeyBinding name="BUTTON_SELECT" displayName="SELECT" />
-					<KeyBinding name="BUTTON_START" displayName="START" />
+					{BUTTONS.map((button) => (
+						<KeyBinding
+							key={button.name}
+							name={button.name}
+							displayName={button.displayName}
+							isAssigning={this.state.mappingButton === button.name}
+							onAssignStart={() =>
+								this.setState({ mappingButton: button.name })
+							}
+							onAssignCancel={() => this.setState({ mappingButton: null })}
+						/>
+					))}
 				</section>
 			</div>
 		);
@@ -97,5 +120,20 @@ export default class Settings extends Component {
 
 	_onClose = () => {
 		bus.emit("closeSettings");
+	};
+
+	_onAssign = () => {
+		if (this.props.isAssigning) return;
+
+		this.props.onAssignStart();
+		window.addEventListener("keydown", this._onKeyDown);
+	};
+
+	_onKeyDown = (e) => {
+		if (!this.state.mappingButton) return;
+
+		// config.options.input[this.state.]
+		// this.props.onKeyAssigned(e.key);
+		this.setState({ mappingButton: null });
 	};
 }
