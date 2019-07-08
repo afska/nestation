@@ -1,27 +1,22 @@
 import React, { Component } from "react";
 import strings from "../locales";
 import styles from "./Controls.module.css";
+import classNames from "classnames";
 
 export default class Controls extends Component {
 	render() {
 		return (
 			<div className={styles.controls}>
-				<b style={{ color: "#0e85b0" }}>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{strings.controls}
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<b className={classNames(styles.title, styles.centered)}>
+					{strings.controls}
 				</b>
 				<br />
 				<br />
-				<span>
-					<span style={{ color: "#999999" }}>
-						🠜&nbsp;&nbsp;🠞&nbsp;&nbsp;🠝&nbsp;&nbsp;🠟&nbsp;&nbsp;&nbsp;
-					</span>
-					<span style={{ color: "#d02604" }}>d&nbsp;&nbsp;[space]</span>
-				</span>
-				<br />
-				<span>
-					&nbsp;&nbsp;&nbsp;[supr]&nbsp;&nbsp;[enter]&nbsp;&nbsp;&nbsp;
-				</span>
+				<div className={styles.controller}>
+					<span className={styles.dpad}>🠜 🠞 🠝 🠟</span>
+					<span className={styles.buttons}>d [space]</span>
+				</div>
+				<div className={styles.centered}>[supr] [enter]</div>
 			</div>
 		);
 	}

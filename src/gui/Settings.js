@@ -132,8 +132,17 @@ export default class Settings extends Component {
 	_onKeyDown = (e) => {
 		if (!this.state.mappingButton) return;
 
-		// config.options.input[this.state.]
-		// this.props.onKeyAssigned(e.key);
+		const oldKey = _.findKey(
+			config.options.input,
+			(it) => it === this.state.mappingButton
+		);
+		const newKey = e.key;
+
+		delete config.options.input[oldKey];
+		config.options.input[newKey] = this.state.mappingButton;
+		config.save();
+		bus.emit("keymap", config.options.input);
+
 		this.setState({ mappingButton: null });
 	};
 }

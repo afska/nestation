@@ -9,7 +9,7 @@ export default class SettingsButton extends Component {
 			<div className={styles.button}>
 				<button
 					type="button"
-					tabindex="-1"
+					tabIndex="-1"
 					className="nes-btn"
 					onClick={this._onClick}
 				>
