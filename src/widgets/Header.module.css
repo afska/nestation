@@ -2,21 +2,22 @@
 	width: 100%;
 	position: absolute;
 	user-select: none;
+	pointer-events: none;
+	z-index: 1;
 }
 
 .small {
 	transform: scale(0.5);
 	transform-origin: 0 0;
+	pointer-events: all;
 }
 
 .message {
 	position: absolute;
-	z-index: 1;
 }
 
 .title {
 	position: absolute;
-	z-index: 1;
 	top: 0;
 	right: 0;
 }

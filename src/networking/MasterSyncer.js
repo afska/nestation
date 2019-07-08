@@ -1,9 +1,9 @@
 import EventEmitter from "eventemitter3";
 import { Send } from "./transfer";
+import config from "../config";
 import bus from "../events";
 import strings from "../locales";
 
-const MAX_BLIND_FRAMES = 3;
 const STATE = {
 	SENDING_ROM: 0,
 	PLAYING: 1
@@ -19,7 +19,9 @@ export default class MasterSyncer extends EventEmitter {
 	}
 
 	sync() {
-		if (this._state !== STATE.PLAYING || this._blindFrames > MAX_BLIND_FRAMES) {
+		const { maxBlindFrames } = config.buffering;
+
+		if (this._state !== STATE.PLAYING || this._blindFrames > maxBlindFrames) {
 			bus.emit("isLoading", true);
 			return;
 		}

@@ -1,10 +1,9 @@
 import EventEmitter from "eventemitter3";
 import { Receive } from "./transfer";
+import config from "../config";
 import bus from "../events";
 import strings from "../locales";
 
-const MIN_BUFFER_SIZE = 1;
-const MAX_BUFFER_SIZE = 1;
 const STATE = {
 	RECEIVING_ROM: 0,
 	WAITING_START: 1,
@@ -22,21 +21,23 @@ export default class SlaveSyncer extends EventEmitter {
 	}
 
 	sync() {
+		const { minBufferSize, maxBufferSize } = config.buffering;
+
 		// buffer underrun
-		if (this._buffer.length < MIN_BUFFER_SIZE) {
+		if (this._buffer.length < minBufferSize) {
 			this._isBuffering = true;
 			bus.emit("isLoading", true);
 			return;
 		}
 
 		// buffer overrun
-		if (this._buffer.length > MAX_BUFFER_SIZE) {
-			for (let i = 0; i < this._buffer.length - MAX_BUFFER_SIZE; i++)
+		if (this._buffer.length > maxBufferSize) {
+			for (let i = 0; i < this._buffer.length - maxBufferSize; i++)
 				this._runFrame();
 		}
 
 		// normal handling
-		if (this._isBuffering && this._buffer.length < MAX_BUFFER_SIZE) return;
+		if (this._isBuffering && this._buffer.length < maxBufferSize) return;
 		else this._runFrame();
 	}
 
