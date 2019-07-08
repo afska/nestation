@@ -1,4 +1,6 @@
 import Controller from "./Controller";
+import config from "../../config";
+import bus from "../../events";
 import _ from "lodash";
 
 export default class LocalController extends Controller {
@@ -7,17 +9,7 @@ export default class LocalController extends Controller {
 
 		this.immediateButtons = _.clone(this.buttons);
 		this.onStart = onStart;
-
-		this.keyMap = {
-			" ": "BUTTON_A",
-			d: "BUTTON_B",
-			Delete: "BUTTON_SELECT",
-			Enter: "BUTTON_START",
-			ArrowUp: "BUTTON_UP",
-			ArrowDown: "BUTTON_DOWN",
-			ArrowLeft: "BUTTON_LEFT",
-			ArrowRight: "BUTTON_RIGHT"
-		};
+		this.keyMap = config.options.input;
 	}
 
 	toByte() {
@@ -27,11 +19,13 @@ export default class LocalController extends Controller {
 	attach() {
 		window.addEventListener("keydown", this._onKeyDown);
 		window.addEventListener("keyup", this._onKeyUp);
+		bus.on("keymap-updated", () => (this.keyMap = config.options.input));
 	}
 
 	detach() {
 		window.removeEventListener("keydown", this._onKeyDown);
 		window.removeEventListener("keyup", this._onKeyUp);
+		bus.removeListener("keymap-updated");
 	}
 
 	_onKeyDown = (e) => {
