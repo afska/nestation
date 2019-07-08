@@ -23,7 +23,7 @@ export default class Settings extends Component {
 
 	componentDidMount() {
 		config.load();
-		this.forceUpdate();
+		this._notify();
 
 		window.addEventListener("keydown", this._onKeyDown);
 	}
@@ -41,6 +41,18 @@ export default class Settings extends Component {
 					onClick={this._onClose}
 				>
 					x
+				</button>
+
+				<button
+					type="button"
+					className={classNames(
+						styles.setDefaultsButton,
+						"nes-btn",
+						"is-warning"
+					)}
+					onClick={this._onSetDefaults}
+				>
+					{strings.setDefaults}
 				</button>
 
 				<section
@@ -114,12 +126,21 @@ export default class Settings extends Component {
 	_update(property, value) {
 		_.set(config.options, property, value);
 		config.save();
+		this._notify();
+	}
+
+	_notify() {
 		bus.emit("volume", config.sound.gain);
 		this.forceUpdate();
 	}
 
 	_onClose = () => {
 		bus.emit("closeSettings");
+	};
+
+	_onSetDefaults = () => {
+		config.reset();
+		this._notify();
 	};
 
 	_onAssign = () => {

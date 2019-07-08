@@ -14,6 +14,7 @@ export default {
 	link: "link",
 	loading: "Loading...",
 	pressStart: "PRESS START",
+	setDefaults: "Set defaults",
 	settings: "Settings",
 	sound: "Sound",
 	shareThis: "Share this",

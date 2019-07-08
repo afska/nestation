@@ -9,8 +9,6 @@ class Config {
 
 	save() {
 		localStorage.setItem(KEY, JSON.stringify(this.options));
-
-		return this;
 	}
 
 	load() {
@@ -18,10 +16,13 @@ class Config {
 			this.options =
 				JSON.parse(localStorage.getItem(KEY)) || this.defaultOptions;
 		} catch (e) {
-			this.options = this.defaultOptions;
+			this.reset();
 		}
+	}
 
-		return this;
+	reset() {
+		this.options = this.defaultOptions;
+		this.save();
 	}
 
 	get sound() {
