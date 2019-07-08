@@ -5,6 +5,7 @@ const DISABLED = "Disabled";
 class Config {
 	constructor() {
 		this.options = this.defaultOptions;
+		this.load();
 	}
 
 	save() {

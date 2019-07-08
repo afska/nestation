@@ -45,8 +45,12 @@ export default class Emulator extends Component {
 	}
 
 	frame() {
-		this.nes.frame();
-		this.screen.writeBuffer();
+		try {
+			this.nes.frame();
+			this.screen.writeBuffer();
+		} catch (e) {
+			this.props.onError(strings.errors.invalidRom, false);
+		}
 	}
 
 	componentWillUnmount() {

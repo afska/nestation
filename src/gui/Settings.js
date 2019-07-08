@@ -22,9 +22,6 @@ export default class Settings extends Component {
 	state = { mappingButton: null };
 
 	componentDidMount() {
-		config.load();
-		this._notify();
-
 		window.addEventListener("keydown", this._onKeyDown);
 	}
 
