@@ -11,7 +11,6 @@ export default class Controls extends Component {
 					{strings.controls}
 				</b>
 				<br />
-				<br />
 				<div className={styles.controller}>
 					<span className={styles.dpad}>🠜 🠞 🠝 🠟</span>
 					<span className={styles.buttons}>d [space]</span>
