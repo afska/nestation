@@ -91,6 +91,7 @@ export default class Settings extends Component {
 	_update(property, value) {
 		_.set(config.options, property, value);
 		config.save();
+		bus.emit("volume", config.sound.gain);
 		this.forceUpdate();
 	}
 

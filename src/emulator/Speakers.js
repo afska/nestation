@@ -1,4 +1,6 @@
 import RingBuffer from "ringbufferjs";
+import config from "../config";
+import bus from "../events";
 
 const BUFFER_SIZE = 8192;
 const DEFAULT_SAMPLE_RATE = 44100;
@@ -20,9 +22,14 @@ export default class Speakers {
 		this.scriptNode = this.audioCtx.createScriptProcessor(1024, 0, 2);
 		this.scriptNode.onaudioprocess = this._onAudioProcess;
 		this.gainNode = this.audioCtx.createGain();
-		this.gainNode.gain.value = 0.1;
+		this.gainNode.gain.value = config.sound.gain;
 		this.gainNode.connect(this.audioCtx.destination);
 		this.scriptNode.connect(this.gainNode);
+
+		bus.on(
+			"volume",
+			(gain) => this.gainNode && (this.gainNode.gain.value = gain)
+		);
 	}
 
 	stop() {
@@ -38,6 +45,8 @@ export default class Speakers {
 			this.audioCtx.close().catch(console.error);
 			this.audioCtx = null;
 		}
+
+		bus.removeListener("volume");
 	}
 
 	getSampleRate() {

@@ -1,6 +1,6 @@
-import _ from "lodash";
-
 const KEY = "options";
+const HALF_VOLUME = "50%";
+const DISABLED = "Disabled";
 
 class Config {
 	constructor() {
@@ -24,10 +24,20 @@ class Config {
 		return this;
 	}
 
+	get sound() {
+		return this.soundOptions.find((it) => it.name === this.options.sound);
+	}
+
+	get buffering() {
+		return this.bufferingOptions.find(
+			(it) => it.name === this.options.buffering
+		);
+	}
+
 	get defaultOptions() {
 		return {
-			sound: _.first(this.soundOptions).name,
-			buffering: _.first(this.bufferingOptions).name,
+			sound: HALF_VOLUME,
+			buffering: DISABLED,
 			input: {
 				" ": "BUTTON_A",
 				d: "BUTTON_B",
@@ -43,20 +53,20 @@ class Config {
 
 	get soundOptions() {
 		return [
-			{ name: "100%", value: 100 },
-			{ name: "90%", value: 90 },
-			{ name: "75%", value: 75 },
-			{ name: "50%", value: 50 },
-			{ name: "25%", value: 25 },
-			{ name: "10%", value: 10 },
-			{ name: "0%", value: 0 }
+			{ name: "100%", gain: 1 },
+			{ name: "90%", gain: 0.9 },
+			{ name: "75%", gain: 0.75 },
+			{ name: HALF_VOLUME, gain: 0.5 },
+			{ name: "25%", gain: 0.25 },
+			{ name: "10%", gain: 0.1 },
+			{ name: "0%", gain: 0 }
 		];
 	}
 
 	get bufferingOptions() {
 		return [
 			{
-				name: "Disabled",
+				name: DISABLED,
 				maxBlindFrames: 3,
 				minBufferSize: 1,
 				maxBufferSize: 1
