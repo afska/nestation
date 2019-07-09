@@ -7,6 +7,7 @@ import styles from "./Controls.module.css";
 import classNames from "classnames";
 import _ from "lodash";
 
+const TRICK_TIME = 100;
 const FRIENDLY_NAMES = {
 	ArrowLeft: "<",
 	ArrowRight: ">",
@@ -21,7 +22,7 @@ export default class Controls extends Component {
 		const isUpArrow = upKey === "~v";
 
 		return (
-			<div className={styles.controls}>
+			<div className={styles.controls} id="controls">
 				<b className={classNames(styles.title, styles.centered)}>
 					{strings.controls}
 				</b>
@@ -56,6 +57,10 @@ export default class Controls extends Component {
 		bus.on("keymap", () => {
 			bus.emit("keymap-updated");
 			this.forceUpdate();
+
+			const element = document.querySelector("#controls");
+			element.classList.remove("blink");
+			setTimeout(() => element.classList.add("blink"), TRICK_TIME);
 		});
 	}
 

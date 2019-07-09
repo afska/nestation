@@ -23,3 +23,20 @@ kbd,
 samp {
 	font-family: "Press Start 2P";
 }
+
+.blink {
+	animation: flash 0.25s ease-out;
+	animation-iteration-count: 1;
+}
+
+@keyframes flash {
+	0% {
+		background-color: transparent;
+	}
+	50% {
+		background-color: #ffffff;
+	}
+	100% {
+		background-color: transparent;
+	}
+}
