@@ -20,6 +20,9 @@
 	position: absolute;
 	top: 0;
 	right: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 .titleLogo {
@@ -31,4 +34,10 @@
 	font-size: 0.7em;
 	margin-left: 8px;
 	vertical-align: text-bottom;
+}
+
+.link {
+	pointer-events: all;
+	display: flex;
+	justify-content: center;
 }
