@@ -36,7 +36,7 @@ export default class SlaveSyncer extends EventEmitter {
 				this._runFrame();
 		}
 
-		// normal handling
+		// normal scenario
 		if (this._isBuffering && this._buffer.length < maxBufferSize) return;
 		else this._runFrame();
 	}

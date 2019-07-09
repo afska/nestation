@@ -19,9 +19,12 @@ export default class MasterSyncer extends EventEmitter {
 	}
 
 	sync() {
-		const { maxBlindFrames } = config.buffering;
+		const { masterBufferLimit } = config.buffering;
 
-		if (this._state !== STATE.PLAYING || this._blindFrames > maxBlindFrames) {
+		if (
+			this._state !== STATE.PLAYING ||
+			this._blindFrames > masterBufferLimit
+		) {
 			bus.emit("isLoading", true);
 			return;
 		}
@@ -60,11 +63,21 @@ export default class MasterSyncer extends EventEmitter {
 	}
 
 	_runFrame() {
+		const { masterBufferLimit } = config.buffering;
+
+		// buffer overrun
+		if (this._buffer.length > masterBufferLimit) {
+			for (let i = 0; i < this._buffer.length - masterBufferLimit; i++)
+				this._buffer.shift();
+		}
+
 		const bytes = this._buffer.shift();
 		if (bytes) {
+			// normal scenario
 			const remoteButtons = new Uint8Array(bytes)[0];
 			this._emulator.remoteController.syncAll(remoteButtons);
-			// TODO: What about the pending (already sent) frame inputs?
+		} else {
+			// buffer underrun, do nothing (assume previous input)
 		}
 
 		const buffer = new Uint8Array(2);

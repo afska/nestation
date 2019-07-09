@@ -69,13 +69,18 @@ class Config {
 		return [
 			{
 				name: DISABLED,
-				maxBlindFrames: 3,
+				masterBufferLimit: 3,
 				minBufferSize: 1,
 				maxBufferSize: 1
 			},
-			{ name: "Low", maxBlindFrames: 3, minBufferSize: 1, maxBufferSize: 2 },
-			{ name: "Medium", maxBlindFrames: 5, minBufferSize: 2, maxBufferSize: 3 },
-			{ name: "High", maxBlindFrames: 5, minBufferSize: 3, maxBufferSize: 5 }
+			{ name: "Low", masterBufferLimit: 3, minBufferSize: 1, maxBufferSize: 2 },
+			{
+				name: "Medium",
+				masterBufferLimit: 5,
+				minBufferSize: 2,
+				maxBufferSize: 3
+			},
+			{ name: "High", masterBufferLimit: 5, minBufferSize: 3, maxBufferSize: 5 }
 		];
 	}
 }
