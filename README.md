@@ -2,7 +2,7 @@
 
 [NEStation](https://rodri042.github.io/nestation) is a web NES emulator frontend (based on [jsnes](https://github.com/bfirsh/jsnes)), which supports two players net play through [WebRTC](https://webrtc.org)'s p2p data channels.
 
-Created by [r-artworks](https://r-artworks.github.io).
+Created by [[r]artworks](https://r-artworks.github.io).
 
 # Screenshots
 
@@ -14,7 +14,7 @@ Created by [r-artworks](https://r-artworks.github.io).
 
 - Fullspeed NES Emulation
 - Low-latency online play
-- ROM Drag & Drop and easy UX
+- ROM Drag & Drop - Easy UX
 - Configurable controls
 - CRT TV emulation
 
@@ -31,7 +31,7 @@ Created by [r-artworks](https://r-artworks.github.io).
 
 WebRTC does everything it can to connect you with your partner, but things may fail on rare network configurations. In those cases, a quick workaround could be enabling a [DMZ](<https://en.wikipedia.org/wiki/DMZ_(computing)>) on one side.
 
-## I have stuttering issues
+## I have stuttering issues!
 
 Then you may want to increase the **Buffer size**, in **Settings**. Lower values offer less input lag, but they can produce stuttering if network latency is not low enough. Try increasing it until it works well.
 
