@@ -61,8 +61,11 @@ export default class MasterSyncer extends EventEmitter {
 
 	_runFrame() {
 		const bytes = this._buffer.shift();
-		const remoteButtons = new Uint8Array(bytes)[0];
-		this._emulator.remoteController.syncAll(remoteButtons);
+		if (bytes) {
+			const remoteButtons = new Uint8Array(bytes)[0];
+			this._emulator.remoteController.syncAll(remoteButtons);
+			// TODO: What about the pending (already sent) frame inputs?
+		}
 
 		const buffer = new Uint8Array(2);
 		buffer[0] = this._emulator.localController.toByte();
