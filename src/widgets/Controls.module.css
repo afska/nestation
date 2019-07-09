@@ -21,11 +21,13 @@
 .dpad {
 	align-self: flex-start;
 	color: #999999;
+	margin-right: 10px;
 }
 
 .buttons {
 	align-self: flex-end;
 	color: #d02604;
+	margin-left: 10px;
 }
 
 .centered {

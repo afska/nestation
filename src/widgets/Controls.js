@@ -1,21 +1,25 @@
 import React, { Component } from "react";
 import config from "../config";
 import strings from "../locales";
+import helpers from "../gui/helpers";
 import bus from "../events";
 import styles from "./Controls.module.css";
 import classNames from "classnames";
 import _ from "lodash";
 
 const FRIENDLY_NAMES = {
-	ArrowLeft: "🠜",
-	ArrowRight: "🠞",
-	ArrowUp: "🠝",
-	ArrowDown: "🠟",
+	ArrowLeft: "<",
+	ArrowRight: ">",
+	ArrowUp: "~v",
+	ArrowDown: "v",
 	" ": "[Space]"
 };
 
 export default class Controls extends Component {
 	render() {
+		const upKey = this._keyFor("BUTTON_UP");
+		const isUpArrow = upKey === "~v";
+
 		return (
 			<div className={styles.controls}>
 				<b className={classNames(styles.title, styles.centered)}>
@@ -24,8 +28,18 @@ export default class Controls extends Component {
 				<br />
 				<div className={styles.controller}>
 					<span className={styles.dpad}>
-						{this._keyFor("BUTTON_LEFT")} {this._keyFor("BUTTON_RIGHT")}{" "}
-						{this._keyFor("BUTTON_UP")} {this._keyFor("BUTTON_DOWN")}
+						<span>{this._keyFor("BUTTON_LEFT")}</span>{" "}
+						<span>{this._keyFor("BUTTON_RIGHT")}</span>{" "}
+						<span
+							style={
+								isUpArrow
+									? { transform: "scale(1, -1)", display: "inline-block" }
+									: null
+							}
+						>
+							{isUpArrow ? "v" : upKey}
+						</span>{" "}
+						<span>{this._keyFor("BUTTON_DOWN")}</span>
 					</span>
 					<span className={styles.buttons}>
 						{this._keyFor("BUTTON_B")} {this._keyFor("BUTTON_A")}
@@ -58,7 +72,8 @@ export default class Controls extends Component {
 
 	_format(key) {
 		return (
-			FRIENDLY_NAMES[key] || (key.length === 1 ? key.toUpperCase() : `[${key}]`)
+			FRIENDLY_NAMES[key] ||
+			(key.length === 1 ? key.toUpperCase() : `[${helpers.ellipsize(key, 6)}]`)
 		);
 	}
 }

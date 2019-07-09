@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 export default class KeyBinding extends Component {
 	render() {
-		const { displayName, isAssigning } = this.props;
+		const { displayName, isAssigning, verticalMirror = false } = this.props;
 
 		return (
 			<button
@@ -10,7 +10,15 @@ export default class KeyBinding extends Component {
 				className="nes-btn is-primary"
 				onClick={this._onAssign}
 			>
-				{isAssigning ? "..." : displayName}
+				<span
+					style={
+						verticalMirror
+							? { transform: "scale(1, -1)", display: "inline-block" }
+							: null
+					}
+				>
+					{isAssigning ? "..." : displayName}
+				</span>
 			</button>
 		);
 	}

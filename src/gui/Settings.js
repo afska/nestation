@@ -8,10 +8,10 @@ import classNames from "classnames";
 import _ from "lodash";
 
 const BUTTONS = [
-	{ name: "BUTTON_LEFT", displayName: "🠜" },
-	{ name: "BUTTON_RIGHT", displayName: "🠞" },
-	{ name: "BUTTON_UP", displayName: "🠝" },
-	{ name: "BUTTON_DOWN", displayName: "🠟" },
+	{ name: "BUTTON_LEFT", displayName: "<" },
+	{ name: "BUTTON_RIGHT", displayName: ">" },
+	{ name: "BUTTON_UP", displayName: "v", verticalMirror: true },
+	{ name: "BUTTON_DOWN", displayName: "v" },
 	{ name: "BUTTON_B", displayName: "B" },
 	{ name: "BUTTON_A", displayName: "A" },
 	{ name: "BUTTON_SELECT", displayName: "SELECT" },
@@ -107,6 +107,7 @@ export default class Settings extends Component {
 						<KeyBinding
 							key={button.name}
 							name={button.name}
+							verticalMirror={button.verticalMirror}
 							displayName={button.displayName}
 							isAssigning={this.state.mappingButton === button.name}
 							onAssignStart={() =>
