@@ -34,7 +34,7 @@ export default class LocalController extends Controller {
 
 		if (button === "BUTTON_START") this.onStart();
 		this.immediateButtons[button] = true;
-		this.sync(button, true, this.isMaster);
+		if (this.isMaster) this.sync(button, true);
 	};
 
 	_onKeyUp = (e) => {
@@ -42,7 +42,7 @@ export default class LocalController extends Controller {
 		if (!button) return;
 
 		this.immediateButtons[button] = false;
-		this.sync(button, false, this.isMaster);
+		if (this.isMaster) this.sync(button, false);
 	};
 
 	get isMaster() {
