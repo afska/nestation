@@ -22,7 +22,7 @@
 	right: 0;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	align-items: center;
 }
 
 .titleLogo {
@@ -38,6 +38,4 @@
 
 .link {
 	pointer-events: all;
-	display: flex;
-	justify-content: center;
 }

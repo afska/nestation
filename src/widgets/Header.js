@@ -28,17 +28,21 @@ export default class Header extends Component {
 						<span className={styles.titleText}>NEStation</span>
 					</div>
 
-					<a
-						href="https://github.com/rodri042/nestation#nestation"
-						target="_blank"
-						rel="noopener noreferrer"
-						className={classNames(styles.link, "nes-pointer")}
-					>
-						<i
-							style={{ alignSelf: "center" }}
-							className={classNames(styles.titleLogo, "nes-octocat")}
-						/>
-					</a>
+					<div>
+						<a
+							href="https://github.com/rodri042/nestation#nestation"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							<i
+								className={classNames(
+									styles.link,
+									styles.titleLogo,
+									"nes-octocat"
+								)}
+							/>
+						</a>
+					</div>
 				</h2>
 			</div>
 		);
