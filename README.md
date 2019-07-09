@@ -1,6 +1,6 @@
 # NEStation
 
-[NEStation](https://rodri042.github.io/nestation) is an web NES emulator frontend (based on [jsnes](https://github.com/bfirsh/jsnes)), which supports two players net play through [WebRTC](https://webrtc.org)'s p2p data channels.
+[NEStation](https://rodri042.github.io/nestation) is a web NES emulator frontend (based on [jsnes](https://github.com/bfirsh/jsnes)), which supports two players net play through [WebRTC](https://webrtc.org)'s p2p data channels.
 
 Created by [r-artworks](https://r-artworks.github.io).
 
