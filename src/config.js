@@ -40,6 +40,7 @@ class Config {
 		return {
 			sound: HALF_VOLUME,
 			buffering: DISABLED,
+			crt: true,
 			input: {
 				" ": "BUTTON_A",
 				d: "BUTTON_B",

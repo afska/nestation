@@ -101,6 +101,29 @@ export default class Settings extends Component {
 				<section
 					className={classNames("nes-container", "is-dark", "with-title")}
 				>
+					<div className="title">{strings.crtEffect}</div>
+
+					<div>
+						{[true, false].map((it) => (
+							<label key={it}>
+								<input
+									type="radio"
+									className="nes-radio is-dark"
+									name="crt"
+									checked={config.options.crt === it}
+									onChange={() => this._update("crt", it)}
+								/>
+								<span>{strings[`enabled_${it}`]}</span>
+							</label>
+						))}
+					</div>
+				</section>
+				<br />
+				<br />
+
+				<section
+					className={classNames("nes-container", "is-dark", "with-title")}
+				>
 					<div className="title">{strings.input}</div>
 
 					{BUTTONS.map((button) => (
@@ -130,6 +153,11 @@ export default class Settings extends Component {
 	_notify() {
 		bus.emit("volume", config.sound.gain);
 		bus.emit("keymap");
+
+		const container = document.querySelector("#container");
+		if (config.options.crt) container.classList.add("crt");
+		else container.classList.remove("crt");
+
 		this.forceUpdate();
 	}
 

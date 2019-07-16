@@ -104,12 +104,12 @@
 		opacity: 0.69383;
 	}
 }
-.container {
+.crt {
 	background: #121010;
 	position: relative;
 	overflow: hidden;
 }
-.container::after {
+.crt::after {
 	content: " ";
 	display: block;
 	position: absolute;
@@ -122,7 +122,7 @@
 	z-index: 2;
 	pointer-events: none;
 }
-.container::before {
+.crt::before {
 	content: " ";
 	display: block;
 	position: absolute;
@@ -142,7 +142,7 @@
 	pointer-events: none;
 }
 
-#switch:checked ~ .container::after {
+#switch:checked ~ .crt::after {
 	animation: flicker 0.15s infinite;
 }
 
@@ -204,12 +204,12 @@
 	border: none;
 }
 
-#switch ~ .container > .screen {
+#switch ~ .crt > .screen {
 	animation: turn-off 0.55s cubic-bezier(0.23, 1, 0.32, 1);
 	animation-fill-mode: forwards;
 }
 
-#switch:checked ~ .container > .screen {
+#switch:checked ~ .crt > .screen {
 	animation: turn-on 0.5s linear;
 	animation-fill-mode: forwards;
 }
@@ -238,7 +238,7 @@
 	pointer-events: none;
 }
 
-#switch:checked ~ .container .overlay {
+#switch:checked ~ .crt .overlay {
 	animation: overlay-anim 5s linear;
 	animation-fill-mode: forwards;
 }

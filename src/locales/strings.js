@@ -4,7 +4,10 @@ export default {
 	connecting: "Connecting...",
 	controls: "-Controls-",
 	copied: "Copied!",
+	crtEffect: "CRT Effect",
 	dragARomHere: "Drag a NES rom file here!",
+	enabled_false: "Disabled",
+	enabled_true: "Enabled",
 	errors: {
 		connectionFailed: "CONNECTION FAILED :(",
 		invalidRom: "INVALID ROM :(",
