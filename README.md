@@ -41,7 +41,7 @@ Well, not all the **NES mappers** are supported. Feel free to raise an issue at 
 
 ## There's a crackling sound!
 
-Make sure you have your speakers' default format set at **44100Hz**:
+Make sure you have your speakers' default format set as **96000Hz** at most:
 
 ![sound](https://user-images.githubusercontent.com/1631752/60781075-51310e80-a117-11e9-90fa-45b8281eae8d.png)
 
