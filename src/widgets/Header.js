@@ -33,6 +33,7 @@ export default class Header extends Component {
 							href="https://github.com/rodri042/nestation#nestation"
 							target="_blank"
 							rel="noopener noreferrer"
+							tabIndex="-1"
 						>
 							<i
 								className={classNames(

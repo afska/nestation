@@ -22,7 +22,11 @@ export default class InviteHeader extends Component {
 				) : token ? (
 					<span>
 						{strings.shareThis}{" "}
-						<a href={`?token=${token}#/join`} onClick={this._copyLink}>
+						<a
+							href={`?token=${token}#/join`}
+							onClick={this._copyLink}
+							tabIndex="-1"
+						>
 							{strings.link}
 						</a>{" "}
 						{strings.toPlayWithSomeone}
