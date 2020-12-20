@@ -16,6 +16,7 @@ Created by [[r]labs](https://r-labs.io).
 - Low-latency online play
 - ROM Drag & Drop - Easy UX
 - Configurable controls
+- Xbox Gamepad support
 - CRT TV emulation
 
 # Open-source libraries involved

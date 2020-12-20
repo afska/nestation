@@ -22,5 +22,6 @@ export default {
 	sound: "Sound",
 	shareThis: "Share this",
 	toPlayWithSomeone: "to play with someone!",
-	waiting: "WAITING..."
+	waiting: "WAITING...",
+	yourXboxController: "Your Xbox controller"
 };
