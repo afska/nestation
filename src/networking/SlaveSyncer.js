@@ -32,8 +32,8 @@ export default class SlaveSyncer extends EventEmitter {
 
 		// buffer overrun
 		if (this._buffer.length > maxBufferSize) {
-			for (let i = 0; i < this._buffer.length - maxBufferSize; i++)
-				this._runFrame();
+			const excess = this._buffer.length - maxBufferSize;
+			for (let i = 0; i < excess; i++) this._runFrame();
 		}
 
 		// normal scenario

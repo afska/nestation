@@ -67,8 +67,8 @@ export default class MasterSyncer extends EventEmitter {
 
 		// buffer overrun
 		if (this._buffer.length > masterBufferLimit) {
-			for (let i = 0; i < this._buffer.length - masterBufferLimit; i++)
-				this._buffer.shift();
+			const excess = this._buffer.length - masterBufferLimit;
+			for (let i = 0; i < excess; i++) this._buffer.shift();
 		}
 
 		const bytes = this._buffer.shift();
