@@ -5,7 +5,7 @@ export default {
 	controls: "-Controls-",
 	copied: "Copied!",
 	crtEffect: "CRT Effect",
-	dragARomHere: "Drag a NES rom file here!",
+	dragARomHere: "Drag a NES ROM file here!",
 	enabled_false: "Disabled",
 	enabled_true: "Enabled",
 	errors: {

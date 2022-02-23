@@ -48,11 +48,20 @@ export default class MasterSyncer extends EventEmitter {
 	initializeEmulator(emulator) {
 		this._emulator = emulator;
 
+		emulator.localController.isMaster = true;
 		emulator.localController.player = 1;
 		emulator.remoteController.player = 2;
+		bus.emit("player", 1);
 	}
 
 	onStartPressed() {}
+
+	onSwap() {
+		const remotePlayer = this._emulator.remoteController.player;
+		this._emulator.remoteController.player = this._emulator.localController.player;
+		this._emulator.localController.player = remotePlayer;
+		bus.emit("player", remotePlayer);
+	}
 
 	_start() {
 		this._transfer = null;
@@ -75,14 +84,18 @@ export default class MasterSyncer extends EventEmitter {
 		if (bytes) {
 			// normal scenario
 			const remoteButtons = new Uint8Array(bytes)[0];
-			this._emulator.remoteController.syncAll(remoteButtons);
+			const swapButton = new Uint8Array(bytes)[1];
+			this._emulator.remoteController.syncAll(remoteButtons, swapButton);
 		} else {
 			// buffer underrun, do nothing (assume previous input)
 		}
 
-		const buffer = new Uint8Array(2);
+		const buffer = new Uint8Array(3);
 		buffer[0] = this._emulator.localController.toByte();
 		buffer[1] = this._emulator.remoteController.toByte();
+		buffer[2] =
+			(this._emulator.localController.toSwapByte() << 1) |
+			this._emulator.remoteController.toSwapByte();
 		this.channel.send(buffer);
 		this._blindFrames++;
 

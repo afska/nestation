@@ -1,6 +1,6 @@
 const KEY = "options";
 const HALF_VOLUME = "50%";
-const DISABLED = "Disabled";
+const LOW = "Low";
 
 class Config {
 	constructor() {
@@ -39,7 +39,7 @@ class Config {
 	get defaultOptions() {
 		return {
 			sound: HALF_VOLUME,
-			buffering: DISABLED,
+			buffering: LOW,
 			crt: true,
 			input: {
 				" ": "BUTTON_A",
@@ -49,7 +49,8 @@ class Config {
 				ArrowUp: "BUTTON_UP",
 				ArrowDown: "BUTTON_DOWN",
 				ArrowLeft: "BUTTON_LEFT",
-				ArrowRight: "BUTTON_RIGHT"
+				ArrowRight: "BUTTON_RIGHT",
+				r: "SWAP"
 			}
 		};
 	}
@@ -69,12 +70,12 @@ class Config {
 	get bufferingOptions() {
 		return [
 			{
-				name: DISABLED,
+				name: "Disabled",
 				masterBufferLimit: 3,
 				minBufferSize: 1,
 				maxBufferSize: 1
 			},
-			{ name: "Low", masterBufferLimit: 3, minBufferSize: 1, maxBufferSize: 2 },
+			{ name: LOW, masterBufferLimit: 3, minBufferSize: 1, maxBufferSize: 2 },
 			{
 				name: "Medium",
 				masterBufferLimit: 5,

@@ -4,9 +4,10 @@ import bus from "../../events";
 import _ from "lodash";
 
 export default class LocalController extends Controller {
-	constructor(player, getNes, onStart = () => {}) {
-		super(player, getNes);
+	constructor(player, getNes, onSwap, onStart = () => {}) {
+		super(player, getNes, onSwap);
 
+		this.isMaster = true;
 		this.immediateButtons = _.clone(this.buttons);
 		this.onStart = onStart;
 		this.keyMap = config.options.input;
@@ -14,6 +15,10 @@ export default class LocalController extends Controller {
 
 	toByte() {
 		return super.toByte(this.immediateButtons);
+	}
+
+	toSwapByte(source) {
+		return super.toSwapByte(this.immediateButtons);
 	}
 
 	attach() {
@@ -46,6 +51,7 @@ export default class LocalController extends Controller {
 		this._setButton("BUTTON_DOWN", isPressed(13));
 		this._setButton("BUTTON_LEFT", isPressed(14));
 		this._setButton("BUTTON_RIGHT", isPressed(15));
+		this._setButton("SWAP", isPressed(2));
 	};
 
 	_onKeyDown = (e) => {
@@ -67,9 +73,5 @@ export default class LocalController extends Controller {
 
 		this.immediateButtons[button] = isPressed;
 		if (this.isMaster) this.sync(button, isPressed);
-	}
-
-	get isMaster() {
-		return this.player === 1;
 	}
 }

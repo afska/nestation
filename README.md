@@ -15,6 +15,7 @@ Created by [[r]labs](https://r-labs.io).
 - Fullspeed NES Emulation
 - Low-latency online play
 - ROM Drag & Drop - Easy UX
+- Swap P1 and P2 at any time
 - Configurable controls
 - Xbox Gamepad support
 - CRT TV emulation

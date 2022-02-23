@@ -25,7 +25,7 @@ samp {
 }
 
 .blink {
-	animation: flash 0.25s ease-out;
+	animation: flash 0.5s linear;
 	animation-iteration-count: 1;
 }
 

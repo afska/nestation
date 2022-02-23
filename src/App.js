@@ -16,7 +16,7 @@ export default class App extends PureComponent {
 		else return <PlayScreen />;
 	}
 
-	componentWillMount() {
+	UNSAFE_componentWillMount() {
 		this._listener = window.addEventListener("hashchange", (e) => {
 			this.forceUpdate();
 		});

@@ -15,7 +15,8 @@ const BUTTONS = [
 	{ name: "BUTTON_B", displayName: "B" },
 	{ name: "BUTTON_A", displayName: "A" },
 	{ name: "BUTTON_SELECT", displayName: "SELECT" },
-	{ name: "BUTTON_START", displayName: "START" }
+	{ name: "BUTTON_START", displayName: "START" },
+	{ name: "SWAP", displayName: "<SWAP>" }
 ];
 
 export default class Settings extends Component {

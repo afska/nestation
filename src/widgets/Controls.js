@@ -17,6 +17,8 @@ const FRIENDLY_NAMES = {
 };
 
 export default class Controls extends Component {
+	state = { player: 1 };
+
 	render() {
 		const upKey = this._keyFor("BUTTON_UP");
 		const isUpArrow = upKey === "~v";
@@ -25,6 +27,12 @@ export default class Controls extends Component {
 			<div className={styles.controls} id="controls">
 				<b className={classNames(styles.title, styles.centered)}>
 					{strings.controls}
+				</b>
+				<b className={classNames(styles.title, styles.centered)}>
+					{this.state.player}P
+				</b>
+				<b className={classNames(styles.dpad, styles.centered)}>
+					(Swap: {this._keyFor("SWAP")})
 				</b>
 				<br />
 				{this.usesGamepad ? (
@@ -59,15 +67,26 @@ export default class Controls extends Component {
 		);
 	}
 
-	componentDidMount() {
-		bus.on("keymap", () => {
-			bus.emit("keymap-updated");
-			this.forceUpdate();
+	blink() {
+		const element = document.querySelector("#controls");
+		element.classList.remove("blink");
+		setTimeout(() => element.classList.add("blink"), TRICK_TIME);
+	}
 
-			const element = document.querySelector("#controls");
-			element.classList.remove("blink");
-			setTimeout(() => element.classList.add("blink"), TRICK_TIME);
-		});
+	componentDidMount() {
+		bus
+			.on("keymap", () => {
+				bus.emit("keymap-updated");
+				this.forceUpdate();
+				this.blink();
+			})
+			.on("player", (player) => {
+				this.setState({ player });
+				this.blink();
+			})
+			.on("reset", () => {
+				this.setState({ player: 1 });
+			});
 
 		window.addEventListener("gamepadconnected", this._onGamepadConnected);
 	}
