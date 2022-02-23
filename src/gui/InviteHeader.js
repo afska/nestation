@@ -50,6 +50,7 @@ export default class InviteHeader extends Component {
 				.on("connected", () => {
 					onSyncer(new MasterSyncer(this.channel));
 				})
+				.on("timeout", onError)
 				.on("disconnected", onError);
 			this.setState({ token: this.channel.token, isDown: false });
 		} catch (e) {

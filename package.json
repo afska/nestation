@@ -3,16 +3,16 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "buffer": "^5.2.1",
-    "classnames": "^2.2.6",
-    "eventemitter3": "^4.0.0",
-    "jsnes": "^1.1.0",
-    "lodash": "^4.17.11",
+    "buffer": "^5.7.1",
+    "classnames": "^2.3.1",
+    "eventemitter3": "^4.0.7",
+    "jsnes": "^1.2.1",
+    "lodash": "^4.17.21",
     "nes.css": "2.1.1",
-    "query-string": "^6.5.0",
-    "quickp2p": "^2.0.3",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "query-string": "^6.14.1",
+    "quickp2p": "^2.1.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "react-loader-spinner": "^2.3.0",
     "react-scripts": "^2.1.8",
     "ringbufferjs": "^1.1.0"
@@ -39,9 +39,9 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "chai": "^4.2.0",
+    "chai": "^4.3.6",
     "husky": "^1.3.1",
     "prettier": "1.16.4",
-    "pretty-quick": "^1.10.0"
+    "pretty-quick": "^1.11.1"
   }
 }

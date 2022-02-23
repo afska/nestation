@@ -22,6 +22,7 @@ export default class JoinHeader extends Component {
 				.on("connected", () => {
 					onSyncer(new SlaveSyncer(channel));
 				})
+				.on("timeout", onError)
 				.on("disconnected", onError);
 		} catch (e) {
 			onError();
