@@ -70,7 +70,16 @@ export default class LocalController extends Controller {
 
 	_setButton(button, isPressed) {
 		if (button === "BUTTON_START" && isPressed) this.onStart();
+		if (button === "SWAP") {
+			_.each(this.immediateButtons, (v, k) => {
+				if (k !== "SWAP") this._sync(k, false);
+			});
+		}
 
+		this._sync(button, isPressed);
+	}
+
+	_sync(button, isPressed) {
 		this.immediateButtons[button] = isPressed;
 		if (this.isMaster) this.sync(button, isPressed);
 	}
