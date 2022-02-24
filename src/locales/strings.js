@@ -19,8 +19,9 @@ export default {
 	pressStart: "PRESS START",
 	setDefaults: "Set defaults",
 	settings: "Settings",
-	sound: "Sound",
 	shareThis: "Share this",
+	sound: "Sound",
+	swap: "Swap",
 	toPlayWithSomeone: "to play with someone!",
 	waiting: "WAITING...",
 	yourXboxController: "Your Xbox controller"
