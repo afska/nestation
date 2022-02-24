@@ -44,14 +44,20 @@ export default class InviteHeader extends Component {
 		const { needsRom, onSyncer, onError } = this.props;
 		if (needsRom || this.channel) return;
 
+		const onConnectionError = () => {
+			this.channel = null;
+			this.setState({ token: null, copied: false });
+			onError();
+		};
+
 		try {
 			this.channel = await quickp2p.createChannel();
 			this.channel
 				.on("connected", () => {
 					onSyncer(new MasterSyncer(this.channel));
 				})
-				.on("timeout", onError)
-				.on("disconnected", onError);
+				.on("timeout", onConnectionError)
+				.on("disconnected", onConnectionError);
 			this.setState({ token: this.channel.token, isDown: false });
 		} catch (e) {
 			this.setState({ isDown: true });
