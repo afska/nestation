@@ -40,7 +40,7 @@ export default class Controls extends Component {
 				)}
 				<br />
 				{this.usesGamepad ? (
-					<div className={styles.centered}>{strings.yourXboxController}</div>
+					<div className={styles.centered}>{strings.yourController}</div>
 				) : (
 					<>
 						<div className={styles.controller}>
@@ -88,21 +88,17 @@ export default class Controls extends Component {
 				this.setState({ player });
 				this.blink();
 			})
+			.on("gamepad", this._onGamepadConnected)
 			.on("reset", () => {
 				this.setState({ player: 1 });
 			});
-
-		window.addEventListener("gamepadconnected", this._onGamepadConnected);
 	}
 
 	componentWillUnmount() {
 		bus.removeListener("keymap");
-		window.removeEventListener("gamepadconnected");
 	}
 
 	_onGamepadConnected = (e) => {
-		if (e.gamepad.mapping !== "standard") return;
-
 		this.usesGamepad = true;
 		this.forceUpdate();
 	};

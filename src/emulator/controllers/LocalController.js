@@ -22,9 +22,7 @@ export default class LocalController extends Controller {
 	}
 
 	attach() {
-		setInterval(() => {
-			this._processGamepadIfPossible();
-		}, 10);
+		this.$gamepadInterval = setInterval(this._processGamepadIfPossible, 10);
 
 		window.addEventListener("keydown", this._onKeyDown);
 		window.addEventListener("keyup", this._onKeyUp);
@@ -35,11 +33,17 @@ export default class LocalController extends Controller {
 		window.removeEventListener("keydown", this._onKeyDown);
 		window.removeEventListener("keyup", this._onKeyUp);
 		bus.removeListener("keymap-updated");
+		clearInterval(this.$gamepadInterval);
 	}
 
 	_processGamepadIfPossible = () => {
 		const gamepad = _.first(navigator.getGamepads());
 		if (!gamepad || gamepad.mapping !== "standard") return;
+		if (window.usesGamepad === undefined) {
+			window.usesGamepad = window.confirm(`Use ${gamepad.id}?`);
+			if (window.usesGamepad) bus.emit("gamepad");
+		}
+		if (!window.usesGamepad) return;
 
 		const isPressed = (id) => gamepad.buttons[id].pressed;
 
@@ -55,6 +59,8 @@ export default class LocalController extends Controller {
 	};
 
 	_onKeyDown = (e) => {
+		if (this.usesGamepad) return;
+
 		const button = this.keyMap[e.key];
 		if (!button) return;
 
@@ -62,6 +68,8 @@ export default class LocalController extends Controller {
 	};
 
 	_onKeyUp = (e) => {
+		if (this.usesGamepad) return;
+
 		const button = this.keyMap[e.key];
 		if (!button) return;
 
@@ -70,7 +78,7 @@ export default class LocalController extends Controller {
 
 	_setButton(button, isPressed) {
 		if (button === "BUTTON_START" && isPressed) this.onStart();
-		if (button === "SWAP") {
+		if (button === "SWAP" && isPressed) {
 			_.each(this.immediateButtons, (v, k) => {
 				if (k !== "SWAP") this._sync(k, false);
 			});

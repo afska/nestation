@@ -24,5 +24,5 @@ export default {
 	swap: "Swap",
 	toPlayWithSomeone: "to play with someone!",
 	waiting: "WAITING...",
-	yourXboxController: "Your Xbox controller"
+	yourController: "Your controller"
 };
