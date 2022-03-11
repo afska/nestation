@@ -74,6 +74,7 @@ export default class LocalController extends Controller {
 			_.each(this.immediateButtons, (v, k) => {
 				if (k !== "SWAP") this._sync(k, false);
 			});
+			if (this.player !== 1) isPressed = false;
 		}
 
 		this._sync(button, isPressed);

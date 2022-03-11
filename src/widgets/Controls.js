@@ -31,9 +31,13 @@ export default class Controls extends Component {
 				<b className={classNames(styles.title, styles.centered)}>
 					{this.state.player}P
 				</b>
-				<b className={classNames(styles.dpad, styles.centered)}>
-					({strings.swap}: {this._keyFor("SWAP")})
-				</b>
+				{this.state.player === 1 ? (
+					<b className={classNames(styles.dpad, styles.centered)}>
+						({strings.swap}: {this._keyFor("SWAP")})
+					</b>
+				) : (
+					<br />
+				)}
 				<br />
 				{this.usesGamepad ? (
 					<div className={styles.centered}>{strings.yourXboxController}</div>
