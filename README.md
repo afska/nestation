@@ -17,7 +17,7 @@ Created by [[r]labs](https://r-labs.io).
 - ROM Drag & Drop - Easy UX
 - Swap P1 and P2 at any time
 - Configurable controls
-- Xbox Gamepad support
+- Gamepad support
 - CRT TV emulation
 
 # Open-source libraries involved
