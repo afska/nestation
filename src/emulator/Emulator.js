@@ -12,13 +12,8 @@ export default class Emulator extends Component {
 		super(props);
 
 		const getNes = () => this.nes;
-		this.localController = new LocalController(
-			1,
-			getNes,
-			props.onSwap,
-			props.onStartPressed
-		);
-		this.remoteController = new Controller(2, getNes, props.onSwap);
+		this.localController = new LocalController(1, getNes, props.onStartPressed);
+		this.remoteController = new Controller(2, getNes);
 	}
 
 	render() {

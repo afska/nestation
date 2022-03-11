@@ -4,10 +4,11 @@ import bus from "../../events";
 import _ from "lodash";
 
 export default class LocalController extends Controller {
-	constructor(player, getNes, onSwap, onStart = () => {}) {
-		super(player, getNes, onSwap);
+	constructor(player, getNes, onStart = () => {}) {
+		super(player, getNes);
 
 		this.isMaster = true;
+		this.needsSwap = false;
 		this.immediateButtons = _.clone(this.buttons);
 		this.onStart = onStart;
 		this.keyMap = config.options.input;
@@ -15,10 +16,6 @@ export default class LocalController extends Controller {
 
 	toByte() {
 		return super.toByte(this.immediateButtons);
-	}
-
-	toSwapByte(source) {
-		return super.toSwapByte(this.immediateButtons);
 	}
 
 	attach() {
@@ -39,6 +36,7 @@ export default class LocalController extends Controller {
 	_processGamepadIfPossible = () => {
 		const gamepad = _.first(navigator.getGamepads());
 		if (!gamepad || gamepad.mapping !== "standard") return;
+
 		if (window.usesGamepad === undefined) {
 			window.usesGamepad = window.confirm(`Use ${gamepad.id}?`);
 			if (window.usesGamepad) bus.emit("gamepad");
@@ -78,11 +76,15 @@ export default class LocalController extends Controller {
 
 	_setButton(button, isPressed) {
 		if (button === "BUTTON_START" && isPressed) this.onStart();
-		if (button === "SWAP" && isPressed) {
-			_.each(this.immediateButtons, (v, k) => {
-				if (k !== "SWAP") this._sync(k, false);
-			});
-			if (this.player !== 1) isPressed = false;
+		if (button === "SWAP") {
+			if (this.player === 1 && isPressed) {
+				_.each(this.immediateButtons, (v, k) => {
+					this._sync(k, false);
+				});
+				this.needsSwap = true;
+			}
+
+			return;
 		}
 
 		this._sync(button, isPressed);

@@ -50,6 +50,7 @@ export default class SlaveSyncer extends EventEmitter {
 
 		bus.emit("isLoading", false);
 		emulator.localController.isMaster = false;
+		emulator.localController.needsSwap = false;
 		emulator.localController.player = 2;
 		emulator.remoteController.player = 1;
 		bus.emit("player", 2);
@@ -66,6 +67,7 @@ export default class SlaveSyncer extends EventEmitter {
 		const remotePlayer = this._emulator.remoteController.player;
 		this._emulator.remoteController.player = this._emulator.localController.player;
 		this._emulator.localController.player = remotePlayer;
+		this._emulator.localController.needsSwap = false;
 		bus.emit("player", remotePlayer);
 	}
 
@@ -83,12 +85,10 @@ export default class SlaveSyncer extends EventEmitter {
 		const bytes = this._buffer.shift();
 		const remoteButtons = new Uint8Array(bytes)[0];
 		const localButtons = new Uint8Array(bytes)[1];
-		const swapButtons = new Uint8Array(bytes)[2];
-		this._emulator.remoteController.syncAll(
-			remoteButtons,
-			(swapButtons >> 1) & 1
-		);
-		this._emulator.localController.syncAll(localButtons, swapButtons & 1);
+		const remotePlayer = new Uint8Array(bytes)[2];
+		this._emulator.remoteController.syncAll(remoteButtons);
+		this._emulator.localController.syncAll(localButtons);
+		if (remotePlayer !== this._emulator.remoteController.player) this.onSwap();
 
 		this._emulator.frame();
 	}
@@ -122,7 +122,7 @@ export default class SlaveSyncer extends EventEmitter {
 
 				const buffer = new Uint8Array(2);
 				buffer[0] = this._emulator.localController.toByte();
-				buffer[1] = this._emulator.localController.toSwapByte();
+				buffer[1] = +this._emulator.localController.needsSwap;
 				this.channel.send(buffer);
 
 				break;

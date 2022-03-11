@@ -63,7 +63,6 @@ export default class PlayScreen extends Component {
 									rom={rom}
 									syncer={syncer}
 									onStartPressed={this._onStartPressed}
-									onSwap={this._onSwap}
 									onError={this._onError}
 									ref={(ref) => (this.emulator = ref)}
 								/>
@@ -144,11 +143,6 @@ export default class PlayScreen extends Component {
 	_onStartPressed = () => {
 		if (!this.state.syncer) return;
 		this.state.syncer.onStartPressed();
-	};
-
-	_onSwap = () => {
-		if (!this.state.syncer) return;
-		this.state.syncer.onSwap();
 	};
 
 	_onError = (error, reset = true) => {
