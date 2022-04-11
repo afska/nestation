@@ -22,8 +22,8 @@ export default {
 	shareThis: "Share this",
 	sound: "Sound",
 	swap: "Swap",
+	swapButton: "RB",
 	toPlayWithSomeone: "to play with someone!",
 	waiting: "WAITING...",
-	xButton: "X",
 	yourController: "Your controller"
 };

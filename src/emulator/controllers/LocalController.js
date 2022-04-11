@@ -68,7 +68,7 @@ export default class LocalController extends Controller {
 		this._setButton("BUTTON_DOWN", isPressed(13));
 		this._setButton("BUTTON_LEFT", isPressed(14));
 		this._setButton("BUTTON_RIGHT", isPressed(15));
-		this._setButton("SWAP", isPressed(2));
+		this._setButton("SWAP", isPressed(5));
 	};
 
 	_onKeyDown = (e) => {
