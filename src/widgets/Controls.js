@@ -24,7 +24,7 @@ export default class Controls extends Component {
 		const isUpArrow = upKey === "~v";
 
 		return (
-			<div className={styles.controls} id="controls">
+			<div className={styles.controls}>
 				<b className={classNames(styles.title, styles.centered)}>
 					{strings.controls}
 				</b>
@@ -73,7 +73,7 @@ export default class Controls extends Component {
 	}
 
 	blink() {
-		const element = document.querySelector("#controls");
+		const element = document.querySelector("#root");
 		element.classList.remove("blink");
 		setTimeout(() => element.classList.add("blink"), TRICK_TIME);
 	}
