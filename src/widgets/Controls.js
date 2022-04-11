@@ -33,7 +33,8 @@ export default class Controls extends Component {
 				</b>
 				{this.state.player === 1 ? (
 					<b className={classNames(styles.dpad, styles.centered)}>
-						({strings.swap}: {this._keyFor("SWAP")})
+						({strings.swap}:{" "}
+						{this.usesGamepad ? strings.xButton : this._keyFor("SWAP")})
 					</b>
 				) : (
 					<br />

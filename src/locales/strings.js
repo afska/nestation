@@ -24,5 +24,6 @@ export default {
 	swap: "Swap",
 	toPlayWithSomeone: "to play with someone!",
 	waiting: "WAITING...",
+	xButton: "X",
 	yourController: "Your controller"
 };
