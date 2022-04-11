@@ -48,6 +48,10 @@ export default class Controller {
 		else nes.buttonUp(this.player, jsnes.Controller[button]);
 	}
 
+	resync() {
+		this.syncAll(this.toByte());
+	}
+
 	toByte(source = this.buttons) {
 		return (
 			(source.BUTTON_A && BITS[0]) |

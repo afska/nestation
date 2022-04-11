@@ -14,6 +14,21 @@ export default class LocalController extends Controller {
 		this.keyMap = config.options.input;
 	}
 
+	swapWith(otherController) {
+		const otherPlayer = otherController.player;
+		otherController.player = this.player;
+		this.player = otherPlayer;
+
+		this.needsSwap = false;
+		this.resync();
+		otherController.resync();
+		return otherPlayer;
+	}
+
+	resync() {
+		this.syncAll(super.toByte());
+	}
+
 	toByte() {
 		return super.toByte(this.immediateButtons);
 	}

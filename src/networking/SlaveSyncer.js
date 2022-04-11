@@ -64,11 +64,10 @@ export default class SlaveSyncer extends EventEmitter {
 	}
 
 	onSwap() {
-		const remotePlayer = this._emulator.remoteController.player;
-		this._emulator.remoteController.player = this._emulator.localController.player;
-		this._emulator.localController.player = remotePlayer;
-		this._emulator.localController.needsSwap = false;
-		bus.emit("player", remotePlayer);
+		const player = this._emulator.localController.swapWith(
+			this._emulator.remoteController
+		);
+		bus.emit("player", player);
 	}
 
 	_start() {
