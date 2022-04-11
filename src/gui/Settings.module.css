@@ -4,6 +4,8 @@
 	flex-direction: column;
 	height: 100%;
 	justify-content: center;
+
+	transform: scale(0.5);
 }
 
 .closeButton {
