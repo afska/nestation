@@ -102,6 +102,7 @@ export default class Controls extends Component {
 	_onGamepadConnected = (e) => {
 		this.usesGamepad = true;
 		this.forceUpdate();
+		this.blink();
 	};
 
 	_keyFor(button) {
