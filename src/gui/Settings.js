@@ -7,6 +7,8 @@ import styles from "./Settings.module.css";
 import classNames from "classnames";
 import _ from "lodash";
 
+const DEFAULT_SCREEN_WIDTH = 1920;
+
 const BUTTONS = [
 	{ name: "BUTTON_LEFT", displayName: "<" },
 	{ name: "BUTTON_RIGHT", displayName: ">" },
@@ -24,15 +26,18 @@ export default class Settings extends Component {
 
 	componentDidMount() {
 		window.addEventListener("keydown", this._onKeyDown);
+		window.addEventListener("resize", this._onResize);
+		this._onResize();
 	}
 
 	componentWillUnmount() {
 		window.removeEventListener("keydown", this._onKeyDown);
+		window.removeEventListener("resize", this._onResize);
 	}
 
 	render() {
 		return (
-			<div className={styles.settings}>
+			<div className={styles.settings} id="settings">
 				<button
 					type="button"
 					className={classNames(styles.closeButton, "nes-btn", "is-error")}
@@ -195,5 +200,12 @@ export default class Settings extends Component {
 		this._notify();
 
 		this.setState({ mappingButton: null });
+	};
+
+	_onResize = () => {
+		const width = window.innerWidth;
+		const element = document.querySelector("#settings");
+		const scale = width / DEFAULT_SCREEN_WIDTH;
+		element.style.transform = `scale(${scale})`;
 	};
 }
