@@ -93,7 +93,7 @@ export default class MasterSyncer extends EventEmitter {
 				(this._emulator.remoteController.player === 1 &&
 					remoteControllerNeedsSwap)
 			)
-				this.onSwap(remoteControllerNeedsSwap);
+				this.onSwap();
 		} else {
 			// buffer underrun, do nothing (assume previous input)
 		}
