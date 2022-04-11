@@ -42,13 +42,10 @@ export default class Controller {
 	sync(button, isPressed) {
 		const nes = this.getNes();
 
-		if (!this.buttons[button] && isPressed) {
-			this.buttons[button] = true;
-			nes.buttonDown(this.player, jsnes.Controller[button]);
-		} else if (this.buttons[button] && !isPressed) {
-			this.buttons[button] = false;
-			nes.buttonUp(this.player, jsnes.Controller[button]);
-		}
+		this.buttons[button] = isPressed;
+
+		if (isPressed) nes.buttonDown(this.player, jsnes.Controller[button]);
+		else nes.buttonUp(this.player, jsnes.Controller[button]);
 	}
 
 	toByte(source = this.buttons) {

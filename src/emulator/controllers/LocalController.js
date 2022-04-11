@@ -77,13 +77,7 @@ export default class LocalController extends Controller {
 	_setButton(button, isPressed) {
 		if (button === "BUTTON_START" && isPressed) this.onStart();
 		if (button === "SWAP") {
-			if (this.player === 1 && isPressed) {
-				_.each(this.immediateButtons, (v, k) => {
-					this._sync(k, false);
-				});
-				this.needsSwap = true;
-			}
-
+			if (this.player === 1 && isPressed) this.needsSwap = true;
 			return;
 		}
 
