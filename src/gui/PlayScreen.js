@@ -129,7 +129,7 @@ export default class PlayScreen extends Component {
 			const rom = event.target.result;
 
 			if (this.state.syncer) this.state.syncer.updateRom(rom);
-			else this._loadRom(event.target.result);
+			else this._loadRom(rom);
 		};
 
 		reader.readAsArrayBuffer(file);
