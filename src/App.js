@@ -3,9 +3,7 @@ import PlayScreen from "./gui/PlayScreen";
 import querystring from "query-string";
 import quickp2p, { SimpleStore } from "quickp2p";
 
-quickp2p.setStore(
-	new SimpleStore("https://simple-key-value-store.herokuapp.com")
-);
+quickp2p.setStore(new SimpleStore("https://misc.r-labs.io"));
 
 export default class App extends PureComponent {
 	render() {
