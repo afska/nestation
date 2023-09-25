@@ -2,7 +2,7 @@
 
 . ./scripts/try.sh
 
-USERNAME="rodri042"
+USERNAME="afska"
 REPO_NAME="nestation"
 
 TOKEN="$1"

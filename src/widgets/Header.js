@@ -30,7 +30,7 @@ export default class Header extends Component {
 
 					<div>
 						<a
-							href="https://github.com/rodri042/nestation#nestation"
+							href="https://github.com/afska/nestation#nestation"
 							target="_blank"
 							rel="noopener noreferrer"
 							tabIndex="-1"

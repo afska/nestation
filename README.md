@@ -1,6 +1,6 @@
 # NEStation
 
-[NEStation](https://rodri042.github.io/nestation) is a web NES emulator frontend (based on [jsnes](https://github.com/bfirsh/jsnes)), which supports two players net play through [WebRTC](https://webrtc.org)'s p2p data channels.
+[NEStation](https://afska.github.io/nestation) is a web NES emulator frontend (based on [jsnes](https://github.com/bfirsh/jsnes)), which supports two players net play through [WebRTC](https://webrtc.org)'s p2p data channels.
 
 Created by [[r]labs](https://r-labs.io).
 
@@ -23,7 +23,7 @@ Created by [[r]labs](https://r-labs.io).
 # Open-source libraries involved
 
 - [jsnes](https://github.com/bfirsh/jsnes): The core of the emulator
-- [quickp2p](https://github.com/rodri042/quickp2p): A library to quickly connect two peers through WebRTC
+- [quickp2p](https://github.com/afska/quickp2p): A library to quickly connect two peers through WebRTC
 - [React](https://github.com/facebook/react): The well-known UI framework
 - [NES.css](https://nostalgic-css.github.io/NES.css): An awesome NES-themed css library
 
