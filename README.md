@@ -1,8 +1,8 @@
 # NEStation
 
-[NEStation](https://afska.github.io/nestation) is a web NES emulator frontend (based on [jsnes](https://github.com/bfirsh/jsnes)), which supports two players net play through [WebRTC](https://webrtc.org)'s p2p data channels.
+[NEStation](https://afska.github.io/nestation) is a web NES emulator frontend (based on [jsnes](https://github.com/bfirsh/jsnes)), which supports two-player Net Play via [WebRTC](https://webrtc.org)'s p2p data channels.
 
-Created by [[r]labs](https://r-labs.io).
+> <img alt="rlabs" width="16" height="16" src="https://user-images.githubusercontent.com/1631752/116227197-400d2380-a72a-11eb-9e7b-389aae76f13e.png" /> Created by [[r]labs](https://r-labs.io).
 
 # Screenshots
 
@@ -12,13 +12,13 @@ Created by [[r]labs](https://r-labs.io).
 
 # Key features
 
-- Fullspeed NES Emulation
-- Low-latency online play
-- ROM Drag & Drop - Easy UX
-- Swap P1 and P2 at any time
-- Configurable controls
-- Gamepad support
-- CRT TV emulation
+- 🐎 Fullspeed NES Emulation
+- 🌐 Low-latency online play
+- 📦 ROM Drag & Drop - Easy UX
+- 🔀 Swap P1 and P2 at any time
+- ⌨️ Configurable controls
+- 🎮 Gamepad support
+- 📺 CRT TV emulation
 
 # Open-source libraries involved
 
@@ -39,7 +39,7 @@ Then you may want to increase the **Buffer size**, in **Settings**. Lower values
 
 ## Some games don't work!
 
-Well, not all the **NES mappers** are supported. Feel free to raise an issue at [here](https://github.com/bfirsh/jsnes/issues) with the game you're trying to run.
+Well, not all the **NES mappers** are supported. Feel free to raise an issue [here](https://github.com/bfirsh/jsnes/issues) with the game you're trying to run.
 
 ## There's a crackling sound!
 
