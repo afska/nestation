@@ -25,7 +25,17 @@
     "dev": "npm start"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "overrides": [
+      {
+        "files": [
+          "**/*.js?(x)"
+        ],
+        "rules": {
+          "import/no-webpack-loader-syntax": "off"
+        }
+      }
+    ]
   },
   "husky": {
     "hooks": {
@@ -42,6 +52,7 @@
     "chai": "^4.3.6",
     "husky": "^1.3.1",
     "prettier": "1.16.4",
-    "pretty-quick": "^1.11.1"
+    "pretty-quick": "^1.11.1",
+    "worklet-loader": "^2.0.0"
   }
 }
