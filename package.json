@@ -14,7 +14,7 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-loader-spinner": "^2.3.0",
-    "react-scripts": "^2.1.8",
+    "react-scripts": "^5.0.1",
     "ringbufferjs": "^1.1.0"
   },
   "scripts": {
