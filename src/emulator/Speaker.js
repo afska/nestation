@@ -1,4 +1,4 @@
-import audioWorklet from "./audioWorklet.js?url";
+import audioWorklet from "./audioWorklet.js?worker&url";
 import bus from "../events";
 
 const WORKLET_NAME = "player-worklet";
