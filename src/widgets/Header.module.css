@@ -39,3 +39,10 @@
 .link {
 	pointer-events: all;
 }
+
+.hyperlink {
+	color: white;
+}
+.hyperlink:hover {
+	text-decoration: none;
+}

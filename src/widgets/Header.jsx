@@ -23,25 +23,16 @@ export default class Header extends Component {
 				</div>
 
 				<h2 className={styles.title}>
-					<div>
-						<i className={classNames(styles.titleLogo, "nes-logo")} />
-						<span className={styles.titleText}>NEStation</span>
-					</div>
-
-					<div>
+					<div className={styles.link}>
 						<a
 							href="https://github.com/afska/nestation#nestation"
 							target="_blank"
 							rel="noopener noreferrer"
 							tabIndex="-1"
+							className={styles.hyperlink}
 						>
-							<i
-								className={classNames(
-									styles.link,
-									styles.titleLogo,
-									"nes-octocat"
-								)}
-							/>
+							<i className={classNames(styles.titleLogo, "nes-logo")} />
+							<span className={styles.titleText}>NEStation</span>
 						</a>
 					</div>
 				</h2>
