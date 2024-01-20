@@ -17,7 +17,11 @@ export default class Channel extends BufferedEventEmitter {
 	send(data) {
 		this._checkConnected();
 
-		this.dataChannel.send(data);
+		try {
+			this.dataChannel.send(data);
+		} catch (e) {
+			console.error(e);
+		}
 	}
 
 	disconnect() {
