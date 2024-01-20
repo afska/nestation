@@ -4,12 +4,14 @@
 	"version": "1.0.0",
 	"type": "module",
 	"scripts": {
-		"dev": "vite",
+		"start": "npm run dev",
+		"dev": "vite --port 3000",
 		"build": "vite build",
 		"lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
 		"preview": "vite preview"
 	},
 	"dependencies": {
+		"axios": "^1.6.5",
 		"buffer": "^6.0.3",
 		"classnames": "^2.5.1",
 		"eventemitter3": "^5.0.1",
@@ -20,7 +22,8 @@
 		"react": "^16.14.0",
 		"react-dom": "^16.14.0",
 		"react-loader-spinner": "^2.3.0",
-		"ringbufferjs": "^1.1.0"
+		"ringbufferjs": "^1.1.0",
+		"uuid": "^9.0.1"
 	},
 	"devDependencies": {
 		"@types/react": "^18.2.43",

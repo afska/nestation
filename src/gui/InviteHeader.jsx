@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Header from "../widgets/Header";
 import { MasterSyncer } from "../networking";
-// import quickp2p from "quickp2p";
+import quickp2p from "../networking/quickp2p";
 import strings from "../locales";
 
 const COPIED_MESSAGE_TIME = 1000;
@@ -51,14 +51,14 @@ export default class InviteHeader extends Component {
 		};
 
 		try {
-			// this.channel = await quickp2p.createChannel();
-			// this.channel
-			// 	.on("connected", () => {
-			// 		onSyncer(new MasterSyncer(this.channel));
-			// 	})
-			// 	.on("timeout", onConnectionError)
-			// 	.on("disconnected", onConnectionError);
-			// this.setState({ token: this.channel.token, isDown: false });
+			this.channel = await quickp2p.createChannel();
+			this.channel
+				.on("connected", () => {
+					onSyncer(new MasterSyncer(this.channel));
+				})
+				.on("timeout", onConnectionError)
+				.on("disconnected", onConnectionError);
+			this.setState({ token: this.channel.token, isDown: false });
 		} catch (e) {
 			this.setState({ isDown: true });
 		}
