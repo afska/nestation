@@ -31,7 +31,7 @@ export default class Emulator extends Component {
 		this.localController.attach();
 	}
 
-	componentWillUpdate(nextProps) {
+	UNSAFE_componentWillUpdate(nextProps) {
 		this.stop();
 	}
 
@@ -72,7 +72,7 @@ export default class Emulator extends Component {
 		this.nes = new NES({
 			onFrame: this.screen.setBuffer,
 			onAudioSample: this.speaker.writeSample,
-			sampleRate: this.speaker.getSampleRate()
+			sampleRate: 44100
 		});
 
 		this.frameTimer = new FrameTimer(() => {
