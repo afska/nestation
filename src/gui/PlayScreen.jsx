@@ -19,6 +19,10 @@ import _ from "lodash";
 // window.bus = require("../events").default;
 // window.config = require("../config").default;
 
+const isChromium =
+	/Chrome/i.test(navigator.userAgent) || /Chromium/i.test(navigator.userAgent);
+const shouldAutoStart = isChromium;
+
 export default class PlayScreen extends Component {
 	state = { rom: null, syncer: null };
 
@@ -102,14 +106,14 @@ export default class PlayScreen extends Component {
 		this.setState({ syncer });
 
 		syncer.on("rom", (rom) => {
-			this._loadRom(rom, () => syncer.initializeEmulator(this.emulator), false);
+			this._loadRom(rom, () => syncer.initializeEmulator(this.emulator));
 		});
 		syncer.on("start", () => this.emulator && this.emulator.start());
 
 		syncer.initializeRom(this.state.rom);
 	};
 
-	_loadRom(rom, callback = _.noop, start = true) {
+	_loadRom(rom, callback = _.noop, start = shouldAutoStart) {
 		bus.emit("message", null);
 
 		this.setState({ rom }, () => {
@@ -129,7 +133,10 @@ export default class PlayScreen extends Component {
 			const rom = event.target.result;
 
 			if (this.state.syncer) this.state.syncer.updateRom(rom);
-			else this._loadRom(rom);
+			else {
+				this._loadRom(rom);
+				if (!shouldAutoStart) bus.emit("message", strings.pressStart);
+			}
 		};
 
 		reader.readAsArrayBuffer(file);
@@ -141,7 +148,13 @@ export default class PlayScreen extends Component {
 	};
 
 	_onStartPressed = () => {
-		if (!this.state.syncer) return;
+		if (!this.state.syncer) {
+			if (this.emulator != null && !shouldAutoStart) {
+				this.emulator.start();
+				bus.emit("message", null);
+			}
+			return;
+		}
 		this.state.syncer.onStartPressed();
 	};
 

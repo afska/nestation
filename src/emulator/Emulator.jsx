@@ -36,13 +36,18 @@ export default class Emulator extends Component {
 	}
 
 	start() {
-		this.frameTimer.start();
+		this.speaker = new Speaker(config.sound.gain);
 		this.speaker.start();
+
+		this.frameTimer.start();
 	}
 
 	stop() {
 		this.frameTimer.stop();
-		this.speaker.stop();
+		if (this.speaker != null) {
+			this.speaker.stop();
+			this.speaker = null;
+		}
 	}
 
 	frame() {
@@ -50,6 +55,7 @@ export default class Emulator extends Component {
 			this.nes.frame();
 			this.screen.writeBuffer();
 		} catch (e) {
+			console.error(e);
 			this.props.onError(strings.errors.invalidRom, false);
 		}
 	}
@@ -66,12 +72,9 @@ export default class Emulator extends Component {
 
 		this.screen = screen;
 
-		this.speaker = new Speaker(config.sound.gain);
-		this.speaker.start();
-
 		this.nes = new NES({
 			onFrame: this.screen.setBuffer,
-			onAudioSample: this.speaker.writeSample,
+			onAudioSample: (s) => this.speaker.writeSample(s),
 			sampleRate: 44100
 		});
 
