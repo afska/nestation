@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import { Buffer } from "buffer";
 import Screen from "./Screen";
 import FrameTimer from "./FrameTimer";
-import Speakers from "./Speakers";
+import Speaker from "./Speaker";
 import { Controller, LocalController } from "./controllers";
 import strings from "../locales";
 import jsnes, { NES } from "jsnes";
+import config from "../config";
 
 export default class Emulator extends Component {
 	constructor(props) {
@@ -36,12 +37,12 @@ export default class Emulator extends Component {
 
 	start() {
 		this.frameTimer.start();
-		this.speakers.start();
+		this.speaker.start();
 	}
 
 	stop() {
 		this.frameTimer.stop();
-		this.speakers.stop();
+		this.speaker.stop();
 	}
 
 	frame() {
@@ -65,12 +66,13 @@ export default class Emulator extends Component {
 
 		this.screen = screen;
 
-		this.speakers = new Speakers();
+		this.speaker = new Speaker(config.sound.gain);
+		this.speaker.start();
 
 		this.nes = new NES({
 			onFrame: this.screen.setBuffer,
-			onAudioSample: this.speakers.writeSample,
-			sampleRate: this.speakers.getSampleRate()
+			onAudioSample: this.speaker.writeSample,
+			sampleRate: this.speaker.getSampleRate()
 		});
 
 		this.frameTimer = new FrameTimer(() => {
