@@ -28,9 +28,9 @@ function deploy {
 	git branch -D tmp-deploy 2> /dev/null
 	git remote remove ghpages 2> /dev/null
 	try git checkout -b deploy
-	try git add -Af build/
+	try git add -Af dist/
 	try git commit -m "Deploy @ $(date +'%d/%m/%Y')"
-	try git subtree split --prefix build deploy -b tmp-deploy
+	try git subtree split --prefix dist deploy -b tmp-deploy
 	try git remote add ghpages "$REPO"
 	try git push -f ghpages tmp-deploy:gh-pages
 	try git checkout "$CURRENT_BRANCH"
