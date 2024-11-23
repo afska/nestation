@@ -44,7 +44,7 @@ class Config {
 			input: {
 				" ": "BUTTON_A",
 				d: "BUTTON_B",
-				Delete: "BUTTON_SELECT",
+				Backspace: "BUTTON_SELECT",
 				Enter: "BUTTON_START",
 				ArrowUp: "BUTTON_UP",
 				ArrowDown: "BUTTON_DOWN",
