@@ -2,11 +2,11 @@
 
 . ./scripts/try.sh
 
-USERNAME="afska"
-REPO_NAME="nestation"
+APP_NAME="nestation"
 
-TOKEN="$1"
-REPO="https://$USERNAME:$TOKEN@github.com/$USERNAME/$REPO_NAME"
+USERNAME="$1"
+TOKEN="$2"
+REPO="https://$USERNAME:$TOKEN@github.com/$USERNAME/$APP_NAME"
 
 function show_usage {
 	echo "Usage example:"
