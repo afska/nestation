@@ -44,12 +44,12 @@ class Config {
 			input: {
 				" ": "BUTTON_A",
 				d: "BUTTON_B",
-				Backspace: "BUTTON_SELECT",
-				Enter: "BUTTON_START",
-				ArrowUp: "BUTTON_UP",
-				ArrowDown: "BUTTON_DOWN",
-				ArrowLeft: "BUTTON_LEFT",
-				ArrowRight: "BUTTON_RIGHT",
+				backspace: "BUTTON_SELECT",
+				enter: "BUTTON_START",
+				arrowup: "BUTTON_UP",
+				arrowdown: "BUTTON_DOWN",
+				arrowleft: "BUTTON_LEFT",
+				arrowright: "BUTTON_RIGHT",
 				r: "SWAP"
 			}
 		};

@@ -192,7 +192,8 @@ export default class Settings extends Component {
 			config.options.input,
 			(it) => it === this.state.mappingButton
 		);
-		const newKey = e.key;
+		const newKey = e.key?.toLowerCase();
+		if (!newKey) return;
 
 		delete config.options.input[oldKey];
 		config.options.input[newKey] = this.state.mappingButton;

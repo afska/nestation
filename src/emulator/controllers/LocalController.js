@@ -74,7 +74,7 @@ export default class LocalController extends Controller {
 	_onKeyDown = (e) => {
 		if (window.usesGamepad) return;
 
-		const button = this.keyMap[e.key];
+		const button = this.keyMap[e.key?.toLowerCase()];
 		if (!button) return;
 
 		this._setButton(button, true);
@@ -83,7 +83,7 @@ export default class LocalController extends Controller {
 	_onKeyUp = (e) => {
 		if (window.usesGamepad) return;
 
-		const button = this.keyMap[e.key];
+		const button = this.keyMap[e.key?.toLowerCase()];
 		if (!button) return;
 
 		this._setButton(button, false);
