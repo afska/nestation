@@ -26,7 +26,7 @@ export default class MasterSyncer extends EventEmitter {
 				return;
 			}
 
-			if (!this._received) this._timeout++;
+			if (this._state === STATE.PLAYING && !this._received) this._timeout++;
 			else this._timeout = 0;
 
 			if (this._timeout >= TIMEOUT) {
