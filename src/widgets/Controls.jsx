@@ -9,10 +9,10 @@ import _ from "lodash";
 
 const TRICK_TIME = 100;
 const FRIENDLY_NAMES = {
-	ArrowLeft: "<",
-	ArrowRight: ">",
-	ArrowUp: "~v",
-	ArrowDown: "v",
+	arrowleft: "<",
+	arrowright: ">",
+	arrowup: "~v",
+	arrowdown: "v",
 	" ": "[Space]"
 };
 
