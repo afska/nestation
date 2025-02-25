@@ -13,7 +13,7 @@ const FRIENDLY_NAMES = {
 	arrowright: ">",
 	arrowup: "~v",
 	arrowdown: "v",
-	" ": "[Space]"
+	" ": "[space]"
 };
 
 export default class Controls extends Component {

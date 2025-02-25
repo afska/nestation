@@ -10,8 +10,7 @@ export default {
 	enabled_true: "Enabled",
 	errors: {
 		connectionFailed: "CONNECTION FAILED :(",
-		invalidRom: "INVALID ROM :(",
-		serverIsDown: "The server is down :("
+		invalidRom: "INVALID ROM :("
 	},
 	input: "Input",
 	link: "link",

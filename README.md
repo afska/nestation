@@ -23,7 +23,7 @@
 # Open-source libraries involved
 
 - [jsnes](https://github.com/bfirsh/jsnes): The core of the emulator
-- [quickp2p](https://github.com/afska/quickp2p): A library to quickly connect two peers through WebRTC
+- [peerjs](https://github.com/peers/peerjs): Simple peer-to-peer with WebRTC
 - [React](https://github.com/facebook/react): The well-known UI framework
 - [NES.css](https://nostalgic-css.github.io/NES.css): An awesome NES-themed css library
 

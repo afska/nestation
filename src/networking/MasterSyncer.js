@@ -9,6 +9,8 @@ const STATE = {
 	PLAYING: 1
 };
 
+const TIMEOUT = 5;
+
 export default class MasterSyncer extends EventEmitter {
 	constructor(channel) {
 		super();
@@ -16,6 +18,24 @@ export default class MasterSyncer extends EventEmitter {
 		this.channel = channel;
 		this._reset();
 		this.channel.on("data", (bytes) => this._onData(bytes));
+
+		this._timeout = 0;
+		this.$timeoutInterval = setInterval(() => {
+			if (!this.channel.open) {
+				clearInterval(this.$timeoutInterval);
+				return;
+			}
+
+			if (!this._received) this._timeout++;
+			else this._timeout = 0;
+
+			if (this._timeout >= TIMEOUT) {
+				clearInterval(this.$timeoutInterval);
+				this.channel.close();
+				return;
+			}
+			this._received = false;
+		}, 1000);
 	}
 
 	sync() {
@@ -34,6 +54,8 @@ export default class MasterSyncer extends EventEmitter {
 	}
 
 	initializeRom(rom) {
+		if (rom == null) return;
+
 		this._transfer = new Send(rom, this.channel);
 		this._transfer.run();
 		this.emit("rom", rom);
@@ -109,6 +131,8 @@ export default class MasterSyncer extends EventEmitter {
 	}
 
 	_onData(bytes) {
+		this._received = true;
+
 		switch (this._state) {
 			case STATE.SENDING_ROM:
 				if (bytes === "next") {

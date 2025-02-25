@@ -10,6 +10,8 @@ const STATE = {
 	PLAYING: 2
 };
 
+const TIMEOUT = 5;
+
 export default class SlaveSyncer extends EventEmitter {
 	constructor(channel) {
 		super();
@@ -18,6 +20,25 @@ export default class SlaveSyncer extends EventEmitter {
 		this._reset();
 		this.channel.on("data", (bytes) => this._onData(bytes));
 		this._hasPressedStart = false;
+
+		this._timeout = 0;
+		this.$timeoutInterval = setInterval(() => {
+			if (!this.channel.open) {
+				clearInterval(this.$timeoutInterval);
+				return;
+			}
+
+			if (!this._received) this._timeout++;
+			else this._timeout = 0;
+
+			if (this._timeout >= TIMEOUT) {
+				clearInterval(this.$timeoutInterval);
+				this.channel.close();
+				return;
+			}
+
+			this._received = false;
+		}, 1000);
 	}
 
 	sync() {
@@ -93,6 +114,8 @@ export default class SlaveSyncer extends EventEmitter {
 	}
 
 	_onData(bytes) {
+		this._received = true;
+
 		if (bytes === "new-rom") {
 			this._reset();
 			return;

@@ -160,7 +160,11 @@ export default class PlayScreen extends Component {
 
 	_onError = (error, reset = true) => {
 		this.setState({ rom: null });
-		bus.emit("message", error || strings.errors.connectionFailed);
+		bus.emit(
+			"message",
+			error?.message ||
+				(typeof error === "string" ? error : strings.errors.connectionFailed)
+		);
 		if (!reset) return;
 
 		bus.emit("reset");

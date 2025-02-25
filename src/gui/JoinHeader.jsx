@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Header from "../widgets/Header";
 import { SlaveSyncer } from "../networking";
-import quickp2p from "../networking/quickp2p";
+import { Peer } from "peerjs";
 import strings from "../locales";
 
 export default class JoinHeader extends Component {
@@ -13,19 +13,25 @@ export default class JoinHeader extends Component {
 		);
 	}
 
-	async componentDidMount() {
+	componentDidMount() {
 		const { onSyncer, onError } = this.props;
 
-		try {
-			const channel = await quickp2p.joinChannel(this.props.token);
-			channel
-				.on("connected", () => {
-					onSyncer(new SlaveSyncer(channel));
-				})
-				.on("timeout", onError)
-				.on("disconnected", onError);
-		} catch (e) {
-			onError();
-		}
+		this.peer = new Peer();
+		this.peer
+			.on("open", () => {
+				this.conn = this.peer.connect(this.props.token, { reliable: true });
+				this.conn
+					.on("open", () => {
+						onSyncer(new SlaveSyncer(this.conn));
+					})
+					.on("close", onError)
+					.on("error", onError);
+			})
+			.on("connection", (conn) => {
+				conn.close();
+			})
+			.on("disconnected", onError)
+			.on("close", onError)
+			.on("error", onError);
 	}
 }

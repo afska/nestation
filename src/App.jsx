@@ -1,9 +1,6 @@
 import React, { PureComponent } from "react";
 import PlayScreen from "./gui/PlayScreen";
 import querystring from "query-string";
-import quickp2p, { SimpleStore } from "./networking/quickp2p";
-
-quickp2p.setStore(new SimpleStore("https://misc.r-labs.io"));
 
 export default class App extends PureComponent {
 	render() {
