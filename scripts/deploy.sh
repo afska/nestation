@@ -30,6 +30,8 @@ function deploy {
 	try git reset
 	try git add -f dist/
 	try git mv -f dist/* .
+	try touch .nojekyll
+	try git add .nojekyll
 	try git commit --no-verify -m "Deploy @ $(date +'%d/%m/%Y')"
 	try git remote add ghpages "$REPO"
 	try git push -f ghpages deploy:gh-pages
